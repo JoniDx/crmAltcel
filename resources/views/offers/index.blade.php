@@ -95,7 +95,7 @@
                                             <input class="form-control" type="text" placeholder="Nombre" id="name" name="name">
                                         </div>
                                         <div class="input-group input-group-icon">
-                                            <label for="product_altan">Nombre Altcel</label>
+                                            <label for="product_altan">Nombre CRM</label>
                                             <input class="form-control" type="text" placeholder="Producto Altan" id="product_altan" name="product_altan">
                                         </div>
                                     </section>
@@ -135,7 +135,7 @@
                                             <input class="form-control" type="text" placeholder="Nombre" id="name_second" name="name_second">
                                         </div>
                                         <div class="input-group input-group-icon">
-                                            <label for="product_altan_second">Nombre Altcel</label>
+                                            <label for="product_altan_second">Nombre CRM</label>
                                             <input class="form-control" type="text" placeholder="Producto Altan" id="product_altan_second" name="product_altan_second">
                                         </div>
                                     </section>

@@ -401,7 +401,7 @@ var dataPay, referenceWhatsapp = '';
         $('#reference-pdf').removeClass('d-none');
         $('#reference-pdf').attr('src', link);
         $('#reference').modal('show');
-        // window.open('https://api.whatsapp.com/send?phone=52'+celphone+'&text=Hola, '+name+' '+lastname+', puedes descargar tu referencia de pago de Altcel accediendo a la siguiente dirección: https://sandbox-dashboard.openpay.mx/paynet-pdf/mvtmmoafnxul8oizkhju/'+reference, '_blank');
+        // window.open('https://api.whatsapp.com/send?phone=52'+celphone+'&text=Hola, '+name+' '+lastname+', puedes descargar tu referencia de pago accediendo a la siguiente dirección: https://sandbox-dashboard.openpay.mx/paynet-pdf/mvtmmoafnxul8oizkhju/'+reference, '_blank');
     }
 
     function showOxxoPay(amount,reference){
@@ -417,14 +417,14 @@ var dataPay, referenceWhatsapp = '';
         let name = $('#name').val();
         let lastname = $('#lastname').val();
         let cel_destiny_reference = $('#cellphone').val();
-        window.open('https://api.whatsapp.com/send?phone=52'+cel_destiny_reference+'&text=Hola, '+name+' '+lastname+', puedes descargar tu referencia de pago de Altcel accediendo a la siguiente dirección: https://dashboard.openpay.mx/paynet-pdf/m3one5bybxspoqsygqhz/'+referenceWhatsapp, '_blank');
+        window.open('https://api.whatsapp.com/send?phone=52'+cel_destiny_reference+'&text=Hola, '+name+' '+lastname+', puedes descargar tu referencia de pago accediendo a la siguiente dirección: https://dashboard.openpay.mx/paynet-pdf/m3one5bybxspoqsygqhz/'+referenceWhatsapp, '_blank');
     });
 
     $('#referenceWhatsapp2').click(function(){
         let name = $('#name').val();
         let lastname = $('#lastname').val();
         let cel_destiny_reference = $('#cellphone').val();
-        window.open('https://api.whatsapp.com/send?phone=52'+cel_destiny_reference+'&text=Hola, '+name+' '+lastname+', te compartimos tu referencia de pago de Altcel, tu número de referencia es: '+referenceWhatsapp, '_blank');
+        window.open('https://api.whatsapp.com/send?phone=52'+cel_destiny_reference+'&text=Hola, '+name+' '+lastname+', te compartimos tu referencia de pago, tu número de referencia es: '+referenceWhatsapp, '_blank');
     });
 
     $('#rate').change(function(){

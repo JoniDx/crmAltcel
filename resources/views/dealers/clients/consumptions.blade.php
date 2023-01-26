@@ -6,7 +6,7 @@
     <!-- Basic -->
     <meta charset="UTF-8">
 
-    <title>Altcel II</title>
+    <title>CRM</title>
     <meta name="keywords" content="HTML5 Admin Template" />
     <meta name="description" content="JSOFT Admin - Responsive HTML5 Template">
     <meta name="author" content="JSOFT.net">

@@ -1,7 +1,7 @@
 @extends('layouts.octopus')
 @section('content')
 <header class="page-header">
-    <h2>Portabilidades Altcel</h2>
+    <h2>Portabilidades</h2>
     <div class="right-wrapper pull-right">
         <ol class="breadcrumbs">
             <li>
@@ -16,7 +16,7 @@
 </header>
 <section class="panel">
     <div class="panel-body table-responsive">
-        <form class="form-horizontal form-bordered" action="{{route('portaAltcel')}}">
+        <form class="form-horizontal form-bordered" action="{{route('portaCRM')}}">
 
             <div class="form-group">
                 <!-- <label class="col-md-3 control-label">Date range</label> -->
@@ -80,7 +80,7 @@
 <section class="panel">
     <div class="panel-body table-responsive">
         <h2>Portabilidades Realizadas</h2>
-        <form class="form-horizontal form-bordered" action="{{route('portaAltcel')}}">
+        <form class="form-horizontal form-bordered" action="{{route('portaCRM')}}">
             <div class="form-group">
                 <!-- <label class="col-md-3 control-label">Date range</label> -->
                 <div class="col-md-6">
@@ -176,7 +176,7 @@
         let idPetion = $(this).data('petiton');
         let userId = $('#user_id').val();
         $.ajax({
-            url: "{{route('changeStatusAltcel1')}}",
+            url: "{{route('changeStatusCRM')}}",
             method: "GET",
             data: {idPetion:idPetion, userId:userId},
             success:function(response){

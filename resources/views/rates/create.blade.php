@@ -88,12 +88,12 @@
                                     <div class="checkbox">
                                         <label class="control-label">
                                             <input type="checkbox" id="pack_altcel">
-                                            Altcel
+                                            CRM
                                         </label>
                                     </div>
                                 </div>
                                 <div class="col-md-3 d-none" id="pack-altcel-content">
-                                    <label for="name">Paquete Altcel</label>
+                                    <label for="name">Paquete CRM</label>
                                     <input type="text" class="form-control form-control-sm" id="altcel_pack_id" name="altcel_pack_id">
                                 </div>
                                 <!-- <div class="col-md-3 ">

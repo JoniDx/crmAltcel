@@ -298,7 +298,7 @@
                                         <input type="hidden" class="form-control" id="price_rate" name="price_rate" disabled value="0" >
                                     </div>
                                     <div class="col-md-3 d-none" id="altcel_content">
-                                        <label for="sim" class="form-label">SIM Altcel</label>
+                                        <label for="sim" class="form-label">SIM</label>
                                         <input type="text" class="form-control" id="sim_altcel" name="sim_altcel" required >
                                     </div>
                                     <div class="col-md-3 d-none mb-2" id="content-politics">

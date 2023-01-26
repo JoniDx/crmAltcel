@@ -229,8 +229,8 @@ Route::get('/activate-dealer-petition/{petition}','PetitionController@activateDe
 Route::post('/change-rate-petition','PetitionController@changeRatePetition')->name('changeRatePetition')->middleware('auth');
 
 Route::get('/petitions-notifications', 'PetitionController@petitiosNotification');
-//Petitions Línea Nueva Altcel
-Route::get('petitionaltcel', 'PetitionController@lineNewAltcel')->name('petitionaltcel')->middleware('auth');
+//Petitions Línea Nueva CRM
+Route::get('petitionCrm', 'PetitionController@lineNewCRM')->name('petitionCrm')->middleware('auth');
 Route::get('changePetition', 'PetitionController@changeStatusLine')->name('changePetition');
 //reemplazo Sim
 Route::get('replacementSim', 'AltanController@replacementSim')->name('replacementSim');
@@ -299,9 +299,9 @@ Route::post('/decline-prospect','AnothercompanyController@declineProspect')->nam
 Route::post('/charge-csv-nir','DeviceController@chargeCSVNIR')->name('chargeCSVNIR');
 Route::post('/set-update-data-port-pendientes','PortabilityController@setAllDataPortaPendiente')->name('setAllDataPortaPendiente')->middleware('auth');
 
-// ALTCEL 1
-Route::get('/portabilities-altcel','PortabilityController@portabilitiesAltcel')->name('portaAltcel');
-Route::get('/changeStatusPortability','PortabilityController@changeStatusPortability')->name('changeStatusAltcel1');
+// CRM
+Route::get('/portabilities-crm','PortabilityController@portabilitiesCRM')->name('portaCRM');
+Route::get('/changeStatusPortability','PortabilityController@changeStatusPortability')->name('changeStatusCRM');
 
 Route::get('/lines-administration','AdminController@linesAdministration')->name('administrationLines.get')->middleware('auth');
 Route::get('linePorta', 'ClientController@reportLinePorta')->name('linePorta');

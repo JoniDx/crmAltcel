@@ -12,9 +12,11 @@
     <meta name="keywords"
         content="admin template, robust admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="PIXINVENT">
-    <title>Altcel II</title>
+    <title>CRM</title>
     
-    <link rel="shortcut icon" type="image/png" href="{{asset('images/Altcel2_Ok@2x.png')}}">
+    {{-- PENDIENTE --}}
+    {{-- <link rel="shortcut icon" type="image/png" href=""> --}}
+
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-touch-fullscreen" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">

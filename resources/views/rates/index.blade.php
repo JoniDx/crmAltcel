@@ -33,7 +33,7 @@
                 <tr>
                 <th scope="col">Nombre</th>
                 <th scope="col">Oferta Primaria</th>
-                <th scope="col">Paquete Altcel</th>
+                <th scope="col">Paquete</th>
                 <th scope="col">Precio</th>
                 
                 <th scope="col">Satus</th>

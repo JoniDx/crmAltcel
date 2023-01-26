@@ -457,13 +457,13 @@ use \Carbon\Carbon;
                         if(data.channel_id == 1){
                             $('#modalTitleRef').html('Referencia '+data.reference)
                             $('#reference-pdf').attr('src', link+data.reference);
-                            $('#referenceWhatsapp').attr('data-message','Hola, '+data.name+' '+data.lastname+', puedes descargar tu referencia de pago de Altcel accediendo a la siguiente dirección: https://dashboard.openpay.mx/paynet-pdf/m3one5bybxspoqsygqhz/'+data.reference);
+                            $('#referenceWhatsapp').attr('data-message','Hola, '+data.name+' '+data.lastname+', puedes descargar tu referencia de pago accediendo a la siguiente dirección: https://dashboard.openpay.mx/paynet-pdf/m3one5bybxspoqsygqhz/'+data.reference);
                             $('#referenceWhatsapp').attr('data-number-id',data.number_id);
                             $('#reference').modal('show');
                         }else if(data.channel_id == 2){
                             $('#montoOxxo').html('$'+data.amount+'<sup>MXN</sup>');
                             $('#referenceOxxoCard').html(data.reference);
-                            $('#referenceWhatsapp2').attr('data-message','Hola, '+data.name+' '+data.lastname+', te compartimos tu referencia de pago de Altcel, tu número de referencia es: '+data.reference);
+                            $('#referenceWhatsapp2').attr('data-message','Hola, '+data.name+' '+data.lastname+', te compartimos tu referencia de pago, tu número de referencia es: '+data.reference);
                             $('#referenceWhatsapp2').attr('data-number-id',data.number_id);
                             $('#referenceOxxo').modal('show');
                             // console.log('referencia OxxoPay');

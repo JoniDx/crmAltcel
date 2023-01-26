@@ -6,7 +6,7 @@
     <!-- Basic -->
     <meta charset="UTF-8">
 
-    <title>Altcel II</title>
+    <title>CRM</title>
     <meta name="keywords" content="HTML5 Admin Template" />
     <meta name="description" content="JSOFT Admin - Responsive HTML5 Template">
     <meta name="author" content="JSOFT.net">
@@ -15,7 +15,8 @@
     <!-- Mobile Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
-    <link rel="shortcut icon" type="image/png" href="{{asset('images/Altcel2_Ok@2x.png')}}">
+    {{-- PENDIENTE --}}
+    <link rel="shortcut icon" type="image/png" href="">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
@@ -45,7 +46,7 @@
 
     <link rel="stylesheet" href="{{asset('octopus/assets/vendor/select2/select2.css')}}" />
 
-    @if(request()->is('bulk-activations*') || request()->is('generalConcesiones*') || request()->is('portabilities*') || request()->is('anothercompanies*') || request()->is('petitionaltcel*') || request()->is('lines-administration*'))
+    @if(request()->is('bulk-activations*') || request()->is('generalConcesiones*') || request()->is('portabilities*') || request()->is('anothercompanies*') || request()->is('petitionCrm*') || request()->is('lines-administration*'))
     
     @else
     <link rel="stylesheet" href="{{asset('octopus/assets/vendor/jquery-datatables-bs3/assets/css/datatables.css')}}" />
@@ -65,7 +66,7 @@
     <script src="{{asset('octopus/assets/vendor/modernizr/modernizr.js')}}"></script>
     <script src="{{asset('octopus/assets/vendor/jquery/jquery.js')}}"></script>
 
-    @if(request()->is('bulk-activations*') || request()->is('generalConcesiones*') || request()->is('portabilities*') || request()->is('anothercompanies*') || request()->is('completadas*') || request()->is('petitionaltcel*') || request()->is('lines-administration*'))
+    @if(request()->is('bulk-activations*') || request()->is('generalConcesiones*') || request()->is('portabilities*') || request()->is('anothercompanies*') || request()->is('completadas*') || request()->is('petitionCrm*') || request()->is('lines-administration*'))
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.0.1/css/buttons.dataTables.min.css">
     @else
@@ -258,7 +259,8 @@
         <header class="header">
             <div class="logo-container">
                 <a href="{{route('home')}}" class="logo">
-                    <img src="{{asset('images/Altcel2_Ok@2x.png')}}" height="35" alt="JSOFT Admin" />
+                    {{-- PENDIENTE --}}
+                    {{-- <img src="" height="35" alt="JSOFT Admin" /> --}}
                 </a>
                 <div class="visible-xs toggle-sidebar-left" data-toggle-class="sidebar-left-opened" data-target="html"
                     data-fire-event="sidebar-left-opened">
@@ -558,7 +560,7 @@
                                                 <a>Entrada de Líneas</a>
                                                 <ul class="nav nav-children">
                                                     <li>
-                                                        <a href="{{route('administrationLines.get')}}">Altcel 2</a>
+                                                        <a href="{{route('administrationLines.get')}}">CRM</a>
                                                     </li>
                                                 </ul>
                                             </li>
@@ -602,7 +604,7 @@
                                                 <a href="{{route('completadas')}}">Completadas</a>
                                             </li>
                                             <li>
-                                                <a href="{{route('petitionaltcel')}}">Líneas Nuevas Altcel</a>
+                                                <a href="{{route('petitionCrm')}}">Líneas Nuevas</a>
                                             </li>
                                         </ul>
                                     </li>
@@ -616,7 +618,7 @@
                                                 <a href="{{url('/portabilities')}}">Todas</a>
                                             </li>
                                             <li>
-                                                <a href="{{url('/portabilities-altcel')}}">Altcel</a>
+                                                <a href="{{url('/portabilities-crm')}}">CRM</a>
                                             </li>
                                             <li>
                                                 <a href="{{route('PortabilityStatus')}}">Estatus de portabilidades</a>
@@ -740,7 +742,7 @@
                                                 <a href="{{route('completadas')}}">Completadas</a>
                                             </li>
                                             <li>
-                                                <a href="{{route('petitionaltcel')}}">Líneas Nuevas Altcel</a>
+                                                <a href="{{route('petitionCrm')}}">Líneas Nuevas</a>
                                             </li>
                                         </ul>
                                     </li>
@@ -754,7 +756,7 @@
                                                 <a href="{{url('/portabilities')}}">Todas</a>
                                             </li>
                                             <li>
-                                                <a href="{{url('/portabilities-altcel')}}">Altcel</a>
+                                                <a href="{{url('/portabilities-crm')}}">CRM</a>
                                             </li>
                                             <li>
                                                 <a href="{{route('PortabilityStatus')}}">Estatus de portabilidades</a>
@@ -908,7 +910,7 @@
                                                 <a>Entrada de Líneas</a>
                                                 <ul class="nav nav-children">
                                                     <li>
-                                                        <a href="{{route('administrationLines.get')}}">Altcel 2</a>
+                                                        <a href="{{route('administrationLines.get')}}">CRM</a>
                                                     </li>
                                                 </ul>
                                             </li>
@@ -1029,7 +1031,7 @@
                                                 <a>Entrada de Líneas</a>
                                                 <ul class="nav nav-children">
                                                     <li>
-                                                        <a href="{{route('administrationLines.get')}}">Altcel 2</a>
+                                                        <a href="{{route('administrationLines.get')}}">CRM</a>
                                                     </li>
                                                 </ul>
                                             </li>
@@ -1264,7 +1266,7 @@
                                                 <a href="{{url('/portabilities')}}">Todas</a>
                                             </li>
                                             <li>
-                                                <a href="{{url('/portabilities-altcel')}}">Altcel</a>
+                                                <a href="{{url('/portabilities-crm')}}">CRM</a>
                                             </li>
                                         </ul>
                                     </li>
@@ -1351,7 +1353,7 @@
     
     <!-- Librerías DataTable -->
     <script src="{{asset('octopus/assets/vendor/select2/select2.js')}}"></script>
-    @if(request () -> is ('bulk-activations*') || request () -> is ('generalConcesiones*') || request () -> is ('anothercompanies*') || request()->is('petitionaltcel*') || request()->is('lines-administration*'))
+    @if(request () -> is ('bulk-activations*') || request () -> is ('generalConcesiones*') || request () -> is ('anothercompanies*') || request()->is('petitionCrm*') || request()->is('lines-administration*'))
     
     @else
     <script src="{{asset('octopus/assets/vendor/jquery-datatables/media/js/jquery.dataTables.js')}}"></script>
@@ -1374,7 +1376,7 @@
     <!-- Theme Initialization Files -->
     <script src="{{asset('octopus/assets/javascripts/theme.init.js')}}"></script>
     <!-- Examples -->
-    @if(request () -> is ('bulk-activations*') || request () -> is ('generalConcesiones*') || request () -> is ('portabilities*') || request () -> is ('anothercompanies*') || request () -> is ('completadas*') || request()->is('petitionaltcel*') || request()->is('lines-administration*'))
+    @if(request () -> is ('bulk-activations*') || request () -> is ('generalConcesiones*') || request () -> is ('portabilities*') || request () -> is ('anothercompanies*') || request () -> is ('completadas*') || request()->is('petitionCrm*') || request()->is('lines-administration*'))
     
     @else
     <script src="{{asset('octopus/assets/javascripts/tables/examples.datatables.default.js')}}"></script>

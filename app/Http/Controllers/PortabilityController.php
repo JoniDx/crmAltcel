@@ -341,7 +341,7 @@ class PortabilityController extends Controller
 
     }
 
-    public function portabilitiesAltcel(Request $request){
+    public function portabilitiesCRM(Request $request){
         if (isset($request['start']) && isset($request['end'])) {
             $status =  $request['status'];
             $year =  substr($request['start'],6,4);

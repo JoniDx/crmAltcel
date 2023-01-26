@@ -686,7 +686,7 @@ class ActivationController extends Controller
 
     public function sendCredentials($email,$pass,$name,$lastname) {
         $data= [
-            "subject" => "Accesos Altcel II",
+            "subject" => "Accesos ",
             "name" => $name,
             "lastname" => $lastname,
             "user" => $email,

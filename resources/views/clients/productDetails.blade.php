@@ -464,7 +464,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             <label for="lastname">Concepto: </label>
-                                            <input type="email" class="form-control form-control-sm" id="conceptoPurchase" placeholder="Concepto" value="Compra de GBs Altcel.">
+                                            <input type="email" class="form-control form-control-sm" id="conceptoPurchase" placeholder="Concepto" value="Compra de GBs.">
                                         </div>
                                         <div class="col-md-4">
                                             <label for="channelPurchase">Métodos de Pago</label>
@@ -659,7 +659,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             <label for="lastname">Concepto: </label>
-                                            <input type="email" class="form-control form-control-sm" id="concepto" placeholder="Concepto" value="Cambio de Producto Altcel.">
+                                            <input type="email" class="form-control form-control-sm" id="concepto" placeholder="Concepto" value="Cambio de Producto.">
                                         </div>
                                         <div class="col-md-4">
                                             <label for="my-product">Métodos de Pago</label>
@@ -926,13 +926,13 @@
     function copyToClickBoard(){
         let content = document.getElementById('url_pay-change').innerHTML;
         let cellphone = $('#cellphone').val();
-        window.open('https://api.whatsapp.com/send?phone=52'+cellphone+'&text=Hola, este es el link para completar tu pago en lí­nea por tu cambio de plan Altcel: '+content, '_blank');
+        window.open('https://api.whatsapp.com/send?phone=52'+cellphone+'&text=Hola, este es el link para completar tu pago en lí­nea por tu cambio de plan: '+content, '_blank');
     }
 
     function copyToClickBoardTwo(){
         let content = document.getElementById('url_pay-purchases').innerHTML;
         let cellphone = $('#cellphonePurchase').val();
-        window.open('https://api.whatsapp.com/send?phone=52'+cellphone+'&text=Hola, este es el link para completar tu pago en lí­nea por tu compra de GBs Altcel: '+content, '_blank');
+        window.open('https://api.whatsapp.com/send?phone=52'+cellphone+'&text=Hola, este es el link para completar tu pago en lí­nea por tu compra de GBs: '+content, '_blank');
     }
 
 
@@ -2038,7 +2038,7 @@
         $('#reference-pdf').removeClass('d-none');
         $('#reference-pdf').attr('src', link);
         $('#reference').modal('show');
-        // window.open('https://api.whatsapp.com/send?phone=52'+celphone+'&text=Hola, '+name+' '+lastname+', puedes descargar tu referencia de pago de Altcel accediendo a la siguiente dirección: https://sandbox-dashboard.openpay.mx/paynet-pdf/mvtmmoafnxul8oizkhju/'+reference, '_blank');
+        // window.open('https://api.whatsapp.com/send?phone=52'+celphone+'&text=Hola, '+name+' '+lastname+', puedes descargar tu referencia de pago accediendo a la siguiente dirección: https://sandbox-dashboard.openpay.mx/paynet-pdf/mvtmmoafnxul8oizkhju/'+reference, '_blank');
     }
 
     function showOxxoPay(amount,reference){
