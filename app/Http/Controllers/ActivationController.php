@@ -193,7 +193,7 @@ class ActivationController extends Controller
         if($number_status == 'taken'){
             return 0;
         }
-        // Notificación y envío de datos a Altcel en Plan Alianza
+        // Notificación y envío de datos en Plan Alianza
         if($sim_altcel != 'nothing'){
             $now = now();
             $x = ActivationController::sendToAltcel($clientName,$clientLastname,$address,$ine_code,$msisdn,$sim_altcel,$pack_id,$now);

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use DB;
+use Http;
 use DateTime;
 use App\Rate;
 use App\User;
@@ -10,10 +11,16 @@ use App\Offer;
 use App\Number;
 use App\Activation;
 use App\Portability;
+use App\Client;
+use App\GuzzleHttp;
+use App\Mail\NotifyPortability;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AltanController;
+
 
 class PortabilityController extends Controller
 {
@@ -124,14 +131,74 @@ class PortabilityController extends Controller
         return view('portabilities.index',$data);
     }
 
-    public function create()
-    {
-        //
+    public function create(){
+        $data['clients'] = DB::table('users')
+                              ->leftJoin('clients','clients.user_id','=','users.id')
+                              ->select('users.*','clients.rfc','clients.date_born','clients.address','clients.ine_code','clients.cellphone')
+                              ->orderBy('users.name','asc')
+                              ->get();
+                              
+        $data['rates'] = DB::table('rates')
+                            ->leftJoin('offers','rates.alta_offer_id','=','offers.id')
+                            ->where('offers.product','LIKE','%MOV%')
+                            ->where('rates.status','activo')
+                            ->where('rates.type','publico')
+                            ->select('rates.*')
+                            ->get();
+
+        $data['employes'] = User::all()->where('role_id','!=',3);
+        return view('portabilities.create',$data);
     }
 
-    public function store(Request $request)
-    {
-        //
+    public function store(Request $request){
+        $request['rida'] = 319;
+        $request['rcr'] = 175;
+        $rate_id = $request['rate_id'];
+        $client_id = $request['client_id'];
+        // GET DATA RATE
+        $rate = Rate::where('id',$rate_id)->first();
+        $rate_name = $rate->name.' - $'.number_format($rate->price,2);
+        // GET DATA CLIENT
+        $client = User::where('id',$client_id)->first();
+        $clientData = $client->name.' '.$client->lastname;
+        $clientAddress = Client::where('user_id',$client_id)->exists();
+        $address = '';
+                
+        if(!$clientAddress){
+            $address = 'SIN ASIGNAR';
+        }else{
+            $clientAddress = Client::where('user_id',$client_id)->first();
+            $address = $clientAddress->address;
+        }
+
+        $data = [
+            'numberPorted' => $request['msisdnPorted'],
+            'dida' => $request['dida'],
+            'dcr' => $request['dcr'],
+            'icc' => $request['icc'],
+            'numberTransitory' => $request['msisdnTransitory'],
+            'imsi' => $request['imsi'],
+            'dateActivate' => $request['date'],
+            'datePort' => $request['approvedDateABD'],
+            'nip' => $request['nip'],
+            'rate' => $rate_name,
+            'comments' => $request['comments'],
+            'clientData' => $clientData,
+            'address' => $address,
+            'sold_by' => $request['sold_by'],
+            'dateSend' => date('Y-m-d H:i:s')
+        ];
+        $request = request()->except('_token');
+        // $portability = app('App\Http\Controllers\AltanController')->importPortability($msisdnTransitory,$msisdnPorted,$imsi,$approvedDateABD,$dida,$dcr);
+
+        Portability::insert($request);
+
+        // Mail::to('soporte1@altcel.com')->send(new NotifyPortability($data));
+        // Mail::to('soporte2@altcel.com')->send(new NotifyPortability($data));
+        // Mail::to('carlos_vazquez@altcel.com')->send(new NotifyPortability($data));
+        // Mail::to('charlesrootsman97@gmail.com')->send(new NotifyPortability($data));
+        // Mail::to('carlos_ruiz@altcel.com')->send(new NotifyPortability($data));
+        return back()->with('success','Se ha enviado la portabilidad.');
     }
 
     public function show(Portability $portability)

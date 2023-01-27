@@ -6,7 +6,7 @@
     <!-- Basic -->
     <meta charset="UTF-8">
 
-    <title>CRM</title>
+    <title> CRM </title>
     <meta name="keywords" content="HTML5 Admin Template" />
     <meta name="description" content="JSOFT Admin - Responsive HTML5 Template">
     <meta name="author" content="JSOFT.net">
@@ -14,9 +14,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Mobile Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-
     {{-- PENDIENTE --}}
-    <link rel="shortcut icon" type="image/png" href="">
+    {{-- <link rel="shortcut icon" type="image/png" href=""> --}}
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
@@ -79,30 +78,30 @@
     <!-- <script src="{{ asset('js/app.js') }}" defer></script> -->
 
     <style>
-    .HBB {
-        background-color:#7d23fa !important; color: white !important;
-    }
-    .MIFI {
-        background-color:#ffe352 !important; color: #33353f !important;
-    }
-    .MOV {
-        background-color:#fa5025 !important; color: white !important;
-    }
-    .Telmex {
-        background-color:#14a2fa !important; color: white !important;
-    }
-    .Conecta {
-        background-color:#44d581 !important; color: white !important;
-    }
+        .HBB {
+            background-color:#7d23fa !important; color: white !important;
+        }
+        .MIFI {
+            background-color:#ffe352 !important; color: #33353f !important;
+        }
+        .MOV {
+            background-color:#fa5025 !important; color: white !important;
+        }
+        .Telmex {
+            background-color:#14a2fa !important; color: white !important;
+        }
+        .Conecta {
+            background-color:#44d581 !important; color: white !important;
+        }
 
-    .not-action {
-        pointer-events: none; 
-    }
+        .not-action {
+            pointer-events: none; 
+        }
 
-    .list-alert {
-        float: left !important;
-        margin-left: 4rem;
-    }
+        .list-alert {
+            float: left !important;
+            margin-left: 4rem;
+        }
         .d-none{
             display: none !important;
         }
@@ -130,125 +129,126 @@
         }
 
         .title-3 {
-        margin-bottom: 10px;
-        font-size: 15px;
-        font-weight: 600;
-        text-transform: uppercase;
-    }
+            margin-bottom: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
 
-    .opps {
-        width: 496px; 
-        border-radius: 4px;
-        box-sizing: border-box;
-        padding: 0 45px;
-        margin: 40px auto;
-        overflow: hidden;
-        border: 1px solid #b0afb5;
-        font-family: 'Open Sans', sans-serif;
-        color: #4f5365;
-    }
+        .opps {
+            width: 496px; 
+            border-radius: 4px;
+            box-sizing: border-box;
+            padding: 0 45px;
+            margin: 40px auto;
+            overflow: hidden;
+            border: 1px solid #b0afb5;
+            font-family: 'Open Sans', sans-serif;
+            color: #4f5365;
+        }
 
-    .opps-reminder {
-        position: relative;
-        top: -1px;
-        padding: 9px 0 10px;
-        font-size: 11px;
-        text-transform: uppercase;
-        text-align: center;
-        color: #ffffff;
-        background: #000000;
-    }
+        .opps-reminder {
+            position: relative;
+            top: -1px;
+            padding: 9px 0 10px;
+            font-size: 11px;
+            text-transform: uppercase;
+            text-align: center;
+            color: #ffffff;
+            background: #000000;
+        }
 
-    .opps-info {
-        margin-top: 26px;
-        position: relative;
-    }
+        .opps-info {
+            margin-top: 26px;
+            position: relative;
+        }
 
-    .opps-info:after {
-        visibility: hidden;
-        display: block;
-        font-size: 0;
-        content: " ";
-        clear: both;
-        height: 0;
+        .opps-info:after {
+            visibility: hidden;
+            display: block;
+            font-size: 0;
+            content: " ";
+            clear: both;
+            height: 0;
 
-    }
+        }
 
-    .opps-brand {
-        width: 45%;
-        float: left;
-    }
+        .opps-brand {
+            width: 45%;
+            float: left;
+        }
 
-    .opps-brand img {
-        max-width: 150px;
-        margin-top: 2px;
-    }
+        .opps-brand img {
+            max-width: 150px;
+            margin-top: 2px;
+        }
 
-    .opps-ammount {
-        width: 55%;
-        float: right;
-    }
+        .opps-ammount {
+            width: 55%;
+            float: right;
+        }
 
-    .opps-ammount h2 {
-        font-size: 36px;
-        color: #000000;
-        line-height: 24px;
-        margin-bottom: 15px;
-    }
+        .opps-ammount h2 {
+            font-size: 36px;
+            color: #000000;
+            line-height: 24px;
+            margin-bottom: 15px;
+        }
 
-    .opps-ammount h2 sup {
-        font-size: 16px;
-        position: relative;
-        top: -2px
-    }
+        .opps-ammount h2 sup {
+            font-size: 16px;
+            position: relative;
+            top: -2px
+        }
 
-    .opps-ammount p {
-        font-size: 10px;
-        line-height: 14px;
-    }
+        .opps-ammount p {
+            font-size: 10px;
+            line-height: 14px;
+        }
 
-    .opps-reference {
-        margin-top: 14px;
-    }
+        .opps-reference {
+            margin-top: 14px;
+        }
 
-    .referenceOxxoCard {
-        font-size: 27px;
-        color: #000000;
-        text-align: center;
-        margin-top: -1px;
-        padding: 6px 0 7px;
-        border: 1px solid #b0afb5;
-        border-radius: 4px;
-        background: #f8f9fa;
-    }
+        .referenceOxxoCard {
+            font-size: 27px;
+            color: #000000;
+            text-align: center;
+            margin-top: -1px;
+            padding: 6px 0 7px;
+            border: 1px solid #b0afb5;
+            border-radius: 4px;
+            background: #f8f9fa;
+        }
 
-    .opps-instructions {
-        margin: 32px -45px 0;
-        padding: 32px 45px 45px;
-        border-top: 1px solid #b0afb5;
-        background: #f8f9fa;
-    }
+        .opps-instructions {
+            margin: 32px -45px 0;
+            padding: 32px 45px 45px;
+            border-top: 1px solid #b0afb5;
+            background: #f8f9fa;
+        }
 
-    .instructions {
-        margin: 17px 0 0 16px;
-    }
+        .instructions {
+            margin: 17px 0 0 16px;
+        }
 
-    .search-oxxo {
-        color: #1155cc;
-    }
+        .search-oxxo {
+            color: #1155cc;
+        }
 
-    .opps-footnote {
-        margin-top: 22px;
-        padding: 22px 20 24px;
-        color: #108f30;
-        text-align: center;
-        border: 1px solid #108f30;
-        border-radius: 4px;
-        background: #ffffff;
-    }
+        .opps-footnote {
+            margin-top: 22px;
+            padding: 22px 20 24px;
+            color: #108f30;
+            text-align: center;
+            border: 1px solid #108f30;
+            border-radius: 4px;
+            background: #ffffff;
+        }
 
 
     </style>
+    
 </head>
 
 <body>
@@ -414,7 +414,7 @@
                                         <span>Dashboard</span>
                                     </a>
                                 </li>
-                                @if(Auth::user()->role_id == 1 && Auth::user()->id != 1 )
+                                @if(Auth::user()->role_id == 1 )
                                     <li class="nav-parent">
                                         <a>
                                             <i class="fa fa-plus-circle" aria-hidden="true"></i>
@@ -560,7 +560,7 @@
                                                 <a>Entrada de Líneas</a>
                                                 <ul class="nav nav-children">
                                                     <li>
-                                                        <a href="{{route('administrationLines.get')}}">CRM</a>
+                                                        <a href="{{route('administrationLines.get')}}">Altcel 2</a>
                                                     </li>
                                                 </ul>
                                             </li>
@@ -576,7 +576,6 @@
                                             </li> -->
                                         </ul>
                                     </li>
-
                                     <li class="nav-parent">
                                         <a>
                                             <i class="fa fa-calendar" aria-hidden="true"></i>
@@ -604,7 +603,7 @@
                                                 <a href="{{route('completadas')}}">Completadas</a>
                                             </li>
                                             <li>
-                                                <a href="{{route('petitionCrm')}}">Líneas Nuevas</a>
+                                                <a href="{{route('petitionCrm')}}">Líneas Nuevas </a>
                                             </li>
                                         </ul>
                                     </li>
@@ -615,10 +614,13 @@
                                         </a>
                                         <ul class="nav nav-children">
                                             <li>
+                                                <a href="{{route('portabilities.create')}}">Nueva</a>
+                                            </li>
+                                            <li>
                                                 <a href="{{url('/portabilities')}}">Todas</a>
                                             </li>
                                             <li>
-                                                <a href="{{url('/portabilities-crm')}}">CRM</a>
+                                                <a href="{{url('/portabilities-altcel')}}">CRM</a>
                                             </li>
                                             <li>
                                                 <a href="{{route('PortabilityStatus')}}">Estatus de portabilidades</a>
@@ -742,7 +744,7 @@
                                                 <a href="{{route('completadas')}}">Completadas</a>
                                             </li>
                                             <li>
-                                                <a href="{{route('petitionCrm')}}">Líneas Nuevas</a>
+                                                <a href="{{route('petitionCrm')}}">Líneas Nuevas CRM</a>
                                             </li>
                                         </ul>
                                     </li>
@@ -753,10 +755,13 @@
                                         </a>
                                         <ul class="nav nav-children">
                                             <li>
+                                                <a href="{{route('portabilities.create')}}">Nueva</a>
+                                            </li>
+                                            <li>
                                                 <a href="{{url('/portabilities')}}">Todas</a>
                                             </li>
                                             <li>
-                                                <a href="{{url('/portabilities-crm')}}">CRM</a>
+                                                <a href="{{url('/portabilities-altcel')}}">CRM</a>
                                             </li>
                                             <li>
                                                 <a href="{{route('PortabilityStatus')}}">Estatus de portabilidades</a>
@@ -780,43 +785,13 @@
                                             <li>
                                                 <a href="{{route('clients.index')}}">Resumen</a>
                                             </li>
-                                            <li>
-                                                <a href="{{route('prospects.index')}}">Prospectos</a>
-                                            </li>
-                                            <li>
-                                                <a href="{{route('anothercompany.index')}}">Otras Compañías</a>
-                                            </li>
-                                            <li>
-                                                <a href="{{route('operations.specials')}}">Operaciones Especiales</a>
-                                            </li>
-                                            <li>
-                                                <a href="{{route('reports')}}">Reportes de Consumos</a>
-                                            </li>
                                         </ul>
                                     </li>
                                     <li class="nav-parent">
-                                        <a>
-                                            <i class="fa fa-tasks" aria-hidden="true"></i>
-                                            <span>Reportes</span>
-                                        </a>
+                                        <a>Portabilidad</a>
                                         <ul class="nav nav-children">
                                             <li>
-                                                <a href="{{route('incomes.get')}}">Pagos</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-
-                                    <li class="nav-parent">
-                                        <a>
-                                            <i class="fa fa-calendar" aria-hidden="true"></i>
-                                            <span>Agenda</span>
-                                        </a>
-                                        <ul class="nav nav-children">
-                                            <li>
-                                                <a href="{{route('schedules.create')}}">Alta</a>
-                                            </li>
-                                            <li>
-                                                <a href="{{route('schedules.index')}}">Administración</a>
+                                                <a href="{{route('portabilities.create')}}">Nueva</a>
                                             </li>
                                         </ul>
                                     </li>
@@ -910,7 +885,7 @@
                                                 <a>Entrada de Líneas</a>
                                                 <ul class="nav nav-children">
                                                     <li>
-                                                        <a href="{{route('administrationLines.get')}}">CRM</a>
+                                                        <a href="{{route('administrationLines.get')}}">Altcel 2</a>
                                                     </li>
                                                 </ul>
                                             </li>
@@ -1266,7 +1241,7 @@
                                                 <a href="{{url('/portabilities')}}">Todas</a>
                                             </li>
                                             <li>
-                                                <a href="{{url('/portabilities-crm')}}">CRM</a>
+                                                <a href="{{url('/portabilities-altcel')}}">CRM</a>
                                             </li>
                                         </ul>
                                     </li>

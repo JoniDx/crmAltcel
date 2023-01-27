@@ -17,7 +17,8 @@
                 </div>
                 <h5 class="card-title">Hola, {{$name}} {{$lastname}}.</h5>
                 <p class="card-text">Te notificamos que tu pago de servicio {{$service}} con el plan {{$rate}} fue registrado exitosamente con la referencia {{$reference}}.</p>
-                <a href="https://contact.altcel2.com" class="btn btn-success">Ver mis productos</a>
+                {{-- PENDIENTE --}}
+                <a href="" class="btn btn-success">Ver mis productos</a>
             </div>
             </div>
         </div>

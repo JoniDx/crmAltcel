@@ -1953,7 +1953,7 @@
 
         if(rate_name.includes('alianza')){
             if(sim_altcel.length == 0 || /^\s+$/.test(sim_altcel)){
-                let message = "Parece que has elegido un Plan Alianza, por favor completa el campo Sim Altcel.";
+                let message = "Parece que has elegido un Plan Alianza, por favor completa el campo Sim.";
                 sweetAlertFunction(message);
                 document.getElementById('sim_altcel').focus();
                 return false;

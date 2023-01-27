@@ -51,7 +51,8 @@
             <div class="card-body collapse in">
                 <div class="text-xs-center">
                     <h5 class="card-text pb-2 white">BIENVENIDO</h5>
-                    <img src="{{asset('robust/app-assets/images/logo/Altcel2_Ok@2x.png')}}" class="img-responsive block width-300 mx-auto" width="300" alt="bg-img">
+                    {{-- PENDIENTE --}}
+                    {{-- <img src="" class="img-responsive block width-300 mx-auto" width="300" alt="bg-img"> --}}
                     <div id="clockFlat" class="card-text getting-started pt-1 mt-2 white display-inline-block"></div>
                     <div class="col-xs-12 pt-1">
                         <p class="card-text lead white">Conectándote al mundo.</p>
