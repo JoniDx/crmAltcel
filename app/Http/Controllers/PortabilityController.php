@@ -626,12 +626,13 @@ class PortabilityController extends Controller
     }
 
     public function rechargeDealer(){
-        $data['recharges'] = DB::connection('corp_pos')->table('ra_distribuidores')
-                    ->join('ra_users', 'ra_distribuidores.user_id', '=', 'ra_users.id')
-                    ->join('ra_recargas', 'ra_distribuidores.id', '=', 'ra_recargas.distribuidor_id')
-                    ->where('ra_distribuidores.ubicacion', '=', 'Veracruz')
-                    ->select('ra_recargas.*', 'ra_users.username AS delearName', 'ra_distribuidores.saldo_conecta AS saldo_conecta')
-                    ->get();
+        // $data['recharges'] = DB::connection('corp_pos')->table('ra_distribuidores')
+        //             ->join('ra_users', 'ra_distribuidores.user_id', '=', 'ra_users.id')
+        //             ->join('ra_recargas', 'ra_distribuidores.id', '=', 'ra_recargas.distribuidor_id')
+        //             ->where('ra_distribuidores.ubicacion', '=', 'Veracruz')
+        //             ->select('ra_recargas.*', 'ra_users.username AS delearName', 'ra_distribuidores.saldo_conecta AS saldo_conecta')
+        //             ->get();
+        $data['recharges'] = [];
         // return $data['recharges'];
         return view('portabilities.rechargeDealers', $data);
     }

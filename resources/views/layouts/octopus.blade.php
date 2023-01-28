@@ -560,7 +560,7 @@
                                                 <a>Entrada de Líneas</a>
                                                 <ul class="nav nav-children">
                                                     <li>
-                                                        <a href="{{route('administrationLines.get')}}">Altcel 2</a>
+                                                        <a href="{{route('administrationLines.get')}}">CRM</a>
                                                     </li>
                                                 </ul>
                                             </li>
@@ -620,7 +620,7 @@
                                                 <a href="{{url('/portabilities')}}">Todas</a>
                                             </li>
                                             <li>
-                                                <a href="{{url('/portabilities-altcel')}}">CRM</a>
+                                                <a href="{{url('/portabilities-crm')}}">CRM</a>
                                             </li>
                                             <li>
                                                 <a href="{{route('PortabilityStatus')}}">Estatus de portabilidades</a>
@@ -761,7 +761,7 @@
                                                 <a href="{{url('/portabilities')}}">Todas</a>
                                             </li>
                                             <li>
-                                                <a href="{{url('/portabilities-altcel')}}">CRM</a>
+                                                <a href="{{url('/portabilities-crm')}}">CRM</a>
                                             </li>
                                             <li>
                                                 <a href="{{route('PortabilityStatus')}}">Estatus de portabilidades</a>
@@ -885,7 +885,7 @@
                                                 <a>Entrada de Líneas</a>
                                                 <ul class="nav nav-children">
                                                     <li>
-                                                        <a href="{{route('administrationLines.get')}}">Altcel 2</a>
+                                                        <a href="{{route('administrationLines.get')}}">CRM</a>
                                                     </li>
                                                 </ul>
                                             </li>
@@ -1162,7 +1162,7 @@
                                                 <a>Entrada de Líneas</a>
                                                 <ul class="nav nav-children">
                                                     <li>
-                                                        <a href="{{route('administrationLines.get')}}">Altcel 2</a>
+                                                        <a href="{{route('administrationLines.get')}}">CRM</a>
                                                     </li>
                                                 </ul>
                                             </li>
@@ -1241,7 +1241,7 @@
                                                 <a href="{{url('/portabilities')}}">Todas</a>
                                             </li>
                                             <li>
-                                                <a href="{{url('/portabilities-altcel')}}">CRM</a>
+                                                <a href="{{url('/portabilities-crm')}}">CRM</a>
                                             </li>
                                         </ul>
                                     </li>
