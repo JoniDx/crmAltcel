@@ -12,9 +12,9 @@ class ConektaPayment{
 
     function __construct(){
         // KEY de Prueba
-        // Conekta::setApiKey('key_qbK6zfeHtAHSXJxsMHciLw');
+        // Conekta::setApiKey(env('CONECTA_TEST_KEY'));
         // KEY de Producción
-        Conekta::setApiKey('key_duJxSBstM6rsGAqH3NLWkQ');
+        Conekta::setApiKey(env('CONECTA_KEY'));
         Conekta::setApiVersion('2.0.0');
     }
 
@@ -192,9 +192,9 @@ class ConektaPayment{
         $concepto = $request['concepto'];
 
         // KEY de Prueba
-        // Conekta::setApiKey('key_qbK6zfeHtAHSXJxsMHciLw');
+        // Conekta::setApiKey(env('CONECTA_TEST_KEY'));
         // KEY de Producción
-        Conekta::setApiKey('key_duJxSBstM6rsGAqH3NLWkQ');
+        Conekta::setApiKey(env('CONECTA_KEY'));
         Conekta::setApiVersion('2.0.0');
 
         $validCustomer = [

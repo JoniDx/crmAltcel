@@ -439,7 +439,7 @@
                                 <option value="0">Elige...</option>
                                 @foreach($clients as $client)
                             <option value="{{$client->id}}">
-                                {{$client->name.' '.$client->lastname.' '.$client->email}}
+                                {{$client->name.' '.$client->lastname.' - '.$client->email}}
                             </option>
                             @endforeach
                                 </optgroup>
@@ -849,7 +849,7 @@
         let activation = $('#activation_new_id').val();
         let type = $('#type_service').val();
         let url = "/clients-details/"+client+"#datatable-default3";
-
+        console.log(client);
         if(client == 0){
             Swal.fire({
                 icon: 'error',

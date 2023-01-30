@@ -38,7 +38,7 @@ class ClientController extends Controller
                               ->join('rates','rates.id','=','activations.rate_id')
                               ->leftJoin('devices','devices.id','=','activations.devices_id')
                               ->where('activations.deleted_at','=',null)
-                              ->select('clients.name AS name','clients.lastname AS lastname',
+                              ->select('clients.id AS id','clients.name AS name','clients.lastname AS lastname',
                               'clients.cellphone AS cellphone','numbers.id AS id_dn','numbers.MSISDN AS MSISDN',
                               'numbers.producto AS service','devices.no_serie_imei AS imei',
                               'rates.name AS rate_name','rates.price_subsequent AS amount_rate','activations.date_activation AS date_activation','activations.amount_device AS amount_device','numbers.icc_id AS icc',
@@ -117,34 +117,8 @@ class ClientController extends Controller
         return view('clients.rechargeView',$data);
     }
 
-    public function clientsPayAll() {
-        // $data['clients'] = DB::table('users')
-        //                       ->leftJoin('clients','clients.user_id','=','users.id')
-        //                       ->where('users.role_id',3)
-        //                       ->select('users.*','clients.cellphone AS client_phone','clients.rfc AS RFC','clients.address AS client_address')
-        //                       ->get();
-        
-        $data['clients'] = DB::table('clients')
-                          ->leftJoin('activations','activations.client_id','=','clients.id')
-                          ->leftJoin('instalations','instalations.client_id','=','clients.id')
-                        //   ->leftJoin('clients','clients.user_id','=','users.id')
-                          ->where('activations.deleted_at','=',null)
-                          ->where('activations.client_id','!=',null)
-                          ->where('activations.deleted_at','=',null)
-                          ->orWhere('instalations.client_id','!=',null)
-                          ->select('clients.*')
-                          ->distinct()
-                          ->get();
-        // return $data['clients'];
-        $current_role = auth()->user()->role_id;
-        $current_id = auth()->user()->id;
-        
-        return view('clients.showAll',$data);
-    }
-
     public function clientDetails($id){
-        $clientData = Client::where('id',$id)->first();
-
+        $clientData = Client::where('id', $id)->first();
         $data['mypays'] = DB::table('pays')
                              ->join('activations','activations.id','=','pays.activation_id')
                              ->join('numbers','numbers.id','=','activations.numbers_id')
@@ -194,12 +168,9 @@ class ClientController extends Controller
                                    ->get();
         $data['client_id'] = $id;
         $data['client_name'] = $clientData->name.' '.$clientData->lastname;
-        // $data['clients'] = DB::table('users')
-        //                       ->join('clients','clients.user_id','=','users.id')
-        //                       ->select('users.*')
-        //                       ->orderBy('users.name','asc')
-        //                       ->get();
-        $data['clients'] = $clientData;
+
+        $data['clients'] = DB::select('select * from clients');
+        // $data['clients'] = $clientData;
         // return $data['completemy2pays'];
         return view('clients.clientDetails',$data);
     }
@@ -972,7 +943,7 @@ class ClientController extends Controller
             ));
         }
 
-        $data['HBB'] = sizeof($newsHBB);
+        // $data['HBB'] = sizeof($newsHBB);
         $data['MIFI'] = sizeof($newsMIFI);
         $data['Telmex'] = sizeof($newsTelmex);
         $data['prospects'] = $newClients;
@@ -983,7 +954,7 @@ class ClientController extends Controller
         $id = $request->id;
         $dataClient = DB::table('users')
                          ->leftJoin('clients','clients.user_id','=','users.id')
-                         ->where('users.id',$id)
+                         ->where('clients.id',$id)
                          ->select('users.*','clients.address AS address','clients.ine_code AS ine_code','clients.rfc AS rfc','clients.cellphone AS cellphone',
                          'clients.date_born AS date_born','clients.who_did_id AS who_did_id')
                          ->get();

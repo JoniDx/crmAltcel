@@ -19,7 +19,7 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-
+    <script src="{{ asset('js/swal.js') }}" defer></script>
     <!-- Web Fonts  -->
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light"
         rel="stylesheet" type="text/css">
@@ -48,7 +48,7 @@
     @if(request()->is('bulk-activations*') || request()->is('generalConcesiones*') || request()->is('portabilities*') || request()->is('anothercompanies*') || request()->is('petitionCrm*') || request()->is('lines-administration*'))
     
     @else
-    <link rel="stylesheet" href="{{asset('octopus/assets/vendor/jquery-datatables-bs3/assets/css/datatables.css')}}" />
+        <link rel="stylesheet" href="{{asset('octopus/assets/vendor/jquery-datatables-bs3/assets/css/datatables.css')}}" />
     @endif
 	
     <!-- Theme CSS -->
@@ -342,14 +342,7 @@
                 </ul>
                 <!-- Final Notificaciones -->
 
-                <span class="separator"></span>
-                {{-- @guest
-                @else
-                    @php
-                        $cargo =  \App\Role::where('id',Auth::user()->role_id)->first();
-                        $cargo = $cargo->rol
-                    @endphp
-                @endguest --}}
+                <span class="separator"></span>     
 
                 <div id="userbox" class="userbox">
                     <a href="#" data-toggle="dropdown">
@@ -424,9 +417,7 @@
                                             <li>
                                                 <a href="{{route('activations.create')}}">Nuevo</a>
                                             </li>
-                                            <li>
-                                                <a href="{{route('clients-pay-all.get')}}"> Ver</a>
-                                            </li>
+
                                             <li>
                                                 <a href="{{route('clients.index')}}">Resumen</a>
                                             </li>
@@ -669,9 +660,6 @@
                                         <ul class="nav nav-children">
                                             <li>
                                                 <a href="{{route('activations.create')}}">Nuevo</a>
-                                            </li>
-                                            <li>
-                                                <a href="{{route('clients-pay-all.get')}}"> Ver</a>
                                             </li>
                                             <li>
                                                 <a href="{{route('clients.index')}}">Resumen</a>
@@ -1209,9 +1197,7 @@
                                             <li>
                                                 <a href="{{route('activations.create')}}">Nuevo</a>
                                             </li>
-                                            <li>
-                                                <a href="{{route('clients-pay-all.get')}}"> Ver</a>
-                                            </li>
+         
                                             <li>
                                                 <a href="{{route('clients.index')}}">Resumen</a>
                                             </li>

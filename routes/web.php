@@ -83,7 +83,6 @@ Route::get('/modal-report-distribuidores', 'AdminController@modalReportVeracruz'
 
 // Client Routes
 Route::get('/rechargeGenerate', 'ClientController@rechargeGenerateClient')->name('recharge-view-client.get')->middleware('auth');
-Route::get('/clients-pay-all', 'ClientController@clientsPayAll')->name('clients-pay-all.get')->middleware('auth');
 Route::get('/pre-registro', 'ClientController@preRegistro')->name('pre-registro');
 Route::get('/clients-details/{id}', 'ClientController@clientDetails')->middleware('auth');;
 Route::post('/buying', 'CheckoutController@buying');
