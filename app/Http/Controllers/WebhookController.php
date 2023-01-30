@@ -467,11 +467,11 @@ class WebhookController extends Controller
 
                             ];
 
-                            Mail::to('jonathan_gutierrez@altcel.com')->send(new NotificationDealerSurplus($data));
-                            Mail::to('leopoldo_martinez@altcel.com')->send(new NotificationDealerSurplus($data));
-                            Mail::to('joel_maza@altcel.com')->send(new NotificationDealerSurplus($data));
-                            Mail::to('cintya_delarosa@altcel.com')->send(new NotificationDealerSurplus($data));
-                            Mail::to('carlos_ruiz@altcel.com')->send(new NotificationDealerSurplus($data));
+                            // Mail::to('jonathan_gutierrez@altcel.com')->send(new NotificationDealerSurplus($data));
+                            // Mail::to('leopoldo_martinez@altcel.com')->send(new NotificationDealerSurplus($data));
+                            // Mail::to('joel_maza@altcel.com')->send(new NotificationDealerSurplus($data));
+                            // Mail::to('cintya_delarosa@altcel.com')->send(new NotificationDealerSurplus($data));
+                            // Mail::to('carlos_ruiz@altcel.com')->send(new NotificationDealerSurplus($data));
                         }
                         $recharges = 0;
                         

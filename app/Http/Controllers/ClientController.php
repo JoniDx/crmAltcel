@@ -1632,6 +1632,121 @@ class ClientController extends Controller
 
     }
 
+    public function reportLinePorta(Request $request){
+        if(isset($request['start']) && isset($request['end'])){
+            if($request['start'] != null && $request['end'] != null){
+                $product = $request->type;
+                $date_start = $request['start'];
+                $date_end = $request['end'];
+                $año = substr($date_start, -4);
+                $mes = substr($date_start, 0,2);
+                $dia = substr($date_start, 3, -5);
+                $dateStart = $año. '-'. $mes.'-'.$dia;
+                $añoEnd = substr($date_end, -4);
+                $mesEnd = substr($date_end, 0,2);
+                $diaEnd = substr($date_end, 3, -5);
+                $dateEnd = $añoEnd. '-'. $mesEnd.'-'.$diaEnd;
+
+                if ($product == 'New') {
+                    // $data['linesNews'] = DB::connection('corp_pos')->table('ra_activations')->leftJoin('ra_users','ra_users.id','=','ra_activations.distribuidor_id')->where('ra_activations.tipo', 'activacion')->whereBetween('ra_activations.date',[$dateStart,$dateEnd])->where('ra_activations.product', 'MOV')->select('ra_activations.*','ra_users.username','ra_users.first_name','ra_users.last_name','ra_users.wholesaler')->get();
+                    $data['linesNews'] = [];
+                    $completeds = Portability::all();
+                    $arrayCompleted = [];
+
+
+                    foreach ($completeds as $completed) {
+                        $who_did_it = User::where('id',$completed->who_did_it)->first();
+                        $who_attended = User::where('id',$completed->who_attended)->first();
+                        $client = User::where('id',$completed->client_id)->first();
+                        $client_data = Client::where('user_id',$completed->client_id)->first();
+                        // return $client_data->address;
+                        $rate = Rate::where('id','=',$completed->rate_id)->first();
+                        array_push($arrayCompleted,array(
+                            'msisdnPorted' => $completed->msisdnPorted,
+                            'icc' => $completed->icc,
+                            'msisdnTransitory' => $completed->msisdnTransitory,
+                            'date' => $completed->date,
+                            'approvedDateABD' => $completed->approvedDateABD,
+                            'nip' => $completed->nip,
+                            'client' => $client->name.' '.$client->lastname,
+                            'who_did_it' => $completed->dealer_username == null ? 'N/A' : $completed->dealer_username,
+                            'who_attended' => $who_attended = $who_attended == null ? 'N/A' : $who_attended->name.' '.$who_attended->lastname,
+                            'name_rate' => $rate->name,
+                            'amount' => number_format($rate->price,2)
+                        ));
+                    }
+                    $data['portabilitys'] = $arrayCompleted;
+                    return view('clients.lineNewPort', $data);
+
+                }else if ($product == 'Porta') {
+                    // $data['linesNews'] = DB::connection('corp_pos')->table('ra_activations')->leftJoin('ra_users','ra_users.id','=','ra_activations.distribuidor_id')->where('ra_activations.tipo', 'activacion')->where('ra_activations.product', 'MOV')->select('ra_activations.*','ra_users.username','ra_users.first_name','ra_users.last_name','ra_users.wholesaler')->get();
+                    $data['linesNews'] = [];
+                    $completeds = Portability::all()->whereBetween('created_at',[$dateStart,$dateEnd]);
+                    $arrayCompleted = [];
+
+                    foreach ($completeds as $completed) {
+                        $who_did_it = User::where('id',$completed->who_did_it)->first();
+                        $who_attended = User::where('id',$completed->who_attended)->first();
+                        $client = User::where('id',$completed->client_id)->first();
+                        $client_data = Client::where('user_id',$completed->client_id)->first();
+                        // return $client_data->address;
+                        $rate = Rate::where('id','=',$completed->rate_id)->first();
+                        array_push($arrayCompleted,array(
+                            'msisdnPorted' => $completed->msisdnPorted,
+                            'icc' => $completed->icc,
+                            'msisdnTransitory' => $completed->msisdnTransitory,
+                            'date' => $completed->date,
+                            'approvedDateABD' => $completed->approvedDateABD,
+                            'nip' => $completed->nip,
+                            'client' => $client->name.' '.$client->lastname,
+                            'who_did_it' => $completed->dealer_username == null ? 'N/A' : $completed->dealer_username,
+                            'who_attended' => $who_attended = $who_attended == null ? 'N/A' : $who_attended->name.' '.$who_attended->lastname,
+                            'name_rate' => $rate->name,
+                            'amount' => number_format($rate->price,2)
+                        ));
+                    }
+                    $data['portabilitys'] = $arrayCompleted;
+                    return view('clients.lineNewPort', $data);
+                }
+            }
+        }else{
+            $completeds = Portability::all();
+            // return $completeds;
+            // $data['linesNews'] = DB::connection('corp_pos')->table('ra_activations')->leftJoin('ra_users','ra_users.id','=','ra_activations.distribuidor_id')->where('ra_activations.tipo', 'activacion')->where('ra_activations.product', 'MOV')->select('ra_activations.*','ra_users.username','ra_users.first_name','ra_users.last_name','ra_users.wholesaler')->get();
+            // return $data['linesNews'];
+            $data['linesNews'] = [];
+            $arrayCompleted = [];
+
+
+            foreach ($completeds as $completed) {
+                $who_did_it = User::where('id',$completed->who_did_it)->first();
+                $who_attended = User::where('id',$completed->who_attended)->first();
+                $client = User::where('id',$completed->client_id)->first();
+                $client_data = Client::where('user_id',$completed->client_id)->first();
+                // return $client_data->address;
+                $rate = Rate::where('id','=',$completed->rate_id)->first();
+                array_push($arrayCompleted,array(
+                    'msisdnPorted' => $completed->msisdnPorted,
+                    'icc' => $completed->icc,
+                    'msisdnTransitory' => $completed->msisdnTransitory,
+                    'date' => $completed->date,
+                    'approvedDateABD' => $completed->approvedDateABD,
+                    'nip' => $completed->nip,
+                    'client' => $client->name.' '.$client->lastname,
+                    'who_did_it' => $completed->dealer_username == null ? 'N/A' : $completed->dealer_username,
+                    'who_attended' => $who_attended = $who_attended == null ? 'N/A' : $who_attended->name.' '.$who_attended->lastname,
+                    'name_rate' => $rate->name,
+                    'amount' => number_format($rate->price,2)
+                ));
+            }
+            $data['portabilitys'] = $arrayCompleted;
+            // return $data['completeds'];
+
+            return view('clients.lineNewPort', $data);
+        }
+                
+    }
+
     public function preRegistro(){
         return view('clients.preRegistro');
     }
@@ -1709,34 +1824,36 @@ class ClientController extends Controller
                                 ->whereRaw('portabilities.dealer_username LIKE "%promotor%"')
                                 ->select('numbers.id AS id')
                                 ->get();
-                
+        $veracruzServices = [];      
         $array_veracruz = [];
 
         foreach ($veracruzServices as $number) {
             array_push($array_veracruz, $number->id);
         }
 
-        $data['data'] = DB::table('purchases')->join('offers','offers.id','=','purchases.offer_id')
-                                              ->join('users','users.id','=','purchases.who_did_id')
-                                              ->join('numbers','numbers.id','=','purchases.number_id')
-                                              ->whereRaw("purchases.number_id IN (".implode(", ", $array_veracruz).")")
-                                              ->select('numbers.MSISDN', 'purchases.date','purchases.reason','purchases.amount','purchases.comment','offers.name','users.name AS user_name','users.lastname AS user_lastname')
-                                              ->get();
-                                                
+        // $data['data'] = DB::table('purchases')->join('offers','offers.id','=','purchases.offer_id')
+        //                                       ->join('users','users.id','=','purchases.who_did_id')
+        //                                       ->join('numbers','numbers.id','=','purchases.number_id')
+        //                                       ->whereRaw("purchases.number_id IN (".implode(", ", $array_veracruz).")")
+        //                                       ->select('numbers.MSISDN', 'purchases.date','purchases.reason','purchases.amount','purchases.comment','offers.name','users.name AS user_name','users.lastname AS user_lastname')
+        //                                       ->get();
+        $data['data'] = [];
         // return view('clients.rechargeCliens', $data);
 
-        $data['referencePurchases'] = DB::table('references')
-                                            ->join('channels','channels.id','=','references.channel_id')
-                                            ->join('offers','offers.id','=','references.offer_id')
-                                            ->join('numbers','numbers.id','=','references.number_id')
-                                            ->leftJoin('users','users.id','=','references.user_id')
-                                            ->whereRaw("references.number_id IN (".implode(", ", $array_veracruz).")")
-                                            ->where('references.referencestype_id',5)
-                                            ->where(function($query){
-                                                $query->where('references.status','paid')->orWhere('references.status','completed');
-                                            })
-                                            ->select('numbers.MSISDN','references.updated_at AS date','offers.name','references.amount','references.reference','users.name AS user_name','users.lastname AS user_lastname','channels.name AS channel','references.event_date_complete AS date_complete')
-                                            ->get();
+        // $data['referencePurchases'] = DB::table('references')
+        //                                     ->join('channels','channels.id','=','references.channel_id')
+        //                                     ->join('offers','offers.id','=','references.offer_id')
+        //                                     ->join('numbers','numbers.id','=','references.number_id')
+        //                                     ->leftJoin('users','users.id','=','references.user_id')
+        //                                     ->whereRaw("references.number_id IN (".implode(", ", $array_veracruz).")")
+        //                                     ->where('references.referencestype_id',5)
+        //                                     ->where(function($query){
+        //                                         $query->where('references.status','paid')->orWhere('references.status','completed');
+        //                                     })
+        //                                     ->select('numbers.MSISDN','references.updated_at AS date','offers.name','references.amount','references.reference','users.name AS user_name','users.lastname AS user_lastname','channels.name AS channel','references.event_date_complete AS date_complete')
+        //                                     ->get();
+        $data['referencePurchases'] = [];
+
                                             
         return view('clients.rechargeCliens', $data);
 

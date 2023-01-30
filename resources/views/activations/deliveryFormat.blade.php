@@ -69,7 +69,8 @@
                     <img src="{{asset('storage/uploads/conecta2.png')}}" >
                 </div>
                 <div style="left: 100px !important;">
-                    <img src="{{asset('storage/uploads/altcel_corporativo.png')}}" >
+                    {{-- PENDIENTE --}}
+                    {{-- <img src="" > --}}
                 </div>
             </div>
             <div class="col-d-12 mt-2 d-flex justify-content-between mr-3">

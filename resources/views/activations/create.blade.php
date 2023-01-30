@@ -1202,6 +1202,459 @@
                 }
             }
         })
+        let who_did_id = $('#user').val();
+        let scheduleDateFirst = $('#scheduleDate').val();
+        let scheduleDate = scheduleDateFirst.replace(/-/g, "");
+        let email_not = 0;
+        let activate = 0;
+        let statusActivation = 'activated';
+        let petition = $('#petition_id').val();
+        let flag_rate = $('#flag_rate').val();
+        let rate_subsequent = $('#rate_subsequent').val();
+        // console.log(name+' - '+lastname+' - '+address+' - '+email+' - '+ine_code+' - '+imei+' - '+offer+' - '+rate);
+
+        if(mac_address.length == 0 || /^\s+$/.test(mac_address)){
+
+        }else{
+            if(mac_address_boolean == 0){
+                let message = "Ingrese una dirección MAC válida..";
+                sweetAlertFunction(message);
+                document.getElementById('mac_address_activation').focus();
+                return false;
+            }
+        }
+        
+        if(petition == 0){
+            petition = '';
+        }
+
+        if(scheduleDateFirst.length == 0 || /^\s+$/.test(scheduleDateFirst)){
+            // scheduleDate = '';
+            let message = "El campo Fecha Operación no debe ir vacío.";
+            sweetAlertFunction(message);
+            document.getElementById('scheduleDate').focus();
+            return false;
+        }
+
+        if($('#statusActivation').prop('checked') ) {
+            statusActivation = 'preactivated';
+        }else{
+            statusActivation = 'activated';
+        }
+
+        if($('#type_person_mifi').prop('checked') ) {
+            type_person = 'moral';
+        }else{
+            type_person = 'física';
+        }
+
+        if($('#email-not').prop('checked') ) {
+            email_not = 1;
+        }else{
+            email_not = 0;
+        }
+
+        if($('#activate_bool').prop('checked') ) {
+            activate_bool = 1;
+        }else{
+            activate_bool = 0;
+        }
+
+        if(product != 'HBB'){
+            lat_hbb = null;
+            lng_hbb = null;
+        }else{
+            if(lat_hbb.length == 0 || /^\s+$/.test(lat_hbb)){
+                let message = "Ingrese latitud, no puede estar vacío.";
+                sweetAlertFunction(message);
+                document.getElementById('lat_hbb').focus();
+                return false;
+            }
+
+            if(lng_hbb.length == 0 || /^\s+$/.test(lng_hbb)){
+                let message = "Ingrese longitud, no puede estar vacío.";
+                sweetAlertFunction(message);
+                document.getElementById('lng_hbb').focus();
+                return false;
+            }
+        }
+        
+        if(name.length == 0 || /^\s+$/.test(name)){
+            let message = "El campo Nombre no puede estar vacío.";
+            sweetAlertFunction(message);
+            document.getElementById('name').focus();
+            return false;
+        }
+
+        if(lastname.length == 0 || /^\s+$/.test(lastname)){
+            let message = "El campo Apellido no puede estar vacío.";
+            sweetAlertFunction(message);
+            document.getElementById('lastname').focus();
+            return false;
+        }
+
+        if(rfc.length == 0 || /^\s+$/.test(rfc)){
+            let message = "El campo RFC no puede estar vacío.";
+            sweetAlertFunction(message);
+            document.getElementById('rfc').focus();
+            return false;
+        }
+
+        if(date_born.length == 0 || /^\s+$/.test(date_born)){
+            let message = "El campo Fecha Nacimiento no puede estar vacío.";
+            sweetAlertFunction(message);
+            document.getElementById('date_born').focus();
+            return false;
+        }
+
+        if(address.length == 0 || /^\s+$/.test(address)){
+            let message = "El campo Dirección no puede estar vacío.";
+            sweetAlertFunction(message);
+            document.getElementById('address').focus();
+            return false;
+        }
+
+        if(email.length == 0 || /^\s+$/.test(email)){
+            let message = "El campo Email no puede estar vacío.";
+            sweetAlertFunction(message);
+            document.getElementById('email').focus();
+            return false;
+        }
+
+        if(cellphone.length == 0 || /^\s+$/.test(cellphone)){
+            let message = "El campo Teléfono Contacto no puede estar vacío.";
+            sweetAlertFunction(message);
+            document.getElementById('cellphone').focus();
+            return false;
+        }
+
+        if(ine_code.length == 0 || /^\s+$/.test(ine_code)){
+            let message = "El campo Código INE no puede estar vacío.";
+            sweetAlertFunction(message);
+            document.getElementById('ine_code').focus();
+            return false;
+        }
+
+        if(icc_id.length == 0 || /^\s+$/.test(icc_id)){
+            let message = "El campo ICC_ID no puede estar vacío, por favor busque un SIM.";
+            sweetAlertFunction(message);
+            document.getElementById('icc-to-search').focus();
+            return false;
+        }
+
+        if(msisdn.length == 0 || /^\s+$/.test(msisdn)){
+            let message = "El campo MSISDN no puede estar vacío, por favor busque un SIM.";
+            sweetAlertFunction(message);
+            document.getElementById('msisdn').focus();
+            return false;
+        }
+
+        if(imei.length == 0 || /^\s+$/.test(imei)){
+            imei = 'null';
+        }
+
+        rate_name = rate_name.toLowerCase();
+
+        if(rate_name.includes('alianza')){
+            if(sim_altcel.length == 0 || /^\s+$/.test(sim_altcel)){
+                let message = "Parece que has elegido un Plan Alianza, por favor completa el campo Sim.";
+                sweetAlertFunction(message);
+                document.getElementById('sim_altcel').focus();
+                return false;
+            }
+        }else{
+            sim_altcel = 'nothing';
+        }
+        $(this).attr('disabled',true);
+
+        Swal.fire({
+            title: 'Realizando activación...',
+            html: 'Espera un poco, un poquito más...',
+            didOpen: () => {
+                Swal.showLoading();
+            $.ajax({
+                    url: "{{ route('activation-general.post')}}",
+                    method: 'GET',
+                    data:{
+                        _token:token, 
+                        name:name,
+                        lastname:lastname,
+                        address:address,
+                        email:email,
+                        cellphone:cellphone,
+                        ine_code:ine_code,
+                        rfc: rfc,
+                        date_born: date_born,
+                        name_child:name_child,
+                        lastname_child:lastname_child,
+                        address_child:address_child,
+                        email_child:email_child,
+                        cellphone_child:cellphone_child,
+                        ine_code_child:ine_code_child,
+                        rfc_child: rfc_child,
+                        date_born_child: date_born_child,
+                        type_person:type_person,
+                        imei:imei,
+                        serial_number:serial_number,
+                        mac_address:mac_address,
+                        offer_id:offer,
+                        rate_id:rate,
+                        icc_id:icc_id,
+                        msisdn:msisdn,
+                        lat_hbb: lat_hbb,
+                        lng_hbb: lng_hbb,
+                        product: product,
+                        from: from,
+                        sim_altcel: sim_altcel,
+                        rate_recurrency: rate_recurrency,
+                        price: monto,
+                        price_device: amount_device,
+                        price_rate: amount_rate,
+                        who_did_id: who_did_id,
+                        email_not: email_not,
+                        activate_bool: activate_bool,
+                        scheduleDate:scheduleDate,
+                        statusActivation:statusActivation,
+                        petition:petition,
+                        promo_boolean:promo_boolean_global,
+                        flag_rate:flag_rate,
+                        rate_subsequent:rate_subsequent
+                        },
+                    success: function(data){
+                        if(data.activation_id){
+                            let url = "{{route('formatDelivery',['activation'=>'temp'])}}";
+                            url = url.replace('temp',data.activation_id);
+                            // window.open(url, '_blank');
+                            window.open(url,'','width=600,height=400,left=50,top=50,toolbar=yes');
+
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Activación hecha con éxito.',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                            $('#send').attr('disabled',false);
+                            setTimeout(function(){ location.href = "{{route('activations.create')}}"; }, 1500);
+                            
+                        }else if(data == 1){
+                            
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Activación hecha con éxito.',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                            $('#send').attr('disabled',false);
+                            setTimeout(function(){ location.href = "{{route('activations.create')}}"; }, 1500);
+                        }else if(data == 0){
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Hubo un error con la activación.',
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+
+                            return false;
+                        }else if(data == 2){
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Hubo un error con la activación.',
+                                text: 'No se encontró el MSISDN...',
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+
+                            return false;
+                        }else if(data == 3){
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Hubo un error con la activación.',
+                                text: 'Sin obtención de token de acceso, consulte a Soporte Técnico.',
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+
+                            return false;
+                        }else{
+                            // data = JSON.stringify(data);
+                            
+                            altcel = data;
+                            if (data.simAltcel) {
+                                console.log(data.simAltcel[0])
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Ocurrió lo siguiente',
+                                    html: data.simAltcel[0],
+                                })
+                            }else if (data.MSISDNAltcel2) {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Ocurrió lo siguiente',
+                                    html: data.MSISDNAltcel2[0],
+                                })
+                            }
+                            console.log(data);
+                            return false;
+                        }
+                        console.log(data);
+                    
+                    }
+                });
+            }
+        });
+    });
+
+    $('#pack').change(function(){
+        let pack_id = $(this).val();
+        let politicFlag = 2;
+        let amountInstall = $('#pack option:selected').attr('data-install');
+        let service = $('#pack option:selected').attr('data-service');
+        let price = $('#pack option:selected').attr('data-price');
+        let token = $('meta[name="csrf-token"]').attr('content');
+        let options = '<option value="0">Choose...</option>';
+        price = parseFloat(price);
+        
+        if(service == 'Conecta'){
+            $('.id_content').removeClass('d-none');
+            $('#cobro_paquete').removeClass('mt-3');
+        }else if(service == 'Telmex'){
+            $('.id_content').addClass('d-none');
+            $('#cobro_paquete').addClass('mt-3');
+        }
+        if(pack_id != 0){
+            let amountInstall = $('#pack option:selected').attr('data-install');
+            $('#amount-install-pack').val(amountInstall);
+        }
+        $.ajax({
+                url: "{{ route('get-politics-rates.post')}}",
+                method: 'POST',
+                data:{
+                    _token:token
+                    },
+                success: function(data){
+                    data.forEach(function(element){
+                        let porcent = element.porcent/100;
+                        let cobro = price*porcent;
+                        options+="<option value='"+cobro+"' >"+element.description+"</option>"
+                    });
+                    $('#politics-pack').html(options);
+                }
+            });
+    });
+
+    $('#politics-pack').change(function(){
+        let amount = parseFloat($(this).val());
+        let amountInstall = parseFloat($('#amount-install-pack').val());
+        let total = amount+amountInstall;
+        $('#amount-pack').val(amount);
+        $('#amount-total-pack').val(total);
+    });
+
+    $('#type_person').click(function(){
+        if($('#type_person').prop('checked') ) {
+            $('.hidden-type-person').addClass('d-none');
+            $('#lastname_ethernet_child').val('');
+            $('#date_born_ethernet_child').val('');
+            $('#ine_code_ethernet_child').val('');
+            $('#email_ethernet_child').val('');
+
+        }else{
+            $('.hidden-type-person').removeClass('d-none');
+            
+        }
+    });
+
+    $('#copy_data').click(function(){
+        if($('#copy_data').prop('checked') ) {
+            let name = $('#name').val();
+            let lastname = $('#lastname').val();
+            let rfc = $('#rfc').val();
+            let date_born = $('#date_born').val();
+            let address = $('#address').val();
+            let ine_code = $('#ine_code').val();
+            let email = $('#email').val();
+            let cellphone = $('#cellphone').val();
+
+            $('#name_child').val(name);
+            $('#rfc_child').val(rfc);
+            $('#lastname_child').val(lastname);
+            $('#date_born_child').val(date_born);
+            $('#address_child').val(address);
+            $('#ine_code_child').val(ine_code);
+            $('#email_child').val(email);
+            $('#cellphone_child').val(cellphone);
+
+        }else{
+            $('#name_child').val('');
+            $('#rfc_child').val('');
+            $('#lastname_child').val('');
+            $('#date_born_child').val('');
+            $('#address_child').val('');
+            $('#ine_code_child').val('');
+            $('#email_child').val('');
+            $('#cellphone_child').val('');
+        }
+    });
+
+    $('#copy_data_ethernet').click(function(){
+        if($('#copy_data_ethernet').prop('checked') ) {
+            let name = $('#name_ethernet').val();
+            let lastname = $('#lastname_ethernet').val();
+            let rfc = $('#rfc_ethernet').val();
+            let date_born = $('#date_born_ethernet').val();
+            let address = $('#address_ethernet').val();
+            let ine_code = $('#ine_code_ethernet').val();
+            let email = $('#email_ethernet').val();
+            let cellphone = $('#cellphone_ethernet').val();
+
+            $('#name_ethernet_child').val(name);
+            $('#rfc_ethernet_child').val(rfc);
+            $('#lastname_ethernet_child').val(lastname);
+            $('#date_born_ethernet_child').val(date_born);
+            $('#address_ethernet_child').val(address);
+            $('#ine_code_ethernet_child').val(ine_code);
+            $('#email_ethernet_child').val(email);
+            $('#cellphone_ethernet_child').val(cellphone);
+
+        }else{
+            $('#name_ethernet_child').val('');
+            $('#rfc_ethernet_child').val('');
+            $('#lastname_ethernet_child').val('');
+            $('#date_born_ethernet_child').val('');
+            $('#address_ethernet_child').val('');
+            $('#ine_code_ethernet_child').val('');
+            $('#email_ethernet_child').val('');
+            $('#cellphone_ethernet_child').val('');
+        }
+    });
+
+    $('#type_person_mifi').click(function(){
+        if($('#type_person_mifi').prop('checked') ) {
+            $('.hidden-type-person-mifi').addClass('d-none');
+            $('#lastname_child').val('');
+            $('#date_born_child').val('');
+            $('#ine_code_child').val('');
+            $('#email_child').val('');
+
+            let client = $('#clients_options_altan').val();
+            let optionsPM = '<option value="0">Ninguno...</option>'
+            $.ajax({
+                url: "{{route('searchMoralPerson')}}",
+                data: {id:client},
+                success: function(response){
+                    console.log(response)
+                    // response = JSON.parse(response);
+                    response.forEach(function(e){
+                        optionsPM+="<option data-name='"+e.name+"' data-rfc='"+e.rfc+"' data-address='"+e.address+"' data-cellphone='"+e.cellphone+"'>"+e.name+" - "+e.rfc+" - "+e.cellphone+"</option>"
+                    });
+                    $('#moralPersons').html(optionsPM);
+                    $('#personaMoralModal').modal('show');
+                }
+            })
+        }else{
+            $('.hidden-type-person-mifi').removeClass('d-none');
+            
+        }
     });
 
     $('#clients_search, #clients_search_altan').keyup( function(){

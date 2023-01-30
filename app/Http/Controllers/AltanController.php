@@ -524,6 +524,7 @@ class AltanController extends Controller
             return $data = ['http_code'=>$http_code,'message'=>$message,'order'=>$orderID];
         }
     }
+
     public function changeLink(Request $request){
         $msisdn = $request['msisdn'];
         $x = DB::table('numbers')
@@ -968,5 +969,24 @@ class AltanController extends Controller
 
     }
 
+    /* new client */
+    public function currentOperator(Request $request){
+        $msisdn = $request->get('msisdn');
 
+        $accessTokenResponse = AltanController::accessTokenRequestPost();
+
+        if($accessTokenResponse['status'] == 'approved'){
+            $accessToken = $accessTokenResponse['accessToken'];
+            
+            $url_production = 'https://altanredes-prod.apigee.net/cm/v1/subscribers/lookupForOperator';
+                    
+            $response = Http::withHeaders([
+                'Authorization' => 'Bearer '.$accessToken
+            ])->get($url_production,[
+                'msisdn' => $msisdn
+            ]);
+
+            return $response->json();
+        }
+    }
 }

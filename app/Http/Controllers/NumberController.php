@@ -11,4 +11,10 @@ class NumberController extends Controller
         $x = Number::where('icc_id','=',$msisdn)->first();
         return $x;
     }
+    
+    public function getNumberByIcc(Request $request) {
+        $icc = $request->get('icc');
+        $x = Number::where('icc_id','=',$icc)->first();
+        return response()->json($x);
+    }
 }

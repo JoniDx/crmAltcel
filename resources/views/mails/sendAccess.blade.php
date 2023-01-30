@@ -18,7 +18,8 @@
                 <strong>Usuario: </strong>{{$user}}<br>
                 <strong>Contraseña: </strong>{{$password}}<br>
                 <span class="text-danger">Te sugerimos cambiar tu contraseña a una más segura.</span></p>
-                <a href="https://clientes.altcel2.com" class="btn btn-success">Ingresar</a>
+                {{-- PENDIENTE --}}
+                <a href="" class="btn btn-success">Ingresar</a>
             </div>
             </div>
         </div>

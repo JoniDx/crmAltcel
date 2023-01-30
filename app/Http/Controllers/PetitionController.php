@@ -580,7 +580,9 @@ class PetitionController extends Controller
     }
 
     public function lineNewCRM(Request $request){
-        $data['lineNews'] = DB::connection('corp_pos')->table('ra_activations')->leftJoin('ra_users','ra_users.id','=','ra_activations.distribuidor_id')->where('ra_activations.tipo', 'activacion')->select('ra_activations.cliente AS client', 'ra_activations.product','ra_activations.msisdn', 'ra_activations.icc', 'ra_activations.amount','ra_users.username', 'ra_activations.rate', 'ra_activations.date')->orderBy('ra_activations.date', 'DESC')->get();
+        // $data['lineNews'] = DB::connection('corp_pos')->table('ra_activations')->leftJoin('ra_users','ra_users.id','=','ra_activations.distribuidor_id')->where('ra_activations.tipo', 'activacion')->select('ra_activations.cliente AS client', 'ra_activations.product','ra_activations.msisdn', 'ra_activations.icc', 'ra_activations.amount','ra_users.username', 'ra_activations.rate', 'ra_activations.date')->orderBy('ra_activations.date', 'DESC')->get();
+        $data['lineNews'] = [];
+
         // return $lineNew;
         
         return view('petitions.lineaNuevaAltcel', $data);

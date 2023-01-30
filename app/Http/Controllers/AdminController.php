@@ -496,8 +496,8 @@ class AdminController extends Controller
         $data['date_init'] = $init_date;
         $data['date_final'] = $final_date;
 
-        $data['lines'] = DB::connection('corp_pos')->table('ra_activations')->leftJoin('ra_users','ra_users.id','=','ra_activations.distribuidor_id')->whereBetween('ra_activations.date',[$init_date,$final_date])->select('ra_activations.*','ra_users.username','ra_users.first_name','ra_users.last_name','ra_users.wholesaler')->get();
-
+        // $data['lines'] = DB::connection('corp_pos')->table('ra_activations')->leftJoin('ra_users','ra_users.id','=','ra_activations.distribuidor_id')->whereBetween('ra_activations.date',[$init_date,$final_date])->select('ra_activations.*','ra_users.username','ra_users.first_name','ra_users.last_name','ra_users.wholesaler')->get();
+        $data['lines'] = [];
         return view('administration.lines',$data);
     }
 
@@ -519,30 +519,32 @@ class AdminController extends Controller
         $date_start = date('Y-m-d H:i:s', strtotime($date_start));
         $date_end = date('Y-m-d H:i:s', strtotime($date_end));
 
-        $data["promotores"] = DB::connection('corp_pos')->table('ra_distribuidores')
-                                                        ->join('ra_users', 'ra_distribuidores.user_id', '=', 'ra_users.id')
-                                                        ->leftJoin('ra_activations', 'ra_users.id', '=', 'ra_activations.distribuidor_id')                                                    
-                                                        ->where("ra_distribuidores.supervisor", '=', $id_user)
-                                                        ->select("ra_users.username AS username", 'ra_users.id AS id')
-                                                        ->selectRaw('SUM(CASE WHEN ra_activations.tipo = "portabiilidad" THEN 1 ELSE 0 END) AS portabilidad')
-                                                        ->selectRaw('SUM(CASE WHEN ra_activations.tipo = "activacion" THEN 1 ELSE 0 END) AS lineaNueva')
-                                                        ->selectRaw('SUM(CASE WHEN ra_activations.tipo = "portabiilidad" THEN ra_activations.amount ELSE 0 END) AS portabilidadMoneyTotal')
-                                                        ->selectRaw('SUM(CASE WHEN ra_activations.tipo = "portabiilidad" AND ra_activations.rate != "PROMOCION EXCLUSIVA PORTABILIDAD - $100" THEN ra_activations.amount ELSE 0 END) AS portabilidadMoney')
-                                                        ->selectRaw('SUM(CASE WHEN ra_activations.tipo = "portabiilidad" AND ra_activations.rate = "PROMOCION EXCLUSIVA PORTABILIDAD - $100" THEN ra_activations.amount/2 ELSE 0 END) AS portabilidaPromo')                                                       
-                                                        ->selectRaw('SUM(CASE WHEN ra_activations.tipo = "activacion" THEN ra_activations.amount ELSE 0 END) AS lineaNuevaMoney')
-                                                        ->groupBy('ra_users.id')
-                                                        ->get();
-
+        // $data["promotores"] = DB::connection('corp_pos')->table('ra_distribuidores')
+        //                                                 ->join('ra_users', 'ra_distribuidores.user_id', '=', 'ra_users.id')
+        //                                                 ->leftJoin('ra_activations', 'ra_users.id', '=', 'ra_activations.distribuidor_id')                                                    
+        //                                                 ->where("ra_distribuidores.supervisor", '=', $id_user)
+        //                                                 ->select("ra_users.username AS username", 'ra_users.id AS id')
+        //                                                 ->selectRaw('SUM(CASE WHEN ra_activations.tipo = "portabiilidad" THEN 1 ELSE 0 END) AS portabilidad')
+        //                                                 ->selectRaw('SUM(CASE WHEN ra_activations.tipo = "activacion" THEN 1 ELSE 0 END) AS lineaNueva')
+        //                                                 ->selectRaw('SUM(CASE WHEN ra_activations.tipo = "portabiilidad" THEN ra_activations.amount ELSE 0 END) AS portabilidadMoneyTotal')
+        //                                                 ->selectRaw('SUM(CASE WHEN ra_activations.tipo = "portabiilidad" AND ra_activations.rate != "PROMOCION EXCLUSIVA PORTABILIDAD - $100" THEN ra_activations.amount ELSE 0 END) AS portabilidadMoney')
+        //                                                 ->selectRaw('SUM(CASE WHEN ra_activations.tipo = "portabiilidad" AND ra_activations.rate = "PROMOCION EXCLUSIVA PORTABILIDAD - $100" THEN ra_activations.amount/2 ELSE 0 END) AS portabilidaPromo')                                                       
+        //                                                 ->selectRaw('SUM(CASE WHEN ra_activations.tipo = "activacion" THEN ra_activations.amount ELSE 0 END) AS lineaNuevaMoney')
+        //                                                 ->groupBy('ra_users.id')
+        //                                                 ->get();
+        $data["promotores"] = [];
         
 
-        $data["proyecciones"] = DB::connection('corp_pos')->table('ra_activations')
-                                                          ->selectRaw('COUNT(ra_activations.id) AS lineas ,  ra_distribuidores.supervisor AS supervisor')
-                                                          ->join('ra_distribuidores', 'ra_distribuidores.user_id', '=', 'ra_activations.distribuidor_id')                                                    
-                                                          ->where("ra_distribuidores.supervisor", '!=', '""')
-                                                          ->where("ra_distribuidores.supervisor", '!=', '1')
-                                                          ->whereBetween('ra_activations.created_at', [ $date_start, $date_end ])
-                                                          ->groupBy('ra_distribuidores.supervisor')
-                                                          ->get();
+        // $data["proyecciones"] = DB::connection('corp_pos')->table('ra_activations')
+        //                                                   ->selectRaw('COUNT(ra_activations.id) AS lineas ,  ra_distribuidores.supervisor AS supervisor')
+        //                                                   ->join('ra_distribuidores', 'ra_distribuidores.user_id', '=', 'ra_activations.distribuidor_id')                                                    
+        //                                                   ->where("ra_distribuidores.supervisor", '!=', '""')
+        //                                                   ->where("ra_distribuidores.supervisor", '!=', '1')
+        //                                                   ->whereBetween('ra_activations.created_at', [ $date_start, $date_end ])
+        //                                                   ->groupBy('ra_distribuidores.supervisor')
+        //                                                   ->get();
+
+        $data["proyecciones"] = [];
         
         return view('administration.promotores', $data);
     }
@@ -553,33 +555,35 @@ class AdminController extends Controller
         $date_end = date('Y-m-d', strtotime($request -> date_end));
 
         if($request ->date_send == "true"){
-            $data["promotores"] = DB::connection('corp_pos')->table('ra_distribuidores')
-                                    ->join('ra_users', 'ra_distribuidores.user_id', '=', 'ra_users.id')
-                                    ->leftJoin('ra_activations', 'ra_users.id', '=', 'ra_activations.distribuidor_id')                                                    
-                                    ->where("ra_distribuidores.supervisor", '=', $id_user)
-                                    ->select("ra_users.username AS username", 'ra_users.id AS id')
-                                    ->selectRaw('SUM(CASE WHEN ra_activations.tipo = "portabiilidad" AND ra_activations.created_at BETWEEN "'.$date_start.'" AND "'.$date_end.'" THEN 1 ELSE 0 END) AS portabilidad')
-                                    ->selectRaw('SUM(CASE WHEN ra_activations.tipo = "activacion" AND ra_activations.created_at BETWEEN "'.$date_start.'" AND "'.$date_end.'" THEN 1 ELSE 0 END) AS lineaNueva')
-                                    ->selectRaw('SUM(CASE WHEN ra_activations.tipo = "portabiilidad" AND ra_activations.created_at BETWEEN "'.$date_start.'" AND "'.$date_end.'" THEN ra_activations.amount ELSE 0 END) AS portabilidadMoneyTotal')
-                                    ->selectRaw('SUM(CASE WHEN ra_activations.tipo = "portabiilidad"  AND ra_activations.rate != "PROMOCION EXCLUSIVA PORTABILIDAD - $100" AND ra_activations.created_at BETWEEN "'.$date_start.'" AND "'.$date_end.'" THEN ra_activations.amount ELSE 0 END) AS portabilidadMoney')
-                                    ->selectRaw('SUM(CASE WHEN ra_activations.tipo = "portabiilidad" AND ra_activations.rate = "PROMOCION EXCLUSIVA PORTABILIDAD - $100" AND ra_activations.created_at BETWEEN "'.$date_start.'" AND "'.$date_end.'" THEN ra_activations.amount/2 ELSE 0 END) AS portabilidaPromo')
-                                    ->selectRaw('SUM(CASE WHEN ra_activations.tipo = "activacion" AND ra_activations.created_at BETWEEN "'.$date_start.'" AND "'.$date_end.'" THEN ra_activations.amount ELSE 0 END) AS lineaNuevaMoney')
-                                    ->groupBy('ra_users.id')
-                                    ->get();
+            // $data["promotores"] = DB::connection('corp_pos')->table('ra_distribuidores')
+            //                         ->join('ra_users', 'ra_distribuidores.user_id', '=', 'ra_users.id')
+            //                         ->leftJoin('ra_activations', 'ra_users.id', '=', 'ra_activations.distribuidor_id')                                                    
+            //                         ->where("ra_distribuidores.supervisor", '=', $id_user)
+            //                         ->select("ra_users.username AS username", 'ra_users.id AS id')
+            //                         ->selectRaw('SUM(CASE WHEN ra_activations.tipo = "portabiilidad" AND ra_activations.created_at BETWEEN "'.$date_start.'" AND "'.$date_end.'" THEN 1 ELSE 0 END) AS portabilidad')
+            //                         ->selectRaw('SUM(CASE WHEN ra_activations.tipo = "activacion" AND ra_activations.created_at BETWEEN "'.$date_start.'" AND "'.$date_end.'" THEN 1 ELSE 0 END) AS lineaNueva')
+            //                         ->selectRaw('SUM(CASE WHEN ra_activations.tipo = "portabiilidad" AND ra_activations.created_at BETWEEN "'.$date_start.'" AND "'.$date_end.'" THEN ra_activations.amount ELSE 0 END) AS portabilidadMoneyTotal')
+            //                         ->selectRaw('SUM(CASE WHEN ra_activations.tipo = "portabiilidad"  AND ra_activations.rate != "PROMOCION EXCLUSIVA PORTABILIDAD - $100" AND ra_activations.created_at BETWEEN "'.$date_start.'" AND "'.$date_end.'" THEN ra_activations.amount ELSE 0 END) AS portabilidadMoney')
+            //                         ->selectRaw('SUM(CASE WHEN ra_activations.tipo = "portabiilidad" AND ra_activations.rate = "PROMOCION EXCLUSIVA PORTABILIDAD - $100" AND ra_activations.created_at BETWEEN "'.$date_start.'" AND "'.$date_end.'" THEN ra_activations.amount/2 ELSE 0 END) AS portabilidaPromo')
+            //                         ->selectRaw('SUM(CASE WHEN ra_activations.tipo = "activacion" AND ra_activations.created_at BETWEEN "'.$date_start.'" AND "'.$date_end.'" THEN ra_activations.amount ELSE 0 END) AS lineaNuevaMoney')
+            //                         ->groupBy('ra_users.id')
+            //                         ->get();
+            $data["promotores"] = [];
         }else {
-            $data["promotores"] = DB::connection('corp_pos')->table('ra_distribuidores')
-                                    ->join('ra_users', 'ra_distribuidores.user_id', '=', 'ra_users.id')
-                                    ->leftJoin('ra_activations', 'ra_users.id', '=', 'ra_activations.distribuidor_id')                                                    
-                                    ->where("ra_distribuidores.supervisor", '=', $id_user)
-                                    ->select("ra_users.username AS username", 'ra_users.id AS id')
-                                    ->selectRaw('SUM(CASE WHEN ra_activations.tipo = "portabiilidad" THEN 1 ELSE 0 END) AS portabilidad')
-                                    ->selectRaw('SUM(CASE WHEN ra_activations.tipo = "activacion" THEN 1 ELSE 0 END) AS lineaNueva')
-                                    ->selectRaw('SUM(CASE WHEN ra_activations.tipo = "portabiilidad" THEN ra_activations.amount ELSE 0 END) AS portabilidadMoneyTotal')
-                                    ->selectRaw('SUM(CASE WHEN ra_activations.tipo = "portabiilidad" AND ra_activations.rate != "PROMOCION EXCLUSIVA PORTABILIDAD - $100" THEN ra_activations.amount ELSE 0 END) AS portabilidadMoney')
-                                    ->selectRaw('SUM(CASE WHEN ra_activations.tipo = "portabiilidad" AND ra_activations.rate = "PROMOCION EXCLUSIVA PORTABILIDAD - $100" THEN ra_activations.amount/2 ELSE 0 END) AS portabilidaPromo')
-                                    ->selectRaw('SUM(CASE WHEN ra_activations.tipo = "activacion" THEN ra_activations.amount ELSE 0 END) AS lineaNuevaMoney')
-                                    ->groupBy('ra_users.id')
-                                    ->get();
+            // $data["promotores"] = DB::connection('corp_pos')->table('ra_distribuidores')
+            //                         ->join('ra_users', 'ra_distribuidores.user_id', '=', 'ra_users.id')
+            //                         ->leftJoin('ra_activations', 'ra_users.id', '=', 'ra_activations.distribuidor_id')                                                    
+            //                         ->where("ra_distribuidores.supervisor", '=', $id_user)
+            //                         ->select("ra_users.username AS username", 'ra_users.id AS id')
+            //                         ->selectRaw('SUM(CASE WHEN ra_activations.tipo = "portabiilidad" THEN 1 ELSE 0 END) AS portabilidad')
+            //                         ->selectRaw('SUM(CASE WHEN ra_activations.tipo = "activacion" THEN 1 ELSE 0 END) AS lineaNueva')
+            //                         ->selectRaw('SUM(CASE WHEN ra_activations.tipo = "portabiilidad" THEN ra_activations.amount ELSE 0 END) AS portabilidadMoneyTotal')
+            //                         ->selectRaw('SUM(CASE WHEN ra_activations.tipo = "portabiilidad" AND ra_activations.rate != "PROMOCION EXCLUSIVA PORTABILIDAD - $100" THEN ra_activations.amount ELSE 0 END) AS portabilidadMoney')
+            //                         ->selectRaw('SUM(CASE WHEN ra_activations.tipo = "portabiilidad" AND ra_activations.rate = "PROMOCION EXCLUSIVA PORTABILIDAD - $100" THEN ra_activations.amount/2 ELSE 0 END) AS portabilidaPromo')
+            //                         ->selectRaw('SUM(CASE WHEN ra_activations.tipo = "activacion" THEN ra_activations.amount ELSE 0 END) AS lineaNuevaMoney')
+            //                         ->groupBy('ra_users.id')
+            //                         ->get();
+            $data["promotores"] = [];
         }
 
         return $data;
@@ -590,18 +594,21 @@ class AdminController extends Controller
         $date_end = date('Y-m-d', strtotime($request -> date_end));
         $id_distribuidor = $request->distribuidor;
         if($request ->date_send == "true"){
-            $data["portas"] = DB::connection('corp_pos')->table('ra_activations')
-                                    ->select('amount', 'date', 'rate', 'company', 'msisdn', 'icc', 'cliente', 'product', 'tipo')
-                                    ->where("distribuidor_id", '=', $id_distribuidor)
-                                    ->whereBetween('ra_activations.created_at', [ $date_start, $date_end ])
-                                    ->orderBy('date', 'DESC')
-                                    ->get();
+            // $data["portas"] = DB::connection('corp_pos')->table('ra_activations')
+            //                         ->select('amount', 'date', 'rate', 'company', 'msisdn', 'icc', 'cliente', 'product', 'tipo')
+            //                         ->where("distribuidor_id", '=', $id_distribuidor)
+            //                         ->whereBetween('ra_activations.created_at', [ $date_start, $date_end ])
+            //                         ->orderBy('date', 'DESC')
+            //                         ->get();
+            $data["portas"] = [];
+
         }else {
-            $data["portas"] = DB::connection('corp_pos')->table('ra_activations')
-                                    ->select('amount', 'date', 'rate', 'company', 'icc', 'msisdn', 'cliente', 'product', 'tipo')
-                                    ->where("distribuidor_id", '=', $id_distribuidor)    
-                                    ->orderBy('date', 'DESC')                             
-                                    ->get();
+            // $data["portas"] = DB::connection('corp_pos')->table('ra_activations')
+            //                         ->select('amount', 'date', 'rate', 'company', 'icc', 'msisdn', 'cliente', 'product', 'tipo')
+            //                         ->where("distribuidor_id", '=', $id_distribuidor)    
+            //                         ->orderBy('date', 'DESC')                             
+            //                         ->get();
+            $data["portas"] = [];
         }                            
         return $data;
     }
