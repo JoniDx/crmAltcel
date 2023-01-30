@@ -134,7 +134,8 @@ class ActivationController extends Controller
     }
 
     public function activationGeneral(Request $request) {
-        $scheduleDate = $request->get('scheduleDate');
+        $scheduleDate = $request->get('scheduleDateFirst');
+        $dateActivation = str_replace('-', '' ,$scheduleDate);
         $offer_id = $request->get('offer_id');
         $rate_id = $request->get('rate_id');
         $rate_recurrency = $request->get('rate_recurrency');
@@ -143,7 +144,7 @@ class ActivationController extends Controller
         $mac_address = $request->get('mac_address');
         $icc_id = $request->get('icc_id');
         $msisdn = $request->get('msisdn');
-        $price = $request->get('price');
+        $price = $request->get('amount');
         $price_rate = $request->get('price_rate');
         $price_device = $request->get('price_device');
         $clientName = $request->get('name');
@@ -157,29 +158,13 @@ class ActivationController extends Controller
         $date_born = $request->get('date_born');
         $sim_altcel = $request->get('sim_altcel');
         $user_id = $request->get('who_did_id');
-        $lat_hbb = $request->get('lat_hbb');
-        $lng_hbb = $request->get('lng_hbb');
-        $product = $request->get('product');
-
-        // Datos de Cliente Child
-        $name_child = $request->get('name_child');
-        $lastname_child = $request->get('lastname_child');
-        $email_child = $request->get('email_child');
-        $rfc_child = $request->get('rfc_child');
-        $date_born_child = $request->get('date_born_child');
-        $ine_code_child = $request->get('ine_code_child');
-        $cellphone_child = $request->get('cellphone_child');
-        $address_child = $request->get('address_child');
-        $type_person = $request->get('type_person');
-        $email_not = $request->get('email_not');
-        $activate_bool = $request->get('activate_bool');
         $status = $request->get('statusActivation');
+        $product = $request->get('product');
+        $promo_bool = $request->get('promo_bool');
         $petition = $request->get('petition');
         $flag_rate = $request->get('flag_rate');
         $rate_subsequent = $request->get('rate_subsequent');
-        $promo_boolean = $request->get('promo_boolean');
-        
-        $request = request()->except('_token','offer_id','rate_id','imei','icc_id','msisdn','from','name','lastname','email','email_not','activate_bool','scheduleDate','petition','promo_boolean','flag_rate','rate_subsequent');
+        $activate_bool = 0;
         
         $number = Number::where('icc_id',$icc_id)->where('MSISDN',$msisdn)->first();
         $number_id = $number->id;
@@ -193,25 +178,13 @@ class ActivationController extends Controller
         if($number_status == 'taken'){
             return 0;
         }
-        // Notificación y envío de datos a Altcel en Plan Alianza
-        if($sim_altcel != 'nothing'){
-            $now = now();
-            $x = ActivationController::sendToAltcel($clientName,$clientLastname,$address,$ine_code,$msisdn,$sim_altcel,$pack_id,$now);
-            if($x != 'true'){
-                // $r = '';
-                // if(isset($x['simAltcel'])){
-                //     $r = $x['simAltcel'];
-                // }
-                return $x;
-            }
-        }
 
         if($status == 'activated'){
             if($activate_bool == 0){
                 $accessToken = app('App\Http\Controllers\AltanController')->accessTokenRequestPost();
                 if($accessToken['status'] == 'approved'){
                     $accessToken = $accessToken['accessToken'];
-                    $activationAltan = app('App\Http\Controllers\AltanController')->activationRequestPost($accessToken,$msisdn,$offer_id,$lat_hbb,$lng_hbb,$product,$scheduleDate);
+                    $activationAltan = app('App\Http\Controllers\AltanController')->activationRequestPost($accessToken,$msisdn,$offer_id,$product,$dateActivation);
                     // return $activationAltan;
                     if($activationAltan['msisdn'] == $msisdn){
                         // $data["order"] = $activationAltan["order"]["id"];
@@ -227,9 +200,9 @@ class ActivationController extends Controller
         }
             
             // Verificar existencia de cliente en DB
-            $flag = User::where('email','=',$email)->exists();
+            $flag = Client::where('email','=',$email)->exists();
             if($flag){
-                $clientData = User::where('email',$email)->first();
+                $clientData = Client::where('email',$email)->first();
                 $idClient = $clientData->id;
             }else{
                 $namePass = ActivationController::exceptSpecials($clientName);
@@ -245,7 +218,7 @@ class ActivationController extends Controller
                     'role_id' => 3,
                 ]);
 
-                $idClient = User::where('email',$email)->first();
+                $idClient = Client::where('email',$email)->first();
                 $idClient = $idClient->id;
 
                 Client::insert([
@@ -270,48 +243,12 @@ class ActivationController extends Controller
             $offer_id = $offer_id->id;
 
             // Actualización de status de Dispositivo en DB
-            if($imei != 'null'){
+            if($imei != null){
                 Device::where('no_serie_imei','like','%'.$imei.'%')->update(['status'=>'taken']);
                 $device_id = Device::where('no_serie_imei','like','%'.$imei.'%')->first();
                 $device_id = $device_id->id;
             }else{
                 $device_id = null;
-            }
-
-            // Verificación de existencia de Clientson
-            if($type_person == 'moral'){
-                $client_son = Clientsson::where('rfc','=',$rfc_child)->exists();
-            }else{
-                $client_son = Clientsson::where('email','=',$email_child)->exists();
-            }
-
-            // Inserción/Extracción de id de Clientson, según status de existencia (true/false)
-            if($client_son){
-                if($type_person == 'moral'){
-                    $client_son = Clientsson::where('rfc','=',$rfc_child)->first();
-                }else{
-                    $client_son = Clientsson::where('email','=',$email_child)->first();
-                }
-                $client_son_id = $client_son->id;
-            }else{
-                Clientsson::insert([
-                    'name' => $name_child,
-                    'lastname' => $lastname_child,
-                    'rfc' => $rfc_child,
-                    'date_born' => $date_born_child,
-                    'address' => $address_child,
-                    'email' => $email_child,
-                    'ine_code' => $ine_code_child,
-                    'cellphone' => $cellphone_child,
-                    'type_person' => $type_person
-                ]);
-
-                if($type_person == 'moral'){
-                    $client_son = Clientsson::where('rfc','=',$rfc_child)->first();
-                }else{
-                    $client_son = Clientsson::where('email','=',$email_child)->first();
-                }
-                $client_son_id = $client_son->id;
             }
 
             
@@ -335,9 +272,6 @@ class ActivationController extends Controller
                 'amount' => $price,
                 'amount_rate' => $price_rate,
                 'amount_device' => $price_device,
-                'clientson_id' => $client_son_id,
-                'lat_hbb' => $lat_hbb,
-                'lng_hbb' => $lng_hbb,
                 'payment_status' => 'pendiente',
                 'status' => $status,
                 'petition_id' => $petition,
@@ -362,9 +296,9 @@ class ActivationController extends Controller
                 $response = Http::withHeaders([
                     'Conten-Type'=>'application/json'
                 ])->get('http://10.44.0.70/petitions-notifications',[
-                    'name'=> $name_child,
-                    'lastname'=>$lastname_child,
-                    'correo'=> $email_child,
+                    'name'=> $name,
+                    'lastname'=>$lastname,
+                    'correo'=> $email,
                     'comment'=>$comment[0]->comment,
                     'status'=>'activado',
                     'remitente'=>$name_remitente,
@@ -377,7 +311,7 @@ class ActivationController extends Controller
             $activationID = Activation::latest('id')->first();
             $activationID = $activationID->id;
 
-            if($promo_boolean == 1){
+            if($promo_bool == 1){
                 $dataRate = Rate::where('id',$rate_id)->first();
                 $promotion_id = $dataRate->promotion_id;
 
@@ -388,15 +322,6 @@ class ActivationController extends Controller
                 Promotion::where('id',$promotion_id)->update([
                     'device_quantity' => $device_quantity
                 ]);
-            }
-
-            if($sim_altcel != 'nothing'){
-                Simexternal::insert([
-                    'sim_altcel' => $sim_altcel,
-                    'activation_id' => $activationID,
-                    'client_id' => $idClient
-                ]);
-
             }
 
             if($from == 'promoters'){
@@ -625,23 +550,6 @@ class ActivationController extends Controller
         return $response;
     }
 
-    public function sendToAltcel($clientName,$clientLastname,$clientAddress,$clientIneCode,$MSISDN,$simAltcel,$pack,$now){
-        $url_altcel = "187.217.216.242/webhook/formulario";
-
-        $response = Http::post($url_altcel,[
-            "clientData" => array(
-                "clientName" => $clientName,
-                "clientLastname" => $clientLastname,
-                "clientAddress" => $clientAddress,
-                "clientIneCode" => $clientIneCode
-            ),
-            "simAltcel" => $simAltcel,
-            "MSISDNAltcel2" => $MSISDN,
-            "pack" => $pack,
-            "createDate" => $now
-        ]);
-        return $response->json();
-    }
 
     public function exceptSpecials($string){
         

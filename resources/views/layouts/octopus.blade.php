@@ -343,13 +343,13 @@
                 <!-- Final Notificaciones -->
 
                 <span class="separator"></span>
-                @guest
+                {{-- @guest
                 @else
                     @php
                         $cargo =  \App\Role::where('id',Auth::user()->role_id)->first();
                         $cargo = $cargo->rol
                     @endphp
-                @endguest
+                @endguest --}}
 
                 <div id="userbox" class="userbox">
                     <a href="#" data-toggle="dropdown">
@@ -359,7 +359,7 @@
                         </figure>
                         <div class="profile-info" data-lock-name="John Doe" data-lock-email="johndoe@JSOFT.com">
                             <span class="name">{{Auth::user()->name.' '.Auth::user()->lastname}}</span>
-                            <span class="role">Perfil: {{$cargo}}</span>
+                            {{-- <span class="role">Perfil: {{$cargo}}</span> --}}
                         </div>
 
                         <i class="fa custom-caret"></i>
@@ -459,6 +459,17 @@
                                             </li>
                                             <li>
                                                 <a href="{{route('linePorta')}}">Lineas Nuevas y Portabilidades</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="nav-parent">
+                                        <a>
+                                            <i class="fa fa-money" aria-hidden="true"></i>
+                                            <span>Activaciones</span>
+                                        </a>
+                                        <ul class="nav nav-children">
+                                            <li>
+                                                <a href="{{route('activations.create')}}">Nueva Activación</a>
                                             </li>
                                         </ul>
                                     </li>

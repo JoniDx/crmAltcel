@@ -32,25 +32,24 @@ use App\Exports\ReportsPaymentsPurchases;
 class ClientController extends Controller
 {
     public function index(){
-        $data['clients'] = DB::table('users')
-                              ->join('activations','activations.client_id','=','users.id')
+        $data['clients'] = DB::table('clients')
+                              ->join('activations','activations.client_id','=','clients.id')
                               ->join('numbers','numbers.id','=','activations.numbers_id')
                               ->join('rates','rates.id','=','activations.rate_id')
                               ->leftJoin('devices','devices.id','=','activations.devices_id')
-                              ->leftJoin('clients','clients.user_id','=','users.id')
                               ->where('activations.deleted_at','=',null)
-                              ->select('users.name AS name','users.lastname AS lastname',
+                              ->select('clients.name AS name','clients.lastname AS lastname',
                               'clients.cellphone AS cellphone','numbers.id AS id_dn','numbers.MSISDN AS MSISDN',
                               'numbers.producto AS service','devices.no_serie_imei AS imei',
                               'rates.name AS rate_name','rates.price_subsequent AS amount_rate','activations.date_activation AS date_activation','activations.amount_device AS amount_device','numbers.icc_id AS icc',
                               'numbers.traffic_outbound AS traffic_outbound','numbers.traffic_outbound_incoming AS traffic_outbound_incoming','numbers.status_altan AS status_altan','activations.expire_date AS date_expire',
                               'activations.serial_number AS serial_number','activations.id AS id_act','activations.mac_address AS mac', 'numbers.ported AS portado')
                               ->get();
-        $data['clientsTwo'] = DB::table('users')
-                                 ->join('instalations','instalations.client_id','=','users.id')
+        $data['clientsTwo'] = DB::table('clients')
+                                 ->join('instalations','instalations.client_id','=','clients.id')
                                  ->join('packs','packs.id','=','instalations.pack_id')
-                                 ->leftJoin('clients','clients.user_id','=','users.id')
-                                 ->select('users.name AS name','users.lastname AS lastname',
+                                //  ->leftJoin('clients','clients.user_id','=','users.id')
+                                 ->select('clients.name AS name','clients.lastname AS lastname',
                                  'clients.cellphone AS cellphone','instalations.number AS number',
                                  'packs.name AS pack_name','packs.price AS amount_pack',
                                  'packs.service_name AS service','instalations.date_instalation','instalations.amount_install AS amount_install','instalations.serial_number AS serial_number')
@@ -70,16 +69,16 @@ class ClientController extends Controller
         $date_end = date('Y-m-d', strtotime($request -> date_end)); 
         
         if($request ->date_send == "true"){
-            $data['clients'] = DB::table('users')
-                                ->join('activations','activations.client_id','=','users.id')
+            $data['clients'] = DB::table('clients')
+                                ->join('activations','activations.client_id','=','clients.id')
                                 ->join('numbers','numbers.id','=','activations.numbers_id')
                                 ->join('rates','rates.id','=','activations.rate_id')
                                 ->leftJoin('devices','devices.id','=','activations.devices_id')
-                                ->leftJoin('clients','clients.user_id','=','users.id')
+                                // ->leftJoin('clients','clients.user_id','=','users.id')
                                 ->where('activations.deleted_at','=',null)
                                 ->where('activations.offer_id','=', $request->plan)
                                 ->whereBetween('activations.date_activation', [ $date_start, $date_end ])
-                                ->select('users.name AS name','users.lastname AS lastname',
+                                ->select('clients.name AS name','clients.lastname AS lastname',
                                 'clients.cellphone AS cellphone','numbers.id AS id_dn','numbers.MSISDN AS MSISDN',
                                 'numbers.producto AS service','devices.no_serie_imei AS imei',
                                 'rates.name AS rate_name','rates.price_subsequent AS amount_rate','activations.date_activation AS date_activation','activations.amount_device AS amount_device','numbers.icc_id AS icc',
@@ -87,15 +86,15 @@ class ClientController extends Controller
                                 'activations.serial_number AS serial_number','activations.id AS id_act','activations.mac_address AS mac')
                                 ->get();
         }else{
-            $data['clients'] = DB::table('users')
-                                ->join('activations','activations.client_id','=','users.id')
+            $data['clients'] = DB::table('clients')
+                                ->join('activations','activations.client_id','=','clients.id')
                                 ->join('numbers','numbers.id','=','activations.numbers_id')
                                 ->join('rates','rates.id','=','activations.rate_id')
                                 ->leftJoin('devices','devices.id','=','activations.devices_id')
-                                ->leftJoin('clients','clients.user_id','=','users.id')
+                                // ->leftJoin('clients','clients.user_id','=','users.id')
                                 ->where('activations.deleted_at','=',null)
                                 ->where('activations.offer_id','=', $request->plan)
-                                ->select('users.name AS name','users.lastname AS lastname',
+                                ->select('clients.name AS name','clients.lastname AS lastname',
                                 'clients.cellphone AS cellphone','numbers.id AS id_dn','numbers.MSISDN AS MSISDN',
                                 'numbers.producto AS service','devices.no_serie_imei AS imei',
                                 'rates.name AS rate_name','rates.price_subsequent AS amount_rate','activations.date_activation AS date_activation','activations.amount_device AS amount_device','numbers.icc_id AS icc',
@@ -125,15 +124,15 @@ class ClientController extends Controller
         //                       ->select('users.*','clients.cellphone AS client_phone','clients.rfc AS RFC','clients.address AS client_address')
         //                       ->get();
         
-        $data['clients'] = DB::table('users')
-                          ->leftJoin('activations','activations.client_id','=','users.id')
-                          ->leftJoin('instalations','instalations.client_id','=','users.id')
-                          ->leftJoin('clients','clients.user_id','=','users.id')
+        $data['clients'] = DB::table('clients')
+                          ->leftJoin('activations','activations.client_id','=','clients.id')
+                          ->leftJoin('instalations','instalations.client_id','=','clients.id')
+                        //   ->leftJoin('clients','clients.user_id','=','users.id')
                           ->where('activations.deleted_at','=',null)
                           ->where('activations.client_id','!=',null)
                           ->where('activations.deleted_at','=',null)
                           ->orWhere('instalations.client_id','!=',null)
-                          ->select('users.*','clients.cellphone AS client_phone','clients.rfc AS RFC','clients.address AS client_address')
+                          ->select('clients.*')
                           ->distinct()
                           ->get();
         // return $data['clients'];
@@ -144,7 +143,7 @@ class ClientController extends Controller
     }
 
     public function clientDetails($id){
-        $clientData = User::where('id',$id)->first();
+        $clientData = Client::where('id',$id)->first();
 
         $data['mypays'] = DB::table('pays')
                              ->join('activations','activations.id','=','pays.activation_id')
@@ -195,11 +194,12 @@ class ClientController extends Controller
                                    ->get();
         $data['client_id'] = $id;
         $data['client_name'] = $clientData->name.' '.$clientData->lastname;
-        $data['clients'] = DB::table('users')
-                              ->join('clients','clients.user_id','=','users.id')
-                              ->select('users.*')
-                              ->orderBy('users.name','asc')
-                              ->get();
+        // $data['clients'] = DB::table('users')
+        //                       ->join('clients','clients.user_id','=','users.id')
+        //                       ->select('users.*')
+        //                       ->orderBy('users.name','asc')
+        //                       ->get();
+        $data['clients'] = $clientData;
         // return $data['completemy2pays'];
         return view('clients.clientDetails',$data);
     }
@@ -230,11 +230,10 @@ class ClientController extends Controller
 
     public function searchClients(Request $request){
         $term = $request->get('term');
-        $querys = DB::table('users')
-                        ->leftJoin('clients', 'clients.user_id', '=', 'users.id')
-                        ->where('users.name', 'LIKE', '%'. $term. '%')
-                        ->orWhere('users.email','LIKE','%'. $term. '%')
-                        ->select('clients.*','users.name','users.lastname','users.email','users.id as user_id')
+        $querys = DB::table('clients')
+                        ->where('name', 'LIKE', '%'. $term. '%')
+                        ->orWhere('email','LIKE','%'. $term. '%')
+                        ->select('clients.*')
                         ->get();
 
         return $querys;
@@ -253,11 +252,12 @@ class ClientController extends Controller
     public function generateReference($id,$type,$user_id){
         $current_role = auth()->user()->role_id;
         $employe_id = $current_role == 3 ? 'null' : auth()->user()->id;
-        $user = DB::table('users')
-                   ->join('clients','clients.user_id','=','users.id')
-                   ->where('users.id',$user_id)
-                   ->select('users.*','clients.cellphone AS client_cellphone')
-                   ->get();
+        // $user = DB::table('users')
+        //            ->join('clients','clients.user_id','=','users.id')
+        //            ->where('users.id',$user_id)
+        //            ->select('users.*','clients.cellphone AS client_cellphone')
+        //            ->get();
+        $user = DB::table('users')->where('clients.id', $user_id)->select('clients.*')->get();
         $user_name = $user[0]->name;
         $user_lastname = $user[0]->lastname;
         $user_email = $user[0]->email;
@@ -294,8 +294,6 @@ class ClientController extends Controller
             $channels =  Channel::all();
             if($type == 'MIFI'){
                 $concepto = 'MIFI';
-            }else if($type == 'HBB'){
-                $concepto = 'HBB';
             }else if($type == 'MOV'){
                 $concepto = 'de Telefonía Celular (Movilidad)';
             }
@@ -510,9 +508,9 @@ class ClientController extends Controller
                         Activation::where('numbers_id',$number_id)->update(['expire_date'=>$expire_date]);
                     }
     
-                    if($service = 'HBB'){
-                        Activation::where('numbers_id',$number_id)->update(['expire_date'=>$expire_date,'lat_hbb'=>$lat_hbb,'lng_hbb'=>$lng_hbb]);
-                    }
+                    // if($service = 'HBB'){
+                    //     Activation::where('numbers_id',$number_id)->update(['expire_date'=>$expire_date,'lat_hbb'=>$lat_hbb,'lng_hbb'=>$lng_hbb]);
+                    // }
                 }else if($status == 'Suspend (B2W)'){
                     Number::where('id',$number_id)->update([
                         'traffic_outbound' => 'activo',
@@ -522,9 +520,9 @@ class ClientController extends Controller
                     if($service = 'MIFI'){
                         Activation::where('numbers_id',$number_id)->update(['expire_date'=>$expire_date]);
                     }
-                    if($service = 'HBB'){
-                        Activation::where('numbers_id',$number_id)->update(['expire_date'=>$expire_date,'lat_hbb'=>$lat_hbb,'lng_hbb'=>$lng_hbb]);
-                    }
+                    // if($service = 'HBB'){
+                    //     Activation::where('numbers_id',$number_id)->update(['expire_date'=>$expire_date,'lat_hbb'=>$lat_hbb,'lng_hbb'=>$lng_hbb]);
+                    // }
                 }else if($status == 'Predeactivate'){
                     Number::where('id',$number_id)->update([
                         'traffic_outbound' => 'activo',
@@ -922,16 +920,16 @@ class ClientController extends Controller
                ->select('users.id AS user_id','users.name','users.lastname','users.email','clients.address AS address','clients.cellphone AS phone','clients.who_did_id AS who_added','clients.interests AS interests')
                ->get();
 
-        $newsHBB = DB::table('users')
-                          ->leftJoin('activations','activations.client_id','=','users.id')
-                          ->leftJoin('instalations','instalations.client_id','=','users.id')
-                          ->join('clients','clients.user_id','=','users.id')
-                          ->where('role_id',3)
-                          ->where('activations.client_id',null)
-                          ->where('instalations.client_id',null)
-                          ->where('clients.interests','HBB')
-                          ->select('users.name','users.lastname','users.email','clients.address AS address','clients.cellphone AS phone','clients.who_did_id AS who_added','clients.interests AS interests')
-                          ->get();
+        // $newsHBB = DB::table('users')
+        //                   ->leftJoin('activations','activations.client_id','=','users.id')
+        //                   ->leftJoin('instalations','instalations.client_id','=','users.id')
+        //                   ->join('clients','clients.user_id','=','users.id')
+        //                   ->where('role_id',3)
+        //                   ->where('activations.client_id',null)
+        //                   ->where('instalations.client_id',null)
+        //                   ->where('clients.interests','HBB')
+        //                   ->select('users.name','users.lastname','users.email','clients.address AS address','clients.cellphone AS phone','clients.who_did_id AS who_added','clients.interests AS interests')
+        //                   ->get();
 
         $newsMIFI = DB::table('users')
                           ->leftJoin('activations','activations.client_id','=','users.id')
@@ -1353,12 +1351,12 @@ class ClientController extends Controller
 
         $response = DB::table('numbers')
                        ->join('activations','activations.numbers_id','=','numbers.id')
-                       ->join('users','users.id','=','activations.client_id')
-                       ->join('clients','clients.user_id','=','users.id')
+                       ->join('clients','clients.id','=','activations.client_id')
+                    //    ->join('clients','clients.user_id','=','clients.id')
                        ->where('numbers.id',$number_id)
-                       ->select('users.name AS name','users.lastname AS lastname',
-                       'users.email AS email','clients.cellphone AS cellphone',
-                       'users.id AS client_id','numbers.id AS number_id')
+                       ->select('clients.name AS name','clients.lastname AS lastname',
+                       'clients.email AS email','clients.cellphone AS cellphone',
+                       'clients.id AS client_id','numbers.id AS number_id')
                        ->get();
 
         $response = $response[0];
@@ -1366,13 +1364,13 @@ class ClientController extends Controller
     }
 
     public function reports(Request $request){
-        $data['clients'] = DB::table('users')
-                              ->join('activations','activations.client_id','=','users.id')
+        $data['clients'] = DB::table('clients')
+                              ->join('activations','activations.client_id','=','clients.id')
                               ->join('numbers','numbers.id','=','activations.numbers_id')
                               ->join('rates','rates.id','=','activations.rate_id')
                               ->leftJoin('devices','devices.id','=','activations.devices_id')
-                              ->leftJoin('clients','clients.user_id','=','users.id')
-                              ->select('users.name AS name','users.lastname AS lastname',
+                            //   ->leftJoin('clients','clients.user_id','=','clients.id')
+                              ->select('clients.name AS name','clients.lastname AS lastname',
                               'clients.cellphone AS cellphone','numbers.MSISDN AS MSISDN',
                               'numbers.producto AS service','devices.no_serie_imei AS imei',
                               'rates.name AS rate_name','rates.price_subsequent AS amount_rate','activations.date_activation AS date_activation','activations.amount_device AS amount_device')
@@ -1634,120 +1632,6 @@ class ClientController extends Controller
 
     }
 
-    public function reportLinePorta(Request $request){
-        if(isset($request['start']) && isset($request['end'])){
-            if($request['start'] != null && $request['end'] != null){
-                $product = $request->type;
-                $date_start = $request['start'];
-                $date_end = $request['end'];
-                $año = substr($date_start, -4);
-                $mes = substr($date_start, 0,2);
-                $dia = substr($date_start, 3, -5);
-                $dateStart = $año. '-'. $mes.'-'.$dia;
-                $añoEnd = substr($date_end, -4);
-                $mesEnd = substr($date_end, 0,2);
-                $diaEnd = substr($date_end, 3, -5);
-                $dateEnd = $añoEnd. '-'. $mesEnd.'-'.$diaEnd;
-
-                if ($product == 'New') {
-                    $data['linesNews'] = DB::connection('corp_pos')->table('ra_activations')->leftJoin('ra_users','ra_users.id','=','ra_activations.distribuidor_id')->where('ra_activations.tipo', 'activacion')->whereBetween('ra_activations.date',[$dateStart,$dateEnd])->where('ra_activations.product', 'MOV')->select('ra_activations.*','ra_users.username','ra_users.first_name','ra_users.last_name','ra_users.wholesaler')->get();
-
-                    $completeds = Portability::all();
-                    $arrayCompleted = [];
-
-
-                    foreach ($completeds as $completed) {
-                        $who_did_it = User::where('id',$completed->who_did_it)->first();
-                        $who_attended = User::where('id',$completed->who_attended)->first();
-                        $client = User::where('id',$completed->client_id)->first();
-                        $client_data = Client::where('user_id',$completed->client_id)->first();
-                        // return $client_data->address;
-                        $rate = Rate::where('id','=',$completed->rate_id)->first();
-                        array_push($arrayCompleted,array(
-                            'msisdnPorted' => $completed->msisdnPorted,
-                            'icc' => $completed->icc,
-                            'msisdnTransitory' => $completed->msisdnTransitory,
-                            'date' => $completed->date,
-                            'approvedDateABD' => $completed->approvedDateABD,
-                            'nip' => $completed->nip,
-                            'client' => $client->name.' '.$client->lastname,
-                            'who_did_it' => $completed->dealer_username == null ? 'N/A' : $completed->dealer_username,
-                            'who_attended' => $who_attended = $who_attended == null ? 'N/A' : $who_attended->name.' '.$who_attended->lastname,
-                            'name_rate' => $rate->name,
-                            'amount' => number_format($rate->price,2)
-                        ));
-                    }
-                    $data['portabilitys'] = $arrayCompleted;
-                    return view('clients.lineNewPort', $data);
-
-                }else if ($product == 'Porta') {
-                    $data['linesNews'] = DB::connection('corp_pos')->table('ra_activations')->leftJoin('ra_users','ra_users.id','=','ra_activations.distribuidor_id')->where('ra_activations.tipo', 'activacion')->where('ra_activations.product', 'MOV')->select('ra_activations.*','ra_users.username','ra_users.first_name','ra_users.last_name','ra_users.wholesaler')->get();
-
-                    $completeds = Portability::all()->whereBetween('created_at',[$dateStart,$dateEnd]);
-                    $arrayCompleted = [];
-
-                    foreach ($completeds as $completed) {
-                        $who_did_it = User::where('id',$completed->who_did_it)->first();
-                        $who_attended = User::where('id',$completed->who_attended)->first();
-                        $client = User::where('id',$completed->client_id)->first();
-                        $client_data = Client::where('user_id',$completed->client_id)->first();
-                        // return $client_data->address;
-                        $rate = Rate::where('id','=',$completed->rate_id)->first();
-                        array_push($arrayCompleted,array(
-                            'msisdnPorted' => $completed->msisdnPorted,
-                            'icc' => $completed->icc,
-                            'msisdnTransitory' => $completed->msisdnTransitory,
-                            'date' => $completed->date,
-                            'approvedDateABD' => $completed->approvedDateABD,
-                            'nip' => $completed->nip,
-                            'client' => $client->name.' '.$client->lastname,
-                            'who_did_it' => $completed->dealer_username == null ? 'N/A' : $completed->dealer_username,
-                            'who_attended' => $who_attended = $who_attended == null ? 'N/A' : $who_attended->name.' '.$who_attended->lastname,
-                            'name_rate' => $rate->name,
-                            'amount' => number_format($rate->price,2)
-                        ));
-                    }
-                    $data['portabilitys'] = $arrayCompleted;
-                    return view('clients.lineNewPort', $data);
-                }
-            }
-        }else{
-            $completeds = Portability::all();
-            // return $completeds;
-            $data['linesNews'] = DB::connection('corp_pos')->table('ra_activations')->leftJoin('ra_users','ra_users.id','=','ra_activations.distribuidor_id')->where('ra_activations.tipo', 'activacion')->where('ra_activations.product', 'MOV')->select('ra_activations.*','ra_users.username','ra_users.first_name','ra_users.last_name','ra_users.wholesaler')->get();
-            // return $data['linesNews'];
-            $arrayCompleted = [];
-
-
-            foreach ($completeds as $completed) {
-                $who_did_it = User::where('id',$completed->who_did_it)->first();
-                $who_attended = User::where('id',$completed->who_attended)->first();
-                $client = User::where('id',$completed->client_id)->first();
-                $client_data = Client::where('user_id',$completed->client_id)->first();
-                // return $client_data->address;
-                $rate = Rate::where('id','=',$completed->rate_id)->first();
-                array_push($arrayCompleted,array(
-                    'msisdnPorted' => $completed->msisdnPorted,
-                    'icc' => $completed->icc,
-                    'msisdnTransitory' => $completed->msisdnTransitory,
-                    'date' => $completed->date,
-                    'approvedDateABD' => $completed->approvedDateABD,
-                    'nip' => $completed->nip,
-                    'client' => $client->name.' '.$client->lastname,
-                    'who_did_it' => $completed->dealer_username == null ? 'N/A' : $completed->dealer_username,
-                    'who_attended' => $who_attended = $who_attended == null ? 'N/A' : $who_attended->name.' '.$who_attended->lastname,
-                    'name_rate' => $rate->name,
-                    'amount' => number_format($rate->price,2)
-                ));
-            }
-            $data['portabilitys'] = $arrayCompleted;
-            // return $data['completeds'];
-
-            return view('clients.lineNewPort', $data);
-        }
-                
-    }
-
     public function preRegistro(){
         return view('clients.preRegistro');
     }
@@ -1856,5 +1740,26 @@ class ClientController extends Controller
                                             
         return view('clients.rechargeCliens', $data);
 
+    }
+
+    public function createClient(Request $request){
+        $name = $request->get('name');
+        $lastname = $request->get('lastname');
+        $address = $request->get('address');
+        $email = $request->get('email');
+        $phone = $request->get('phone');
+        $rfc = $request->get('rfc');
+        $date_born = $request->get('date_born');
+
+        $x = Client::insert([
+            'name' => $name,
+            'lastname' => $lastname,
+            'email' => $email,
+            'address' => $address,
+            'rfc' => $rfc,
+            'date_born' => $date_born,
+            'cellphone' => $phone
+        ]);
+        return $x;
     }
 }

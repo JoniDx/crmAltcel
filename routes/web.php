@@ -314,3 +314,6 @@ Route::get('/consumos-roots','ConsumptionController@index');
 Route::get('/numPortado', 'PortabilityController@portado')->name('numPortado');
 Route::get('/rechargeDealer', 'PortabilityController@rechargeDealer')->name('rechargeDealer');
 Route::get('/recharge-veracruz', 'ClientController@rechargeVeracruz')->name('recharge-veracruz');
+
+//add client
+Route::get('/create-client', 'ClientController@createClient')->name('create-client');

@@ -30,32 +30,19 @@ class AltanController extends Controller
         return $response->json();
     }
 
-    public function activationRequestPost($accessToken,$MSISDN,$offerID,$lat_hbb,$lng_hbb,$product,$scheduleDate){
+    public function activationRequestPost($accessToken,$MSISDN,$offerID,$product,$dateActivation){
         // return $accessToken.' - '.$MSISDN.' - '.$offerID;
-        // $url_prelaunch = "https://altanredes-prod.apigee.net/cm-sandbox/v1/subscribers/".$MSISDN."/activate";
-        $url_production = "https://altanredes-prod.apigee.net/cm/v1/subscribers/".$MSISDN."/activate";
-        if($product == 'HBB'){
+        $url_prelaunch = "https://altanredes-prod.apigee.net/cm-sandbox/v1/subscribers/".$MSISDN."/activate";
+        // $url_production = "https://altanredes-prod.apigee.net/cm/v1/subscribers/".$MSISDN."/activate";
             $response = Http::withHeaders([
                 'Authorization' => 'Bearer '.$accessToken
-            ])->post($url_production,[
-                "offeringId" => $offerID,
-                "address" => $lat_hbb.",".$lng_hbb,
-                "startEffectiveDate" => "",
-                "expireEffectiveDate" => "",
-                "scheduleDate" => $scheduleDate,
-                "idPoS" => ""
-            ]);
-        }else{
-            $response = Http::withHeaders([
-                'Authorization' => 'Bearer '.$accessToken
-            ])->post($url_production,[
+            ])->post($url_prelaunch,[
                 "offeringId" => $offerID,
                 "startEffectiveDate" => "",
                 "expireEffectiveDate" => "",
-                "scheduleDate" => $scheduleDate,
+                "scheduleDate" => $dateActivation,
                 "idPoS" => ""
             ]);
-        }
         return $response->json();
     }
 
