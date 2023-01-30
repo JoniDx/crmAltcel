@@ -466,28 +466,28 @@
         // let link = 'https://sandbox-dashboard.openpay.mx/paynet-pdf/mvtmmoafnxul8oizkhju/';
         let link = 'https://dashboard.openpay.mx/paynet-pdf/m3one5bybxspoqsygqhz/';
 
-            $.ajax({
-                    url:"{{url('/show-reference')}}",
-                    method: "GET",
-                    data: {
-                        reference_id: reference_id
-                    },
-                    success: function(data){
-                        // x=data;
-                        if(data.channel_id == 1){
-                            $('#modalTitleRef').html('Referencia '+data.reference)
-                            $('#reference-pdf').attr('src', link+data.reference);
-                            $('#reference').modal('show');
-                        }else if(data.channel_id == 2){
-                            $('#montoOxxo').html('$'+data.amount+'<sup>MXN</sup>');
-                            $('#referenceOxxoCard').html(data.reference);
-                            
-                            $('#referenceOxxo').modal('show');
-                            console.log('referencia OxxoPay');
-                        }
-                        console.log(data.reference);
-                    }
-                }); 
+        $.ajax({
+            url:"{{url('/show-reference')}}",
+            method: "GET",
+            data: {
+                reference_id: reference_id
+            },
+            success: function(data){
+                // x=data;
+                if(data.channel_id == 1){
+                    $('#modalTitleRef').html('Referencia '+data.reference)
+                    $('#reference-pdf').attr('src', link+data.reference);
+                    $('#reference').modal('show');
+                }else if(data.channel_id == 2){
+                    $('#montoOxxo').html('$'+data.amount+'<sup>MXN</sup>');
+                    $('#referenceOxxoCard').html(data.reference);
+                    
+                    $('#referenceOxxo').modal('show');
+                    console.log('referencia OxxoPay');
+                }
+                console.log(data.reference);
+            }
+        }); 
     }
 
     $('.register-pay-manual').click(function(){
@@ -648,52 +648,28 @@
                         // return console.log(data);
                         if(data == 1){
                             Swal.close();
-                            Swal.fire({
-                                icon: 'success',
-                                title: '¡Guardado!',
-                                text: 'Éxito'
-                            });
+                            swal_succes('¡Guardado!', 'Éxito')
                             if(service != 'Telmex'){
                                 $.ajax({
                                     url:"{{route('unbarring.get')}}",
                                     method: "GET",
                                     data: {payID:payID},
                                     beforeSend: function(){
-                                        Swal.fire({
-                                            title: 'Pago guardado con éxito',
-                                            html: 'El servicio se está reanudando...',
-                                            didOpen: () => {
-                                                Swal.showLoading();
-                                            }
-                                        });
+                                        swal_loading('Pago guardado con éxito', 'El servicio se está reanudando...');
                                     },
                                     success:function(response){
-                                        
                                         if(response == 1){
-                                            Swal.fire({
-                                                icon: 'success',
-                                                title: 'El servicio ha sido reanudado.',
-                                                showConfirmButton: false,
-                                            });
+                                            swal_succes('El servicio ha sido reanudado.')
                                             setTimeout(function(){ location.reload(); }, 2500);
                                         }else{
-                                            Swal.fire({
-                                                icon: 'error',
-                                                title: 'Hubo un problema al reanudar el servicio.',
-                                                text: 'Bad Request'
-                                            });
+                                            swal_error('Hubo un problema al reanudar el servicio.', 'Bad Request', 2000)
                                         }
-                                        
                                     }
                                 });
                             }
                         }else if(data == 0){
                             Swal.close();
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Ocurrió un error, intente de nuevo o contacte a Desarrollo.',
-                                text: 'Bad Request'
-                            })
+                            swal_error('Bad Request', 'Ocurrió un error, intente de nuevo o contacte a Desarrollo.', 2000)
                         }
                     }
                 });  
@@ -763,25 +739,13 @@
         let type = $('#cancelation_type').val();
 
         if(type == 0){
-            Swal.fire({
-                icon: 'error',
-                title: 'Woops!!',
-                text: "Por favor elija un tipo de cancelación.",
-                showConfirmButton: false,
-                timer: 2000
-            });
+            swal_error('Woops!!', "Por favor elija un tipo de cancelación.", 2000)
             document.getElementById('reason-delete').focus();
             return false;
         }
 
         if(reason.length == 0 || /^\s+$/.test(reason)){
-            Swal.fire({
-                icon: 'error',
-                title: 'Woops!!',
-                text: "Por favor ingrese la razón la que se realiza la cancelación.",
-                showConfirmButton: false,
-                timer: 2000
-            });
+            swal_error('Woops!!', "Por favor ingrese la razón la que se realiza la cancelación.", 2000)
             document.getElementById('reason-delete').focus();
             return false;
         }
@@ -804,29 +768,13 @@
                     url: "{{route('deleteActivation')}}",
                     data: {activation_id:activation_id,amount:amount,reason:reason,type:type},
                     beforeSend: function(){
-                        Swal.fire({
-                            title: 'Realizando BAJA DEFINITIVA...',
-                            html: 'Espera un poco, un poquito más...',
-                            didOpen: () => {
-                                Swal.showLoading();
-                            }
-                        });
+                        swal_loading('Realizando BAJA DEFINITIVA...', 'Espera un poco, un poquito más...');
                     },
                     success: function(response){
                         if(response.http_code == 1){
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Well done!!',
-                                text: response.message
-                            });
+                            swal_succes('Cambio realizado!!', response.message)
                         }else{
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Woops!!',
-                                text: response.message,
-                                showConfirmButton: false,
-                                timer: 2000
-                            });
+                            swal_error('Woops!!', response.message, 2000)
                         }
                     }
                 });
@@ -834,12 +782,7 @@
                 /* Read more about handling dismissals below */
                 result.dismiss === Swal.DismissReason.cancel
             ) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Operación cancelada',
-                    showConfirmButton: false,
-                    timer: 1000
-                });
+                swal_error('Operación cancelada','',1000)
             }
         });
     });
@@ -849,39 +792,23 @@
         let activation = $('#activation_new_id').val();
         let type = $('#type_service').val();
         let url = "/clients-details/"+client+"#datatable-default3";
-        console.log(client);
+
         if(client == 0){
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops!!',
-                text: "Por favor elija un cliente al cual se asignará el servicio.",
-                showConfirmButton: false,
-                timer: 2000
-            });
-            return false;
+            return swal_error('Oops!!', "Por favor elija un cliente al cual se asignará el servicio." )
         }
 
         $.ajax({
             url: "{{route('changeOwner')}}",
             data: {activation:activation, type:type, client:client},
             beforeSend: function(){
-                Swal.fire({
-                    title: 'Realizando cambio...',
-                    didOpen: () => {
-                        Swal.showLoading();
-                    }
-                });
+                swal_loading('Realizando cambio...');
             },
-            success: function(response){
-                
+            success: function(response){                
                 if(response.http_code = 1){
+                    swal_succes('Cambio realizado!!')
                     location.href = url;
                 }else{
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops!!',
-                        text: "Al parecer algo salió mal, intente de nuevo o contacte a Desarrollo."
-                    });
+                    swal_error('Oops!!',  'Al parecer algo salió mal, intente de nuevo o contacte a Desarrollo.' )
                 }
                 
             }

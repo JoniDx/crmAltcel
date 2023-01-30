@@ -24,3 +24,13 @@ function swal_warning(title, html = '') {
         html: html
     });
 }
+
+function swal_loading(title, html = ''){
+    Swal.fire({
+        title: title,
+        html: html,
+        didOpen: () => {
+            Swal.showLoading();
+        }
+    });
+}
