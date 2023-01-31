@@ -726,6 +726,7 @@ class WebhookController extends Controller
     }
 
     public function consultUFRuntime($MSISDN, $producto){
+        
         $consultUF = app('App\Http\Controllers\AltanController')->consultUF($MSISDN);
         //Log::debug("consultUF: ", [$consultUF]);
         $responseSubscriber = $consultUF['responseSubscriber'];
