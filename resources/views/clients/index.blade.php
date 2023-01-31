@@ -222,7 +222,7 @@
                                     <h5 class="text-dark text-bold" id="who_did"></h5>
                                 </div>
                                 
-                                <input type="hidden" name="id_user_update" id="id_user_update">
+                                <input type="hidden" name="id_client" id="id_client">
                             </div>
                         </div>
                     </div>              
@@ -283,7 +283,7 @@
                 $('#ine_code').val(data[0].ine_code);
                 $('#rfc').val(data[0].rfc);
                 $('#address').val(data[0].address);
-                $('#id_user_update').val(data[0].user_id);
+                $('#id_client').val(data[0].id);
                 $('#who_did').html('Añadido por: '+data[0].who_did);
                 $('#modalInfoClient').modal('show');
             }
@@ -299,7 +299,7 @@
         let ine_code = $('#ine_code').val();
         let rfc = $('#rfc').val();
         let address = $('#address').val();
-        let user_id = $('#id_user_update').val();
+        let id = $('#id_client').val();
         let token = $('meta[name="csrf-token"]').attr('content');
 
         let data = {
@@ -312,7 +312,7 @@
             ine_code:ine_code,
             rfc:rfc,
             address:address,
-            user_id:user_id
+            id:id
         };
 
         $.ajax({

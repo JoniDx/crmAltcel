@@ -881,16 +881,21 @@ class ClientController extends Controller
     }
 
     public function prospects(){
-        $news = DB::table('users')
-               ->leftJoin('activations','activations.client_id','=','users.id')
-               ->leftJoin('instalations','instalations.client_id','=','users.id')
-               ->join('clients','clients.user_id','=','users.id')
-               ->where('role_id',3)
-               ->where('activations.client_id',null)
-               ->where('instalations.client_id',null)
-               ->select('users.id AS user_id','users.name','users.lastname','users.email','clients.address AS address','clients.cellphone AS phone','clients.who_did_id AS who_added','clients.interests AS interests')
-               ->get();
+        $news = DB::table('clients')
+                        ->select('clients.*')
+                        ->get();
 
+        $newsMOV = DB::table('users')
+                          ->leftJoin('activations','activations.client_id','=','users.id')
+                          ->leftJoin('instalations','instalations.client_id','=','users.id')
+                          ->join('clients','clients.user_id','=','users.id')
+                          ->where('role_id',3)
+                          ->where('activations.client_id',null)
+                          ->where('instalations.client_id',null)
+                          ->where('clients.interests','MOV')
+                          ->select('users.id')
+                          ->get();
+        
         // $newsHBB = DB::table('users')
         //                   ->leftJoin('activations','activations.client_id','=','users.id')
         //                   ->leftJoin('instalations','instalations.client_id','=','users.id')
@@ -910,7 +915,7 @@ class ClientController extends Controller
                           ->where('activations.client_id',null)
                           ->where('instalations.client_id',null)
                           ->where('clients.interests','MIFI')
-                          ->select('users.name','users.lastname','users.email','clients.address AS address','clients.cellphone AS phone','clients.who_did_id AS who_added','clients.interests AS interests')
+                          ->select('users.id')
                           ->get();
         
         $newsTelmex = DB::table('users')
@@ -921,45 +926,24 @@ class ClientController extends Controller
                           ->where('activations.client_id',null)
                           ->where('instalations.client_id',null)
                           ->where('clients.interests','Portabilidad Telmex')
-                          ->select('users.name','users.lastname','users.email','clients.address AS address','clients.cellphone AS phone','clients.who_did_id AS who_added','clients.interests AS interests')
+                          ->select('users.id')
                           ->get();
-               
-        $newClients = [];
 
-        foreach($news as $new){
-            $who_added = $new->who_added;
-            $user_who_added = User::where('id',$who_added)->first();
-            $email_bool = strpos($new->email, '@');
-            $email = $email_bool ? $new->email : 'N/A';
-            array_push($newClients,array(
-                'id' => $new->user_id,
-                'name' => strtoupper($new->name),
-                'lastname' => strtoupper($new->lastname),
-                'email' => $email,
-                'address' => strtoupper($new->address),
-                'phone' => $new->phone,
-                'who_did_id' => strtoupper($user_who_added->name.' '.$user_who_added->lastname),
-                'interests' => $new->interests
-            ));
-        }
-
-        // $data['HBB'] = sizeof($newsHBB);
+        $data['MOV'] = sizeof($newsMOV);
         $data['MIFI'] = sizeof($newsMIFI);
         $data['Telmex'] = sizeof($newsTelmex);
-        $data['prospects'] = $newClients;
+        $data['prospects'] = $news;
         return view('clients.prospects',$data);
     }
 
     public function getAllDataClient(Request $request){
         $id = $request->id;
-        $dataClient = DB::table('users')
-                         ->leftJoin('clients','clients.user_id','=','users.id')
-                         ->where('clients.id',$id)
-                         ->select('users.*','clients.address AS address','clients.ine_code AS ine_code','clients.rfc AS rfc','clients.cellphone AS cellphone',
-                         'clients.date_born AS date_born','clients.who_did_id AS who_did_id')
-                         ->get();
-        
-        $user_id = $dataClient[0]->id;
+        $dataClient = DB::table('clients')
+                            ->where('clients.id', $id)
+                            ->select('clients.*')
+                            ->get();
+
+        $id = $dataClient[0]->id;
         $name = $dataClient[0]->name;
         $lastname = $dataClient[0]->lastname;
         $email = $dataClient[0]->email;
@@ -973,12 +957,12 @@ class ClientController extends Controller
         if($who_did_id == null){
             $who_did = 'ESTA PERSONA ES UN EMPLEADO';
         }else{
-            $dataUser = User::where('id',$who_did_id)->first();
+            $dataUser = User::where('id', $who_did_id)->first();
             $who_did = $dataUser->name.' '.$dataUser->lastname;
         }
 
         $response = array([
-            'user_id' => $user_id,
+            'id' => $id,
             'name' => $name,
             'lastname' => $lastname,
             'email' => $email,
@@ -994,20 +978,22 @@ class ClientController extends Controller
     }
 
     public function setAllDataClient(Request $request){
+        $name = $request->post('name');
+        $lastname = $request->post('lastname');
+        $email = $request->post('email');
         $address = $request->post('address');
         $cellphone = $request->post('cellphone');
         $date_born = $request->post('date_born');
         $ine_code = $request->post('ine_code');
         $rfc = $request->post('rfc');
-        $user_id = $request->post('user_id');
+        $id = $request->post('id');
 
-        $request = request()->except('_token','address','cellphone','date_born','ine_code','rfc','user_id');
-        $x = User::where('id',$user_id)->update($request);
-
-        $z = Client::where('user_id',$user_id)->exists();
-
-        if($z){
-            $y = Client::where('user_id',$user_id)->update([
+        $client = Client::where('id', $id);
+        if($client->exists()){
+            $client->update([
+                'name' => $name,
+                'lastname' => $lastname,
+                'email' => $email,
                 'address' => $address,
                 'ine_code' => $ine_code,
                 'rfc' => $rfc,
@@ -1015,8 +1001,10 @@ class ClientController extends Controller
                 'date_born' => $date_born
             ]);
         }else{
-            $y = Client::insert([
-                'user_id' => $user_id,
+            $client = Client::insert([
+                'name' => $name,
+                'lastname' => $lastname,
+                'email' => $email,
                 'address' => $address,
                 'ine_code' => $ine_code,
                 'rfc' => $rfc,
@@ -1025,16 +1013,15 @@ class ClientController extends Controller
             ]);
         }
         
-
-        if($x && $y){
+        if($client){
             return 1;
         }else{
             return 0;
         }
         return 2;
     }
-    public function exportNewClients(){
 
+    public function exportNewClients(){
         return Excel::download(new NewclientsExport, 'new-clients.xlsx');
     }
 

@@ -15,6 +15,7 @@
         <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a>
     </div>
 </header>
+
 <div class="panel-body mb-lg pr-xl pl-xl">
     <div class="row">
         <section class="panel panel-featured-left panel-featured-quartenary col-md-4">
@@ -27,9 +28,9 @@
                     </div>
                     <div class="widget-summary-col">
                         <div class="summary">
-                            <h4 class="title">HBB</h4>
+                            <h4 class="title">MOV</h4>
                             <div class="info">
-                                <strong class="amount">{{$HBB}}</strong>
+                                <strong class="amount">{{$MOV}}</strong>
                                 <span class="text-primary">PROSPECTOS</span>
                             </div>
                         </div>
@@ -112,21 +113,24 @@
                 </tr>
             </thead>
             <tbody>
-            @foreach($prospects as $prospect )
-            <tr style="cursor: pointer;">
-                <td>{{ $name = strtoupper($prospect['name'].' '.$prospect['lastname']) }}</td>
-                <td>{{ $prospect['email'] }}</td>
-                <td>{{ $address = strtoupper($prospect['address']) }}</td>
-                <td>{{ $prospect['phone'] }}</td>
-                <td>{{ $prospect['who_did_id'] }}</td>
-                <td>{{ $prospect['interests'] }}</td>
-                <td><button class="btn btn-warning btn-sm mb-xs update-data-client" data-id="{{$prospect['id']}}" data-toggle="modal"><i class="fa fa-edit" ></i></button></td>
-            </tr>
-            @endforeach
+                @foreach($prospects as $prospect )
+                    <tr style="cursor: pointer;">
+                        <td>{{ $name = strtoupper($prospect->name.' '.$prospect->lastname) }}</td>
+                        <td>{{ $prospect->email }}</td>
+                        <td>{{ $address = strtoupper($prospect->address) }}</td>
+                        <td>{{ $prospect->cellphone}}</td>
+                        <td>{{ $prospect->who_did_id }}</td>
+                        <td>{{ $prospect->interests }}</td>
+                        <td>
+                            <button class="btn btn-warning btn-sm mb-xs update-data-client" data-id="{{$prospect->id}}" data-toggle="modal"><i class="fa fa-edit" ></i></button>
+                        </td>
+                    </tr>
+                @endforeach
             </tbody>
         </table> 
     </div>
 </section>
+
 <div class="modal fade" id="modalInfoClient" tabindex="-1" role="dialog" aria-labelledby="myModalTitle" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -178,7 +182,7 @@
                                     <h5 class="text-dark text-bold" id="who_did"></h5>
                                 </div>
                                 
-                                <input type="hidden" name="id_user_update" id="id_user_update">
+                                <input type="hidden" name="id_client" id="id_client">
                             </div>
                         </div>
                     </div>              
@@ -195,16 +199,16 @@
 
 <script src="{{asset('octopus/assets/vendor/pnotify/pnotify.custom.js')}}"></script>
 <script>
-   $('.update-data-client').click(function(){
-    let id = $(this).attr('data-id');
-    let token = $('meta[name="csrf-token"]').attr('content');
-        
+    $('.update-data-client').click(function(){
+        let id = $(this).attr('data-id');
+        let token = $('meta[name="csrf-token"]').attr('content');
+        console.log(id);
+
         $.ajax({
             url:"{{route('getAllDataClient.post')}}",
             method: "POST",
-            data: {_token:token,id:id},
+            data: {_token:token, id:id},
             success: function(data){
-                console.log(data);
                 $('#myModalTitle').html('Datos de '+data[0].name+' '+data[0].lastname);
                 $('#name').val(data[0].name);
                 $('#lastname').val(data[0].lastname);
@@ -214,7 +218,7 @@
                 $('#ine_code').val(data[0].ine_code);
                 $('#rfc').val(data[0].rfc);
                 $('#address').val(data[0].address);
-                $('#id_user_update').val(data[0].user_id);
+                $('#id_client').val(data[0].id);
                 $('#who_did').html('Añadido por: '+data[0].who_did);
 
                 $('#modalInfoClient').modal('show');
@@ -231,7 +235,7 @@
         let ine_code = $('#ine_code').val();
         let rfc = $('#rfc').val();
         let address = $('#address').val();
-        let user_id = $('#id_user_update').val();
+        let id = $('#id_client').val();
         let token = $('meta[name="csrf-token"]').attr('content');
 
         let data = {
@@ -244,7 +248,7 @@
             ine_code:ine_code,
             rfc:rfc,
             address:address,
-            user_id:user_id
+            id:id
         };
 
         $.ajax({
@@ -253,26 +257,11 @@
             data: data,
             success: function(response){
                 if(response == 1){
-                    new PNotify({
-                        title: 'Hecho.',
-                        text: "<a href='{{route('prospects.index')}}' style='color: white !important;'>Click aquí para actualizar.</a>",
-                        type: 'success',
-                        icon: 'fa fa-check'
-                    });
+                    swal_succes('Hecho.')
                 }else if(response == 0){
-                    new PNotify({
-                        title: 'Ooops! Ocurrió un error.',
-                        text: "<a href='{{route('prospects.index')}}' style='color: white !important;'>Click aquí para actualizar.</a>",
-                        type: 'error',
-                        icon: 'fa fa-times'
-                    });
+                    swal_error('Ooops! Ocurrió un error.')
                 }else if(response == 2){
-                    new PNotify({
-                        title: 'Ooops! No se pudo ejecutar el cambio.',
-                        text: "<a href='{{route('prospects.index')}}' style='color: white !important;'>Click aquí para actualizar.</a>",
-                        type: 'warning',
-                        icon: 'fa fa-exclamation'
-                    });
+                    swal_error('Ooops! No se pudo ejecutar el cambio.')
                 }
             }
         }); 
