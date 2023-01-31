@@ -428,28 +428,24 @@
                                                 <a href="{{route('anothercompany.index')}}">Otras Compañías</a>
                                             </li>
                                             <li>
-                                                <a href="{{route('operations.specials')}}">Operaciones Especiales</a>
-                                            </li>
-                                            <li>
-                                                <a href="{{route('preactivations.index')}}">Preactivaciones</a>
-                                            </li>
-                                            <li>
                                                 <a href="{{route('pre-registro')}}">Pre Registro</a>
-                                            </li>
-                                            <li>
-                                                <a href="{{route('reports')}}">Reportes de Consumos</a>
-                                            </li>
-                                            <li>
-                                                <a href="{{route('reportMoney')}}">Reportes de Dinero</a>
-                                            </li>
-                                            <li>
-                                                <a href="{{route('bulkActivations')}}">Activaciones Batch</a>
                                             </li>
                                             <li>
                                                 <a href="{{route('companies')}}">Empresas</a>
                                             </li>
-                                            <li>
+                                            {{-- <li>
                                                 <a href="{{route('linePorta')}}">Lineas Nuevas y Portabilidades</a>
+                                            </li> --}}
+                                            <li class="nav-parent">
+                                                <a>Promotores</a>
+                                                <ul class="nav nav-children">
+                                                    <li>
+                                                        <a href="{{route('promoters.get')}}">Ver</a>
+                                                    </li>
+                                                    <li class="">
+                                                        <a href="{{route('dealer.index')}}">Distribuidores</a>
+                                                    </li>
+                                                </ul>
                                             </li>
                                         </ul>
                                     </li>
@@ -461,6 +457,41 @@
                                         <ul class="nav nav-children">
                                             <li>
                                                 <a href="{{route('activations.create')}}">Nueva Activación</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{route('operations.specials')}}">Operaciones Especiales</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{route('preactivations.index')}}">Preactivaciones</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{route('bulkActivations')}}">Activaciones Batch</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="nav-parent">
+                                        <a>
+                                            <i class="fa fa-money" aria-hidden="true"></i>
+                                            <span>Reportes</span>
+                                        </a>
+                                        <ul class="nav nav-children">
+                                            <li>
+                                                <a href="{{route('reports')}}">Reportes de Consumos</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{route('reportMoney')}}">Reportes de Dinero</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{url('/clients-report')}}">Ver reportes</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{url('rechargeDealer')}}">Recargas Promotores Veracruz</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{url('recharge-veracruz')}}">Recargas Clientes Veracruz</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{url('/promotores-list')}}">Reportes de supervisores</a>
                                             </li>
                                         </ul>
                                     </li>
@@ -550,25 +581,15 @@
                                                     </li>
                                                 </ul>
                                             </li>
-                                            <li class="nav-parent">
-                                                <a>Promotores</a>
-                                                <ul class="nav nav-children">
-                                                    <li>
-                                                        <a href="{{route('promoters.get')}}">Ver</a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li class="nav-parent">
+                                            {{-- <li class="nav-parent">
                                                 <a>Entrada de Líneas</a>
                                                 <ul class="nav nav-children">
                                                     <li>
                                                         <a href="{{route('administrationLines.get')}}">CRM</a>
                                                     </li>
                                                 </ul>
-                                            </li>
-                                            <li class="">
-                                                <a href="{{route('dealer.index')}}">Distribuidores</a>
-                                            </li>
+                                            </li> --}}
+                                            
                                             <li class="">
                                                 <a href="{{route('consumption.index')}}">Consumos Altan Redes</a>
                                             </li>
@@ -1270,9 +1291,7 @@
                                             <span>Veracruz</span>
                                         </a>
                                         <ul class="nav nav-children">
-                                            <li>
-                                                <a href="{{url('/promotores-list')}}">Reportes de supervisores</a>
-                                            </li>
+                                            
                                         </ul>
                                         @if (Auth::user()->role_id == 1 )
                                             <ul class="nav nav-children">
