@@ -625,9 +625,6 @@
                                             <li>
                                                 <a href="{{route('completadas')}}">Completadas</a>
                                             </li>
-                                            <li>
-                                                <a href="{{route('petitionCrm')}}">Líneas Nuevas </a>
-                                            </li>
                                         </ul>
                                     </li>
                                     <li class="nav-parent">
@@ -641,9 +638,6 @@
                                             </li>
                                             <li>
                                                 <a href="{{url('/portabilities')}}">Todas</a>
-                                            </li>
-                                            <li>
-                                                <a href="{{url('/portabilities-crm')}}">CRM</a>
                                             </li>
                                             <li>
                                                 <a href="{{route('PortabilityStatus')}}">Estatus de portabilidades</a>
@@ -1285,7 +1279,7 @@
                                 @endif
                                 @if(Auth::user()->role_id == 5 || Auth::user()->role_id == 1 || Auth::user()->role_id == 10)
                                 {{-- @if(Auth::user()->role_id == 1 ) --}}
-                                    <li class="nav-parent">
+                                    {{-- <li class="nav-parent">
                                         <a>
                                             <i class="fa fa-book" aria-hidden="true"></i>
                                             <span>Veracruz</span>
@@ -1300,7 +1294,7 @@
                                                 </li>
                                             </ul>
                                         @endif
-                                    </li>
+                                    </li> --}}
                                 @endif
                             </ul>
                         </nav>
