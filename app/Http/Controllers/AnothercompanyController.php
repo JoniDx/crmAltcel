@@ -23,8 +23,7 @@ class AnothercompanyController extends Controller
 
         $data['prospects'] = DB::table('prospects')->select('prospects.*')->get();
 
-
-      //   if(isset($request['state'])){
+        //   if(isset($request['state'])){
          //   $myProspects = DB::table('anothercompanies')->where('estado',$request['state'])->where('taken_by',null)->limit($request['quantity'])->select('anothercompanies.*')->get();
             
            /* foreach ($myProspects  as $prospect) {
@@ -33,15 +32,15 @@ class AnothercompanyController extends Controller
                     DB::table('anothercompanies')->where('id',$prospect->id)->where('taken_by',null)->update(['taken_by' => auth()->user()->id, 'taken_at' => date('Y-m-d H:i:s')]);
                 }
             }*/
-/*
+        /*
             return back()->with('success','Prospectos cargados a tu lista.');
-        }else{
-            $data['prospects'] = DB::table('anothercompanies')->where('taken_by',auth()->user()->id)->where('status','pendiente')->where('hunted',0)->select('anothercompanies.*')->get();
-            $data['contacteds'] = DB::table('anothercompanies')->where('taken_by',auth()->user()->id)->where('status','contactado')->select('anothercompanies.*')->get();
-            $data['declineds'] = DB::table('anothercompanies')->where('taken_by',auth()->user()->id)->where('status','rechazado')->select('anothercompanies.*')->get();
-            $data['completeds'] = DB::table('anothercompanies')->where('taken_by',auth()->user()->id)->where('status','completado')->select('anothercompanies.*')->get();
-        }
-*/
+            }else{
+                $data['prospects'] = DB::table('anothercompanies')->where('taken_by',auth()->user()->id)->where('status','pendiente')->where('hunted',0)->select('anothercompanies.*')->get();
+                $data['contacteds'] = DB::table('anothercompanies')->where('taken_by',auth()->user()->id)->where('status','contactado')->select('anothercompanies.*')->get();
+                $data['declineds'] = DB::table('anothercompanies')->where('taken_by',auth()->user()->id)->where('status','rechazado')->select('anothercompanies.*')->get();
+                $data['completeds'] = DB::table('anothercompanies')->where('taken_by',auth()->user()->id)->where('status','completado')->select('anothercompanies.*')->get();
+            }
+        */
         return view('anothercompanies.index',$data);
     }
 

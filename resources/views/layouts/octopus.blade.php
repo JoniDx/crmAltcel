@@ -423,6 +423,9 @@
                                                     <a href="{{route('prospects.index')}}">Prospectos</a>
                                                 </li>
                                                 <li>
+                                                    <a href="{{route('anothercompany.create')}}">Agregar de otras compañías</a>
+                                                </li>
+                                                <li>
                                                     <a href="{{route('anothercompany.index')}}">Otras Compañías</a>
                                                 </li>
                                                 <li>

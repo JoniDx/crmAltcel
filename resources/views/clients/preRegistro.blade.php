@@ -68,6 +68,7 @@
 
 <script>
     $('#importPreRegistro').click(function(){
+        
         let tstart = `<table class="table table-bordered table-striped mb-none" id="myTable3">
                         <thead style="cursor: pointer;">
                             <tr>
@@ -93,13 +94,7 @@
             data: form_data,
             type: 'POST',
             beforeSend: function(){
-                Swal.fire({
-                    title: 'En proceso',
-                    html: "Pre Registrando los dato espere un momento.",
-                    didOpen: () => {
-                        Swal.showLoading();
-                    }
-                });
+                swal_loading('En proceso',"Pre Registrando los dato espere un momento.")
             },
             success: function(data){
                 data = JSON.parse(data)                
@@ -122,26 +117,14 @@
                             html: tstart+table_data+tend
                         });
                     }else{
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Pre registro completado.',
-                            showConfirmButton: false
-                        });
+                        swal_succes('success', 'Pre registro completado.')
                     }
                 }else{
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Ooops!',
-                        text: data.error
-                    });  
+                    swal_error('error', 'Ooops!')
                 }
             },
             error: function(data){    
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Ooops!',
-                    text: "Error inesperado, consulte con Desarrollo"
-                });      
+                swal_error('Ooops!', 'Error inesperado, consulte con Desarrollo!')
             }                
         });
     });
