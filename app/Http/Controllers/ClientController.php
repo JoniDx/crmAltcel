@@ -18,6 +18,7 @@ use App\Activation;
 use App\Number;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\NewclientsExport;
 use App\Exports\ConsumosExport;
@@ -754,11 +755,10 @@ class ClientController extends Controller
         $name = $request->post('name');
         $lastname = $request->post('lastname');
         $email = $request->post('email');
-
         $rfc = $request->post('rfc');
         $date_born = $request->post('date_born');
         $address = $request->post('address');
-        $cellphone = $request->post('celphone');
+        $cellphone = $request->post('cellphone');
         $ine_code = $request->post('ine_code');
         $user_id = $request->post('user');
         $interests = $request->post('interests');
@@ -767,35 +767,29 @@ class ClientController extends Controller
              $email = str_replace(' ', '', $name).date("YmdHis", $time);
          }
 
-        $x = User::where('email',$email)->exists();
-        if($x){
-            $error = '<p>El usuario con el email <strong>'.$email.'</strong> ya existe.<p>';
-            return back()->with('error',$error);
+        $client = Client::where('email', $email)->exists();
+
+        if($client){
+            $error = 'El usuario con el email '.$email.' ya existe.';
+            return back()->withInput()->withErrors([$error]);
         }
         
-
-        User::insert([
+        Client::insert([
             'name' => $name,
             'lastname' => $lastname,
             'email' => $email,
-            'password' => Hash::make('123456789')
-        ]);
-
-        $client_id = User::where('email',$email)->first();
-        $client_id = $client_id->id;
-
-        Client::insert([
+            'password' => Hash::make('123456789'),
             'address' => $address,
             'ine_code' => $ine_code,
             'date_born' => $date_born,
             'rfc' => $rfc,
             'cellphone' => $cellphone,
-            'user_id' => $client_id,
             'who_did_id' => $user_id,
             'interests' => $interests
         ]);
+
         $success = 'Cliente añadido con éxito.';
-        return back()->with('success',$success);
+        return back()->with('success', $success);
     }
 
     public function storeAsync(Request $request){
@@ -822,7 +816,7 @@ class ClientController extends Controller
         $x = User::where('email',$email)->exists();
         if($x){
             $error = 'El usuario con el email <strong>'.$email.'</strong> ya existe.';
-            return response()->json(['error'=>1,'message'=>$error]);
+            return response()->json(['error'=>1, 'message'=>$error]);
         }
         
 

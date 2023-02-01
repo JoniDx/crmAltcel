@@ -43,7 +43,7 @@ class PortabilityController extends Controller
         foreach ($pendings as $pending) {
             $who_did_it = User::where('id',$pending->who_did_it)->first();
             $who_attended = User::where('id',$pending->who_attended)->first();
-            $client = User::where('id','=',$pending->client_id)->first();
+            $client = Client::where('id','=',$pending->client_id)->first();
             $rate = Rate::where('id','=',$pending->rate_id)->first();
             $date_format =  $pending->created_at;
             if ($date_format == null) {
@@ -132,10 +132,9 @@ class PortabilityController extends Controller
     }
 
     public function create(){
-        $data['clients'] = DB::table('users')
-                              ->leftJoin('clients','clients.user_id','=','users.id')
-                              ->select('users.*','clients.rfc','clients.date_born','clients.address','clients.ine_code','clients.cellphone')
-                              ->orderBy('users.name','asc')
+        $data['clients'] = DB::table('clients')
+                              ->select('clients.*')
+                              ->orderBy('clients.name','asc')
                               ->get();
                               
         $data['rates'] = DB::table('rates')
@@ -151,6 +150,7 @@ class PortabilityController extends Controller
     }
 
     public function store(Request $request){
+        // return $request;
         $request['rida'] = 319;
         $request['rcr'] = 175;
         $rate_id = $request['rate_id'];
@@ -159,15 +159,15 @@ class PortabilityController extends Controller
         $rate = Rate::where('id',$rate_id)->first();
         $rate_name = $rate->name.' - $'.number_format($rate->price,2);
         // GET DATA CLIENT
-        $client = User::where('id',$client_id)->first();
+        $client = Client::where('id',$client_id)->first();
         $clientData = $client->name.' '.$client->lastname;
-        $clientAddress = Client::where('user_id',$client_id)->exists();
+        $clientAddress = $client->address;
         $address = '';
                 
         if(!$clientAddress){
             $address = 'SIN ASIGNAR';
         }else{
-            $clientAddress = Client::where('user_id',$client_id)->first();
+            $clientAddress = Client::where('id',$client_id)->first();
             $address = $clientAddress->address;
         }
 
@@ -519,7 +519,7 @@ class PortabilityController extends Controller
         $arrayPending = [];
 
             $who_did_it = User::where('id',$dataEditPorta->who_did_it)->first();
-            $client = User::where('id','=',$dataEditPorta->client_id)->first();
+            $client = Client::where('id','=',$dataEditPorta->client_id)->first();
             $rate = Rate::where('id','=',$dataEditPorta->rate_id)->first();
             
             $date_format = $dataEditPorta->created_at->toDateTimeString();

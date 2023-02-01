@@ -192,13 +192,13 @@ class AltanController extends Controller
         if($accessTokenResponse['status'] == 'approved'){
             $accessToken = $accessTokenResponse['accessToken'];
             
-            $url_production = 'https://altanredes-prod.apigee.net/cm/v1/subscribers/'.$msisdn.'/'.$type;
-            // $url_prelaunch = 'https://altanredes-prod.apigee.net/cm-sandbox/v1/subscribers/'.$msisdn.'/'.$type;
+            // $url_production = 'https://altanredes-prod.apigee.net/cm/v1/subscribers/'.$msisdn.'/'.$type;
+            $url_prelaunch = 'https://altanredes-prod.apigee.net/cm-sandbox/v1/subscribers/'.$msisdn.'/'.$type;
                     
             $response = Http::withHeaders([
                 'Authorization' => 'Bearer '.$accessToken,
                 'Content-Type' => 'application/json'
-            ])->post($url_production,[
+            ])->post($url_prelaunch,[
                 'scheduleDate' => $scheduleDate
             ]);
 
@@ -369,7 +369,7 @@ class AltanController extends Controller
     }
 
     public function productPurchase(Request $request){
-        return $request;
+        // return $request;
         $msisdn = $request->get('msisdn');
         $offer = $request->get('offer');
         $user_id = $request->get('user_id');
@@ -471,7 +471,8 @@ class AltanController extends Controller
         if($accessTokenResponse['status'] == 'approved'){
             $accessToken = $accessTokenResponse['accessToken'];
 
-            $url_productionResume = 'https://altanredes-prod.apigee.net/cm/v1/subscribers/'.$msisdn.'/resume';
+            $url_productionResume = 'https://altanredes-prod.apigee.net/cm-sandbox/v1/subscribers/'.$msisdn.'/resume';
+            // $url_productionResume = 'https://altanredes-prod.apigee.net/cm/v1/subscribers/'.$msisdn.'/resume';
                     
             $responseR = Http::withHeaders([
                 'Authorization' => 'Bearer '.$accessToken
@@ -482,7 +483,7 @@ class AltanController extends Controller
                 // 
                 $response = Http::withHeaders([
                     'Authorization' => 'Bearer '.$accessToken
-                ])->post($url_production,[
+                ])->post($url_prelaunch,[
                     "msisdn" => $msisdn,
                     "offerings" => array(
                         $offer
@@ -557,7 +558,8 @@ class AltanController extends Controller
             // return $response;
             //actualizacion de coordenadas
             if ($result != 'Without Coverage') {
-                $url_updateLink = "https://altanredes-prod.apigee.net/cm/v1/subscribers/".$msisdn;
+                $url_updateLink = "https://altanredes-prod.apigee.net/cm-sandbox/v1/subscribers/".$msisdn;
+                // $url_updateLink = "https://altanredes-prod.apigee.net/cm/v1/subscribers/".$msisdn;
                     $response = Http::withHeaders([
                         'Authorization' => 'Bearer '.$accessToken
                     ])->patch($url_updateLink,[
@@ -827,7 +829,7 @@ class AltanController extends Controller
             if($accessTokenResponse['status'] == 'approved'){
 
                 $accessToken = $accessTokenResponse['accessToken'];
-                $url_production = 'https://altanredes-prod.apigee.net/cm/v1/subscribers/activations';
+                $url_production = 'https://altanredes-prod.apigee.net/cm-sandbox/v1/subscribers/activations';
                 
                 $response = Http::withHeaders([
                     'Authorization' => 'Bearer '.$accessToken,
@@ -864,7 +866,7 @@ class AltanController extends Controller
             if($accessTokenResponse['status'] == 'approved'){
 
                 $accessToken = $accessTokenResponse['accessToken'];
-                $url_production = 'https://altanredes-prod.apigee.net/cm/v1/subscribers/'.$msisdn.'/resumespm';
+                $url_production = 'https://altanredes-prod.apigee.net/cm-sandbox/v1/subscribers/'.$msisdn.'/resumespm';
                 
                 $response = Http::withHeaders([
                     'Authorization' => 'Bearer '.$accessToken,
@@ -928,8 +930,8 @@ class AltanController extends Controller
                             if($msisdnExists){
                                 $MSISDN =  Number::where('icc_id', $data[0])->first()->MSISDN;
                                 // array_push($array, $data);
-                                $url = "https://altanredes-prod.apigee.net/cm/v1/subscribers/".$MSISDN."/preregistered";
-                                //$url = "https://altanredes-prod.apigee.net/cm-sandbox/v1/subscribers/".$MSISDN."/preregistered";
+                                // $url = "https://altanredes-prod.apigee.net/cm/v1/subscribers/".$MSISDN."/preregistered";
+                                $url = "https://altanredes-prod.apigee.net/cm-sandbox/v1/subscribers/".$MSISDN."/preregistered";
                                 $response = Http::withHeaders([
                                     'Authorization' => 'Bearer '.$accessToken,
                                     'Content-Type' => 'application/json'
@@ -978,7 +980,7 @@ class AltanController extends Controller
         if($accessTokenResponse['status'] == 'approved'){
             $accessToken = $accessTokenResponse['accessToken'];
             
-            $url_production = 'https://altanredes-prod.apigee.net/cm/v1/subscribers/lookupForOperator';
+            $url_production = 'https://altanredes-prod.apigee.net/cm-sandbox/v1/subscribers/lookupForOperator';
                     
             $response = Http::withHeaders([
                 'Authorization' => 'Bearer '.$accessToken

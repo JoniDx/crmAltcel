@@ -16,7 +16,7 @@ class CompanyController extends Controller
 
     public function index(){
         $data['companies'] = Company::all();
-        return view('companies.index',$data);
+        return view('companies.index', $data);
     }
 
     public function chargeInventory(Request $request){
@@ -114,12 +114,29 @@ class CompanyController extends Controller
     }
 
     public function storeDealer(Request $request){
-        $password = $request->post('password');
-        $request['password'] = Hash::make($password);
-        $request['role_id'] = 8;
-        $request = request()->except('_token');
-        User::insert($request);
-        return back();
+
+        $name = $request->name;
+        $lastname = $request->lastname;
+        $email = $request->email;
+        $password = $request->password;
+        $company_id = $request->company_id;
+        
+        if ($name == "" || $lastname == "" || $email == "" || $password == "" || $company_id == "0" ) {
+            return back()->withInput()->withErrors('Ingrese los datos correspondientes');
+        }
+
+        $password = Hash::make($password);
+        $data = [
+            'name' => $name,
+            'lastname' => $lastname,
+            'email' => $email,
+            'password' => $password,
+            'company_id' => $company_id,
+            'role_id' => 8
+        ];
+                
+        User::insert($data);
+        return back()->with('success', 'Distribuidor agregado!!');
     }
 
     public function getInventoryCompanies(Request $request){
