@@ -165,13 +165,20 @@ class ActivationController extends Controller
         $flag_rate = $request->get('flag_rate');
         $rate_subsequent = $request->get('rate_subsequent');
         $activate_bool = 0;
-        
-        $number = Number::where('icc_id',$icc_id)->where('MSISDN',$msisdn)->first();
+
+        if (Rate::where('id', $rate_id)->exists() && Number::where('icc_id', $icc_id)->exists() ) {
+            $pack_altcel = Rate::where('id', $rate_id)->first();
+            $pack_id = $pack_altcel->altcel_pack_id;
+        } else {
+            return 0;
+        }
+
+        $number = Number::where('icc_id', $icc_id)->where('MSISDN', $msisdn)->first();
         $number_id = $number->id;
         $number_status = $number->status;
 
-        $pack_altcel = Rate::where('id',$rate_id)->first();
-        $pack_id = $pack_altcel->altcel_pack_id;
+      
+
         $rate_price = $pack_altcel->price;
         // return $pack_id;
         
@@ -184,12 +191,10 @@ class ActivationController extends Controller
                 $accessToken = app('App\Http\Controllers\AltanController')->accessTokenRequestPost();
                 if($accessToken['status'] == 'approved'){
                     $accessToken = $accessToken['accessToken'];
-                    $activationAltan = app('App\Http\Controllers\AltanController')->activationRequestPost($accessToken,$msisdn,$offer_id,$product,$dateActivation);
+                    $activationAltan = app('App\Http\Controllers\AltanController')->activationRequestPost($accessToken, $msisdn, $offer_id, $product, $dateActivation);
                     // return $activationAltan;
                     if($activationAltan['msisdn'] == $msisdn){
-                        // $data["order"] = $activationAltan["order"]["id"];
-                        // $order_id_activation = $data["order"];
-                        // return $order_id_activation;
+                        $order_id_activation =  $activationAltan["order"]["id"];
                     }else{
                         return 2;
                     }
@@ -199,150 +204,134 @@ class ActivationController extends Controller
             }
         }
             
-            // Verificar existencia de cliente en DB
-            $flag = Client::where('email','=',$email)->exists();
-            if($flag){
-                $clientData = Client::where('email',$email)->first();
-                $idClient = $clientData->id;
-            }else{
-                $namePass = ActivationController::exceptSpecials($clientName);
-                $lastnamePass = ActivationController::exceptSpecials($clientLastname);
-                $pass = substr($namePass,0,2).$lastnamePass;
-                $pass = strtolower($pass);
+        // Verificar existencia de cliente en DB
+        $flag = Client::where('email', $email)->exists();
+        if($flag){
+            $clientData = Client::where('email', $email)->first();
+            $idClient = $clientData->id;
+        }else {
+            return 0;
+        }  
 
-                User::insert([
-                    'name' => $clientName,
-                    'lastname' => $clientLastname,
-                    'email' => $email,
-                    'password' => Hash::make($pass),
-                    'role_id' => 3,
-                ]);
+        // Actualización de status de SIM en DB
+        // Number::where('icc_id', $icc_id)->where('MSISDN', $msisdn)->update(['status'=>'taken']);
+        
+        // Extracción de ID Oferta
+        $offer_id = Offer::where('offerID', $offer_id)->first();
+        $offer_id = $offer_id->id;
 
-                $idClient = Client::where('email',$email)->first();
-                $idClient = $idClient->id;
-
-                Client::insert([
-                    'address' => $address,
-                    'ine_code' => $ine_code,
-                    'rfc' => $rfc,
-                    'cellphone' => $cellphone,
-                    'date_born' => $date_born,
-                    'user_id' => $idClient,
-                    'who_did_id' => $user_id
-                ]);
-                if($email_not == 0){
-                    ActivationController::sendCredentials($email,$pass,$clientName,$clientLastname);
-                }
-            }
-
-            // Actualización de status de SIM en DB
-            Number::where('icc_id',$icc_id)->where('MSISDN',$msisdn)->update(['status'=>'taken']);
-            
-            // Extracción de ID Oferta
-            $offer_id = Offer::where('offerID',$offer_id)->first();
-            $offer_id = $offer_id->id;
-
-            // Actualización de status de Dispositivo en DB
-            if($imei != null){
+        // Actualización de status de Dispositivo en DB
+        if($imei != null){
+            if (Device::where('no_serie_imei','like','%'.$imei.'%')->exists()) {
                 Device::where('no_serie_imei','like','%'.$imei.'%')->update(['status'=>'taken']);
                 $device_id = Device::where('no_serie_imei','like','%'.$imei.'%')->first();
                 $device_id = $device_id->id;
-            }else{
-                $device_id = null;
+            } else {
+                return 0;
             }
 
-            
-            if($scheduleDate == ''){
-                $now = now();
-            }else{
-                $now = $scheduleDate;
+        }else{
+            $device_id = null;
+        }
+        
+        if($scheduleDate == ''){
+            $now = now();
+        }else{
+            $now = $scheduleDate;
+        }
+        // $user_id = auth()->user()->id;
+        if ($order_id_activation != "") {
+            $payment_status = 'activado';
+        }else {
+            $payment_status = 'pendiente';
+        }
+
+        $dataActivation = [
+            'client_id' => $idClient,
+            'numbers_id' => $number_id,
+            'devices_id' => $device_id,
+            'serial_number' => $serial_number,
+            'mac_address' => $mac_address,
+            'date_activation' => $now,
+            'who_did_id' => $user_id,
+            'offer_id' => $offer_id,
+            'rate_id' => $rate_id,
+            'dependence_id' => $dependence = $from == 'self' || $from == 'promoters' ? null : $from,
+            'amount' => $price,
+            'amount_rate' => $price_rate,
+            'amount_device' => $price_device,
+            'payment_status' => $payment_status,
+            'status' => $status,
+            'petition_id' => $petition,
+            'flag_rate' => $flag_rate,
+            'rate_subsequent' => $rate_subsequent,
+            'order_id_activation' => $order_id_activation,
+        ];
+
+        // return $dataActivation;
+
+        if($petition != 0){
+            $name_remitente = auth()->user()->name;
+            $email_remitente = auth()->user()->email;
+
+            $date = date('Y-m-d H:i:s');
+            DB::table('petitions')->where('id', $petition)->update([
+                'status' => 'activado',
+                'who_attended' => $user_id,
+                'date_activated' => $date
+            ]);
+
+            $comment = DB::table('petitions')->where('id', $petition)->get('comment');
+                //correos operaciones
+            // $response = Http::withHeaders([
+            //     'Conten-Type'=>'application/json'
+            // ])->get('http://10.44.0.70/petitions-notifications',[
+            //     'name'=> $name,
+            //     'lastname'=>$lastname,
+            //     'correo'=> $email,
+            //     'comment'=>$comment[0]->comment,
+            //     'status'=>'activado',
+            //     'remitente'=>$name_remitente,
+            //     'email_remitente'=>$email_remitente,
+            //     'product'=> $product
+            // ]);
+        }
+
+        Activation::insert($dataActivation);
+        $activationID = Activation::latest('id')->first();
+        $activationID = $activationID->id;
+
+        if($promo_bool == 1){
+            $dataRate = Rate::where('id', $rate_id)->first();
+            $promotion_id = $dataRate->promotion_id;
+
+            $dataPromotion = Promotion::where('id', $promotion_id)->first();
+            $device_quantity = $dataPromotion->device_quantity;
+
+            $device_quantity = $device_quantity-1;
+            Promotion::where('id', $promotion_id)->update([
+                'device_quantity' => $device_quantity
+            ]);
+        }
+
+        if($from == 'promoters'){
+            $x = Assignment::where('promoter_id',$user_id)
+                            ->where('number_id',$number_id)
+                            ->where('type','sim')
+                            ->update(['status'=>'taken']);
+            $y = Assignment::where('promoter_id',$user_id)->where('device_id',$device_id)->where('type','device')->update(['status'=>'taken']);
+            if(!$x || !$y){
+                return 4;
             }
-            // $user_id = auth()->user()->id;
-            $dataActivation = [
-                'client_id' => $idClient,
-                'numbers_id' => $number_id,
-                'devices_id' => $device_id,
-                'serial_number' => $serial_number,
-                'mac_address' => $mac_address,
-                'date_activation' => $now,
-                'who_did_id' => $user_id,
-                'offer_id' => $offer_id,
-                'rate_id' => $rate_id,
-                'dependence_id' => $dependence = $from == 'self' || $from == 'promoters' ? null : $from,
-                'amount' => $price,
-                'amount_rate' => $price_rate,
-                'amount_device' => $price_device,
-                'payment_status' => 'pendiente',
-                'status' => $status,
-                'petition_id' => $petition,
-                'flag_rate' => $flag_rate,
-                'rate_subsequent' => $rate_subsequent
-                // 'order_id_activation ' => $order_id_activation 
-            ];
+        }
 
-            if($petition != 0){
-                $name_remitente = auth()->user()->name;
-                $email_remitente = auth()->user()->email;
-
-                $date = date('Y-m-d H:i:s');
-                DB::table('petitions')->where('id',$petition)->update([
-                    'status' => 'activado',
-                    'who_attended' => $user_id,
-                    'date_activated' => $date
-                ]);
-
-                $comment = DB::table('petitions')->where('id', $petition)->get('comment');
-                  //correos operaciones
-                $response = Http::withHeaders([
-                    'Conten-Type'=>'application/json'
-                ])->get('http://10.44.0.70/petitions-notifications',[
-                    'name'=> $name,
-                    'lastname'=>$lastname,
-                    'correo'=> $email,
-                    'comment'=>$comment[0]->comment,
-                    'status'=>'activado',
-                    'remitente'=>$name_remitente,
-                    'email_remitente'=>$email_remitente,
-                    'product'=> $product
-                ]);
-            }
-
-            Activation::insert($dataActivation);
-            $activationID = Activation::latest('id')->first();
-            $activationID = $activationID->id;
-
-            if($promo_bool == 1){
-                $dataRate = Rate::where('id',$rate_id)->first();
-                $promotion_id = $dataRate->promotion_id;
-
-                $dataPromotion = Promotion::where('id',$promotion_id)->first();
-                $device_quantity = $dataPromotion->device_quantity;
-
-                $device_quantity = $device_quantity-1;
-                Promotion::where('id',$promotion_id)->update([
-                    'device_quantity' => $device_quantity
-                ]);
-            }
-
-            if($from == 'promoters'){
-                $x = Assignment::where('promoter_id',$user_id)
-                               ->where('number_id',$number_id)
-                               ->where('type','sim')
-                               ->update(['status'=>'taken']);
-                $y = Assignment::where('promoter_id',$user_id)->where('device_id',$device_id)->where('type','device')->update(['status'=>'taken']);
-                if(!$x || !$y){
-                    return 4;
-                }
-            }
-
-            if($petition != 0){
-                $activationData = Activation::where('petition_id',$petition)->first();
-                $activation_id = $activationData->id;
-                return response()->json(['http_code'=>1,'activation_id'=>$activation_id]);
-            }
-
-
-            return 1;
+        if($petition != 0){
+            $activationData = Activation::where('petition_id', $petition)->first();
+            $activation_id = $activationData->id;
+            return response()->json(['http_code'=>1, 'activation_id'=>$activation_id]);
+        }
+        
+        return 1;
     }
 
     public function activationEthernet(Request $request) {
