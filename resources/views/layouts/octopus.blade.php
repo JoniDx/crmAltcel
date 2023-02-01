@@ -595,433 +595,433 @@
                                                     <a href="{{route('consumption.index')}}">Consumos Altan Redes</a>
                                                 </li>
 
-                                                <!-- <li >
-                                                    <a href="{{route('dealer.index')}}">Distribuidores</a>
-                                                </li> -->
-                                            </ul>
-                                        </li>
-                                        <li class="nav-parent">
-                                            <a>
-                                                <i class="fa fa-calendar" aria-hidden="true"></i>
-                                                <span>Agenda</span>
-                                            </a>
-                                            <ul class="nav nav-children">
-                                                <li>
-                                                    <a href="{{route('schedules.create')}}">Alta</a>
-                                                </li>
-                                                <li>
-                                                    <a href="{{route('schedules.index')}}">Administración</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li class="nav-parent">
-                                            <a>
-                                                <i class="fa fa-paper-plane" aria-hidden="true"></i>
-                                                <span>Solicitudes</span>
-                                            </a>
-                                            <ul class="nav nav-children">
-                                                <li>
-                                                    <a href="{{route('solicitudes')}}">Nuevas</a>
-                                                </li>
-                                                <li>
-                                                    <a href="{{route('completadas')}}">Completadas</a>
-                                                </li>
-                                                <li>
-                                                    <a href="{{route('petitionCrm')}}">Líneas Nuevas </a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li class="nav-parent">
-                                            <a>
-                                                <i class="fa fa-paper-plane" aria-hidden="true"></i>
-                                                <span>Portabilidades</span>
-                                            </a>
-                                            <ul class="nav nav-children">
-                                                <li>
-                                                    <a href="{{route('portabilities.create')}}">Nueva</a>
-                                                </li>
-                                                <li>
-                                                    <a href="{{url('/portabilities')}}">Todas</a>
-                                                </li>
-                                                <li>
-                                                    <a href="{{url('/portabilities-crm')}}">CRM</a>
-                                                </li>
-                                                <li>
-                                                    <a href="{{route('PortabilityStatus')}}">Estatus de portabilidades</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li class="nav-parent">
-                                            <a>
-                                                <i class="fa fa-paper-plane" aria-hidden="true"></i>
-                                                <span>Envíos</span>
-                                            </a>
-                                            <ul class="nav nav-children">
-                                                <li>
-                                                    <a href="{{route('shipping.index')}}">Todo</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li class="nav-parent">
-                                            <a>
-                                                <i class="fa fa-building" aria-hidden="true"></i>
-                                                <span>Número Compañia</span>
-                                            </a>
-                                            <ul class="nav nav-children">
-                                                <li>
-                                                    <a href="{{route('numberscompany.index')}}">Todo</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    @elseif(Auth::user()->role_id == 6)
-                                        <li class="nav-parent">
-                                            <a>
-                                                <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                                                <span>Clientes</span>
-                                            </a>
-                                            <ul class="nav nav-children">
-                                                <li>
-                                                    <a href="{{route('clients.create')}}">Nuevo</a>
-                                                </li>
-                                                <li>
-                                                    <a href="{{route('clients.index')}}">Resumen</a>
-                                                </li>
-                                                <li>
-                                                    <a href="{{route('prospects.index')}}">Prospectos</a>
-                                                </li>
-                                                <li>
-                                                    <a href="{{route('operations.specials')}}">Operaciones Especiales</a>
-                                                </li>
-                                                <li>
-                                                    <a href="{{route('preactivations.index')}}">Preactivaciones</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li class="nav-parent">
-                                            <a>
-                                                <i class="fa fa-book" aria-hidden="true"></i>
-                                                <span>Administración</span>
-                                            </a>
-                                            <ul class="nav nav-children">
-                                                <li class="nav-parent">
-                                                    <a href="#">Productos</a>
-                                                    <ul class="nav nav-children">
-                                                        <li class="nav-parent">
-                                                            <a>Ofertas Altán</a>
-                                                            <ul class="nav nav-children">
-                                                                <li>
-                                                                    <a href="{{route('offers.index')}}">Ver</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="{{route('offers.create')}}">Crear</a>
-                                                                </li>
-                                                            </ul>
-                                                        </li>
-                                                        <li class="nav-parent">
-                                                            <a>Planes Altán</a>
-                                                            <ul class="nav nav-children">
-                                                                <li>
-                                                                    <a href="{{route('rates.index')}}">Ver</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="{{route('rates.create')}}">Crear</a>
-                                                                </li>
-                                                            </ul>
-                                                        </li>
-                                                        <li class="nav-parent">
-                                                            <a>Promociones</a>
-                                                            <ul class="nav nav-children">
-                                                                <li>
-                                                                    <a href="{{route('promotion.index')}}">Ver</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="{{route('promotion.create')}}">Crear</a>
-                                                                </li>
-                                                            </ul>
-                                                        </li>
-                                                        <li>
-                                                            <a href="{{route('ethernet-admin.get')}}">Internet</a>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                                {{-- <li>
-                                                    <a href="{{route('politicRate.create')}}">Políticas</a>
-                                                </li>
-                                                <li>
-                                                    <a href="{{route('devices.index')}}">Dispositivos</a>
-                                                </li> --}}
-                                            </ul>
-                                        </li>
-                                        <li class="nav-parent">
-                                            <a>
-                                                <i class="fa fa-paper-plane" aria-hidden="true"></i>
-                                                <span>Solicitudes</span>
-                                            </a>
-                                            <ul class="nav nav-children">
-                                                <li>
-                                                    <a href="{{route('solicitudes')}}">Nuevas</a>
-                                                </li>
-                                                <li>
-                                                    <a href="{{route('completadas')}}">Completadas</a>
-                                                </li>
-                                                <li>
-                                                    <a href="{{route('petitionCrm')}}">Líneas Nuevas CRM</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li class="nav-parent">
-                                            <a>
-                                                <i class="fa fa-paper-plane" aria-hidden="true"></i>
-                                                <span>Portabilidades</span>
-                                            </a>
-                                            <ul class="nav nav-children">
-                                                <li>
-                                                    <a href="{{route('portabilities.create')}}">Nueva</a>
-                                                </li>
-                                                <li>
-                                                    <a href="{{url('/portabilities')}}">Todas</a>
-                                                </li>
-                                                <li>
-                                                    <a href="{{url('/portabilities-crm')}}">CRM</a>
-                                                </li>
-                                                <li>
-                                                    <a href="{{route('PortabilityStatus')}}">Estatus de portabilidades</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        
-                                    @elseif(Auth::user()->role_id == 2)
-                                        <li class="nav-parent">
-                                            <a>
-                                                <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                                                <span>Clientes</span>
-                                            </a>
-                                            <ul class="nav nav-children">
-                                                <li>
-                                                    <a href="{{route('clients.create')}}">Nuevo</a>
-                                                </li>
-                                                <li>
-                                                    <a href="{{route('clients-pay-all.get')}}">Ver</a>
-                                                </li>
-                                                <li>
-                                                    <a href="{{route('clients.index')}}">Resumen</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li class="nav-parent">
-                                            <a>Portabilidad</a>
-                                            <ul class="nav nav-children">
-                                                <li>
-                                                    <a href="{{route('portabilities.create')}}">Nueva</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    @elseif(Auth::user()->role_id == 4)
-                                        <li class="nav-parent">
-                                            <a>
-                                                <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                                                <span>Clientes</span>
-                                            </a>
-                                            <ul class="nav nav-children">
-                                                <li>
-                                                    <a href="{{route('clients.create')}}">Nuevo</a>
-                                                </li>
-                                                <li>
-                                                    <a href="{{route('clients-pay-all.get')}}">Ver</a>
-                                                </li>
-                                                <li>
-                                                    <a href="{{route('clients.index')}}">Resumen</a>
-                                                </li>
-                                                <li>
-                                                    <a href="{{route('prospects.index')}}">Prospectos</a>
-                                                </li>
-                                                <li>
-                                                    <a href="{{route('reports')}}">Reportes de Consumos</a>
-                                                </li>
-                                                <li>
-                                                    <a href="{{route('reportMoney')}}">Reportes de Dinero</a>
-                                                </li>
-                                                <li>
-                                                    <a href="{{route('companies')}}">Empresas</a>
-                                                </li>
-                                                <li>
-                                                    <a href="{{route('linePorta')}}">Lineas Nuevas y Portabilidades</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li class="nav-parent">
-                                            <a>
-                                                <i class="fa fa-book" aria-hidden="true"></i>
-                                                <span>Administración</span>
-                                            </a>
-                                            <ul class="nav nav-children">
-                                                <li class="nav-parent">
-                                                    <a href="#">Productos</a>
-                                                    <ul class="nav nav-children">
-                                                        <li class="nav-parent">
-                                                            <a>Ofertas Altán</a>
-                                                            <ul class="nav nav-children">
-                                                                <li>
-                                                                    <a href="{{route('offers.index')}}">Ver</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="{{route('offers.create')}}">Crear</a>
-                                                                </li>
-                                                            </ul>
-                                                        </li>
-                                                        <li class="nav-parent">
-                                                            <a>Planes Altán</a>
-                                                            <ul class="nav nav-children">
-                                                                <li>
-                                                                    <a href="{{route('rates.index')}}">Ver</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="{{route('rates.create')}}">Crear</a>
-                                                                </li>
-                                                            </ul>
-                                                        </li>
-                                                        <li class="nav-parent">
-                                                            <a>Promociones</a>
-                                                            <ul class="nav nav-children">
-                                                                <li>
-                                                                    <a href="{{route('promotion.index')}}">Ver</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="{{route('promotion.create')}}">Crear</a>
-                                                                </li>
-                                                            </ul>
-                                                        </li>
-                                                        <li>
-                                                            <a href="{{route('ethernet-admin.get')}}">Internet</a>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                                <li>
-                                                    <a href="{{route('politicRate.create')}}">Políticas</a>
-                                                </li>
-                                                <li>
-                                                    <a href="{{route('devices.index')}}">Dispositivos</a>
-                                                </li>
-                                                <li class="nav-parent">
-                                                    <a>Entrada de Líneas</a>
-                                                    <ul class="nav nav-children">
-                                                        <li>
-                                                            <a href="{{route('administrationLines.get')}}">CRM</a>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li class="nav-parent">
-                                            <a>
-                                                <i class="fa fa-calendar" aria-hidden="true"></i>
-                                                <span>Agenda</span>
-                                            </a>
-                                            <ul class="nav nav-children">
-                                                <li>
-                                                    <a href="{{route('schedules.index')}}">Administración</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        
-                                        <li class="nav-parent">
-                                            <a>
-                                                <i class="fa fa-money" aria-hidden="true"></i>
-                                                <span>Pagos</span>
-                                            </a>
-                                            <ul class="nav nav-children">
-                                                <li>
-                                                    <a href="{{route('activations.index')}}">Resumen</a>
-                                                </li>
-                                                <li>
-                                                    <a href="{{route('incomes.get')}}">Completados</a>
-                                                </li>
-                                                <li>
-                                                    <a href="{{route('webhook-payments-pending.get')}}">Pendientes</a>
-                                                </li>
-                                                <li>
-                                                    <a href="{{route('webhook-payments-overdue.get')}}">Vencidos</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        
-                                    @elseif(Auth::user()->role_id == 5)
-                                        <li class="nav-parent">
-                                            <a>
-                                                <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                                                <span>Clientes</span>
-                                            </a>
-                                            <ul class="nav nav-children">
-                                                <li>
-                                                    <a href="{{route('clients.index')}}">Resumen</a>
-                                                </li>
-                                                <li>
-                                                    <a href="{{route('clients-pay-all.get')}}">Ver</a>
-                                                </li>
-                                                <li>
-                                                    <a href="{{route('prospects.index')}}">Prospectos</a>
-                                                </li>
-                                                <li>
-                                                    <a href="{{route('reports')}}">Reportes de Consumos</a>
-                                                </li>
-                                                <li>
-                                                    <a href="{{route('companies')}}">Empresas</a>
-                                                </li>
-                                                <li>
-                                                    <a href="{{route('linePorta')}}">Lineas Nuevas y Portabilidades</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li class="nav-parent">
-                                            <a>
-                                                <i class="fa fa-book" aria-hidden="true"></i>
-                                                <span>Administración</span>
-                                            </a>
-                                            <ul class="nav nav-children">
-                                                <li class="nav-parent">
-                                                    <a href="#">Productos</a>
-                                                    <ul class="nav nav-children">
-                                                        <li class="nav-parent">
-                                                            <a>Ofertas Altán</a>
-                                                            <ul class="nav nav-children">
-                                                                <li>
-                                                                    <a href="{{route('offers.index')}}">Ver</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="{{route('offers.create')}}">Crear</a>
-                                                                </li>
-                                                            </ul>
-                                                        </li>
-                                                        <li class="nav-parent">
-                                                            <a>Planes Altán</a>
-                                                            <ul class="nav nav-children">
-                                                                <li>
-                                                                    <a href="{{route('rates.index')}}">Ver</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="{{route('rates.create')}}">Crear</a>
-                                                                </li>
-                                                            </ul>
-                                                        </li>
-                                                        <li>
-                                                            <a href="{{route('ethernet-admin.get')}}">Internet</a>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                                <li>
-                                                    <a href="{{route('politicRate.create')}}">Políticas</a>
-                                                </li>
-                                                <li>
-                                                    <a href="{{route('devices.index')}}">Dispositivos</a>
-                                                </li>
-                                                <li class="nav-parent">
-                                                            <a href="#">Facturación</a>
-                                                            <ul class="nav nav-children">
-                                                                <li>
-                                                                    <a href="{{route('facturacion.index')}}">Facturar</a>
-                                                                </li>
-                                                            </ul>
-                                                        </li>
+                                            <!-- <li >
+                                                <a href="{{route('dealer.index')}}">Distribuidores</a>
+                                            </li> -->
+                                        </ul>
+                                    </li>
+                                    <li class="nav-parent">
+                                        <a>
+                                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                                            <span>Agenda</span>
+                                        </a>
+                                        <ul class="nav nav-children">
+                                            <li>
+                                                <a href="{{route('schedules.create')}}">Alta</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{route('schedules.index')}}">Administración</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="nav-parent">
+                                        <a>
+                                            <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                                            <span>Solicitudes</span>
+                                        </a>
+                                        <ul class="nav nav-children">
+                                            <li>
+                                                <a href="{{route('solicitudes')}}">Nuevas</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{route('completadas')}}">Completadas</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{route('petitionCrm')}}">Líneas Nuevas </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="nav-parent">
+                                        <a>
+                                            <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                                            <span>Portabilidades</span>
+                                        </a>
+                                        <ul class="nav nav-children">
+                                            <li>
+                                                <a href="{{route('portabilities.create')}}">Nueva</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{url('/portabilities')}}">Todas</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{url('/portabilities-crm')}}">CRM</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{route('PortabilityStatus')}}">Estatus de portabilidades</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="nav-parent">
+                                        <a>
+                                            <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                                            <span>Envíos</span>
+                                        </a>
+                                        <ul class="nav nav-children">
+                                            <li>
+                                                <a href="{{route('shipping.index')}}">Todo</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="nav-parent">
+                                        <a>
+                                            <i class="fa fa-building" aria-hidden="true"></i>
+                                            <span>Número Compañia</span>
+                                        </a>
+                                        <ul class="nav nav-children">
+                                            <li>
+                                                <a href="{{route('numberscompany.index')}}">Todo</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                @elseif(Auth::user()->role_id == 6)
+                                    <li class="nav-parent">
+                                        <a>
+                                            <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                            <span>Clientes</span>
+                                        </a>
+                                        <ul class="nav nav-children">
+                                            <li>
+                                                <a href="{{route('activations.create')}}">Nuevo</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{route('clients.index')}}">Resumen</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{route('prospects.index')}}">Prospectos</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{route('operations.specials')}}">Operaciones Especiales</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{route('preactivations.index')}}">Preactivaciones</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="nav-parent">
+                                        <a>
+                                            <i class="fa fa-book" aria-hidden="true"></i>
+                                            <span>Administración</span>
+                                        </a>
+                                        <ul class="nav nav-children">
+                                            <li class="nav-parent">
+                                                <a href="#">Productos</a>
+                                                <ul class="nav nav-children">
+                                                    <li class="nav-parent">
+                                                        <a>Ofertas Altán</a>
+                                                        <ul class="nav nav-children">
+                                                            <li>
+                                                                <a href="{{route('offers.index')}}">Ver</a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="{{route('offers.create')}}">Crear</a>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                    <li class="nav-parent">
+                                                        <a>Planes Altán</a>
+                                                        <ul class="nav nav-children">
+                                                            <li>
+                                                                <a href="{{route('rates.index')}}">Ver</a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="{{route('rates.create')}}">Crear</a>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                    <li class="nav-parent">
+                                                        <a>Promociones</a>
+                                                        <ul class="nav nav-children">
+                                                            <li>
+                                                                <a href="{{route('promotion.index')}}">Ver</a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="{{route('promotion.create')}}">Crear</a>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                    <li>
+                                                        <a href="{{route('ethernet-admin.get')}}">Internet</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            {{-- <li>
+                                                <a href="{{route('politicRate.create')}}">Políticas</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{route('devices.index')}}">Dispositivos</a>
+                                            </li> --}}
+                                        </ul>
+                                    </li>
+                                    <li class="nav-parent">
+                                        <a>
+                                            <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                                            <span>Solicitudes</span>
+                                        </a>
+                                        <ul class="nav nav-children">
+                                            <li>
+                                                <a href="{{route('solicitudes')}}">Nuevas</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{route('completadas')}}">Completadas</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{route('petitionCrm')}}">Líneas Nuevas CRM</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="nav-parent">
+                                        <a>
+                                            <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                                            <span>Portabilidades</span>
+                                        </a>
+                                        <ul class="nav nav-children">
+                                            <li>
+                                                <a href="{{route('portabilities.create')}}">Nueva</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{url('/portabilities')}}">Todas</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{url('/portabilities-crm')}}">CRM</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{route('PortabilityStatus')}}">Estatus de portabilidades</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    
+                                @elseif(Auth::user()->role_id == 2)
+                                    <li class="nav-parent">
+                                        <a>
+                                            <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                            <span>Clientes</span>
+                                        </a>
+                                        <ul class="nav nav-children">
+                                            <li>
+                                                <a href="{{route('activations.create')}}">Nuevo</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{route('clients-pay-all.get')}}">Ver</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{route('clients.index')}}">Resumen</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="nav-parent">
+                                        <a>Portabilidad</a>
+                                        <ul class="nav nav-children">
+                                            <li>
+                                                <a href="{{route('portabilities.create')}}">Nueva</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                @elseif(Auth::user()->role_id == 4)
+                                    <li class="nav-parent">
+                                        <a>
+                                            <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                            <span>Clientes</span>
+                                        </a>
+                                        <ul class="nav nav-children">
+                                            <li>
+                                                <a href="{{route('activations.create')}}">Nuevo</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{route('clients-pay-all.get')}}">Ver</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{route('clients.index')}}">Resumen</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{route('prospects.index')}}">Prospectos</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{route('reports')}}">Reportes de Consumos</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{route('reportMoney')}}">Reportes de Dinero</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{route('companies')}}">Empresas</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{route('linePorta')}}">Lineas Nuevas y Portabilidades</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="nav-parent">
+                                        <a>
+                                            <i class="fa fa-book" aria-hidden="true"></i>
+                                            <span>Administración</span>
+                                        </a>
+                                        <ul class="nav nav-children">
+                                            <li class="nav-parent">
+                                                <a href="#">Productos</a>
+                                                <ul class="nav nav-children">
+                                                    <li class="nav-parent">
+                                                        <a>Ofertas Altán</a>
+                                                        <ul class="nav nav-children">
+                                                            <li>
+                                                                <a href="{{route('offers.index')}}">Ver</a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="{{route('offers.create')}}">Crear</a>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                    <li class="nav-parent">
+                                                        <a>Planes Altán</a>
+                                                        <ul class="nav nav-children">
+                                                            <li>
+                                                                <a href="{{route('rates.index')}}">Ver</a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="{{route('rates.create')}}">Crear</a>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                    <li class="nav-parent">
+                                                        <a>Promociones</a>
+                                                        <ul class="nav nav-children">
+                                                            <li>
+                                                                <a href="{{route('promotion.index')}}">Ver</a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="{{route('promotion.create')}}">Crear</a>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                    <li>
+                                                        <a href="{{route('ethernet-admin.get')}}">Internet</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li>
+                                                <a href="{{route('politicRate.create')}}">Políticas</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{route('devices.index')}}">Dispositivos</a>
+                                            </li>
+                                            <li class="nav-parent">
+                                                <a>Entrada de Líneas</a>
+                                                <ul class="nav nav-children">
+                                                    <li>
+                                                        <a href="{{route('administrationLines.get')}}">CRM</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="nav-parent">
+                                        <a>
+                                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                                            <span>Agenda</span>
+                                        </a>
+                                        <ul class="nav nav-children">
+                                            <li>
+                                                <a href="{{route('schedules.index')}}">Administración</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    
+                                    <li class="nav-parent">
+                                        <a>
+                                            <i class="fa fa-money" aria-hidden="true"></i>
+                                            <span>Pagos</span>
+                                        </a>
+                                        <ul class="nav nav-children">
+                                            <li>
+                                                <a href="{{route('activations.index')}}">Resumen</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{route('incomes.get')}}">Completados</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{route('webhook-payments-pending.get')}}">Pendientes</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{route('webhook-payments-overdue.get')}}">Vencidos</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    
+                                @elseif(Auth::user()->role_id == 5)
+                                    <li class="nav-parent">
+                                        <a>
+                                            <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                            <span>Clientes</span>
+                                        </a>
+                                        <ul class="nav nav-children">
+                                            <li>
+                                                <a href="{{route('clients.index')}}">Resumen</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{route('clients-pay-all.get')}}">Ver</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{route('prospects.index')}}">Prospectos</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{route('reports')}}">Reportes de Consumos</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{route('companies')}}">Empresas</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{route('linePorta')}}">Lineas Nuevas y Portabilidades</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="nav-parent">
+                                        <a>
+                                            <i class="fa fa-book" aria-hidden="true"></i>
+                                            <span>Administración</span>
+                                        </a>
+                                        <ul class="nav nav-children">
+                                            <li class="nav-parent">
+                                                <a href="#">Productos</a>
+                                                <ul class="nav nav-children">
+                                                    <li class="nav-parent">
+                                                        <a>Ofertas Altán</a>
+                                                        <ul class="nav nav-children">
+                                                            <li>
+                                                                <a href="{{route('offers.index')}}">Ver</a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="{{route('offers.create')}}">Crear</a>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                    <li class="nav-parent">
+                                                        <a>Planes Altán</a>
+                                                        <ul class="nav nav-children">
+                                                            <li>
+                                                                <a href="{{route('rates.index')}}">Ver</a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="{{route('rates.create')}}">Crear</a>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                    <li>
+                                                        <a href="{{route('ethernet-admin.get')}}">Internet</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li>
+                                                <a href="{{route('politicRate.create')}}">Políticas</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{route('devices.index')}}">Dispositivos</a>
+                                            </li>
+                                            <li class="nav-parent">
+                                                        <a href="#">Facturación</a>
+                                                        <ul class="nav nav-children">
+                                                            <li>
+                                                                <a href="{{route('facturacion.index')}}">Facturar</a>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
 
                                                 <li class="nav-parent">
                                                     <a>Entrada de Líneas</a>
@@ -1239,73 +1239,73 @@
                                         </li>
                                     @elseif(Auth::user()->role_id == 10)
 
-                                        <li class="nav-parent">
-                                            <a>
-                                                <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                                                <span>Clientes</span>
-                                            </a>
+                                    <li class="nav-parent">
+                                        <a>
+                                            <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                            <span>Clientes</span>
+                                        </a>
+                                        <ul class="nav nav-children">
+                                            <li>
+                                                <a href="{{route('activations.create')}}">Nuevo</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="nav-parent">
+                                        <a>
+                                            <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                                            <span>Portabilidades</span>
+                                        </a>
+                                        <ul class="nav nav-children">
+                                            <li>
+                                                <a href="{{url('/portabilities')}}">Todas</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{url('/portabilities-crm')}}">CRM</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                @endif
+                                @if(Auth::user()->role_id == 5 || Auth::user()->role_id == 1)
+                                    <li class="nav-parent">
+                                        <a>
+                                            <i class="fa fa-book" aria-hidden="true"></i>
+                                            <span>Reportes</span>
+                                        </a>
+                                        <ul class="nav nav-children">
+                                            <li>
+                                                <a href="{{url('/clients-report')}}">Ver reportes</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{url('rechargeDealer')}}">Recargas Promotores Veracruz</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{url('recharge-veracruz')}}">Recargas Clientes Veracruz</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                @endif
+                                @if(Auth::user()->role_id == 5 || Auth::user()->role_id == 1 || Auth::user()->role_id == 10)
+                                {{-- @if(Auth::user()->role_id == 1 ) --}}
+                                    <li class="nav-parent">
+                                        <a>
+                                            <i class="fa fa-book" aria-hidden="true"></i>
+                                            <span>Veracruz</span>
+                                        </a>
+                                        <ul class="nav nav-children">
+                                            
+                                        </ul>
+                                        @if (Auth::user()->role_id == 1 )
                                             <ul class="nav nav-children">
                                                 <li>
-                                                    <a href="{{route('clients.create')}}">Nuevo</a>
+                                                    <a href="{{url('/recharge-veracruz')}}">Recargas Veracruz</a>
                                                 </li>
                                             </ul>
-                                        </li>
-                                        <li class="nav-parent">
-                                            <a>
-                                                <i class="fa fa-paper-plane" aria-hidden="true"></i>
-                                                <span>Portabilidades</span>
-                                            </a>
-                                            <ul class="nav nav-children">
-                                                <li>
-                                                    <a href="{{url('/portabilities')}}">Todas</a>
-                                                </li>
-                                                <li>
-                                                    <a href="{{url('/portabilities-crm')}}">CRM</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    @endif
-                                    @if(Auth::user()->role_id == 5 || Auth::user()->role_id == 1)
-                                        <li class="nav-parent">
-                                            <a>
-                                                <i class="fa fa-book" aria-hidden="true"></i>
-                                                <span>Reportes</span>
-                                            </a>
-                                            <ul class="nav nav-children">
-                                                <li>
-                                                    <a href="{{url('/clients-report')}}">Ver reportes</a>
-                                                </li>
-                                                <li>
-                                                    <a href="{{url('rechargeDealer')}}">Recargas Promotores Veracruz</a>
-                                                </li>
-                                                <li>
-                                                    <a href="{{url('recharge-veracruz')}}">Recargas Clientes Veracruz</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    @endif
-                                    @if(Auth::user()->role_id == 5 || Auth::user()->role_id == 1 || Auth::user()->role_id == 10)
-                                    {{-- @if(Auth::user()->role_id == 1 ) --}}
-                                        <li class="nav-parent">
-                                            <a>
-                                                <i class="fa fa-book" aria-hidden="true"></i>
-                                                <span>Veracruz</span>
-                                            </a>
-                                            <ul class="nav nav-children">
-                                                
-                                            </ul>
-                                            @if (Auth::user()->role_id == 1 )
-                                                <ul class="nav nav-children">
-                                                    <li>
-                                                        <a href="{{url('/recharge-veracruz')}}">Recargas Veracruz</a>
-                                                    </li>
-                                                </ul>
-                                            @endif
-                                        </li>
-                                    @endif
-                                </ul>
-                            </nav>
-                        </div>
+                                        @endif
+                                    </li>
+                                @endif
+                            </ul>
+                        </nav>
+                    </div>
 
                     </div>
                     <!-- Final Barra lateral izquierda -->
