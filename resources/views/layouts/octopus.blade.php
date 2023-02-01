@@ -628,6 +628,9 @@
                                             <li>
                                                 <a href="{{route('petitionCrm')}}">Líneas Nuevas </a>
                                             </li>
+                                            <li>
+                                                <a href="{{route('petition.create')}}">Activación Nueva</a>
+                                            </li>
                                         </ul>
                                     </li>
                                     <li class="nav-parent">
@@ -658,6 +661,9 @@
                                         <ul class="nav nav-children">
                                             <li>
                                                 <a href="{{route('shipping.index')}}">Todo</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{route('shipping.create')}}">Crear</a>
                                             </li>
                                         </ul>
                                     </li>

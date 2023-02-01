@@ -40,8 +40,14 @@ Route::resource('consumption','ConsumptionController')->middleware('auth');
 
 Route::get('/show-shipping-async/{shipping}','ShippingController@showAsync')->name('showShipping.async')->middleware('auth');
 
+
+
+Route::get('consult-cp','ShippingController@consultCP')->name('consultCP');
+Route::get('/get-rates-petition','PetitionController@getRatesPetition')->name('petition.rates')->middleware('auth');
+
 // Petitions
 // Route::post('/petition');
+Route::post('/petition-store-dealer','PetitionController@storeDealer')->name('petition.storeDealer')->middleware('auth');
 
 //Devices
 Route::resource('devices', 'DeviceController')->middleware('auth');

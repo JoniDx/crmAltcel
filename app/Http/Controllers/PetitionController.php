@@ -104,27 +104,140 @@ class PetitionController extends Controller
 
     public function create()
     {
-        //
+        $data['clients'] = DB::table('users')
+                              ->leftJoin('clients','clients.user_id','=','users.id')
+                              ->select('users.*','clients.rfc','clients.date_born','clients.address','clients.ine_code','clients.cellphone')
+                              ->get();
+
+        $data['rates'] = Rate::all()->where('status','activo');
+        $data['employes'] = User::all()->where('role_id','!=',3);
+        return view('petitions.create',$data);
     }
+
+    // public function store(Request $request)
+    // {
+    //     $request['date_sent'] = date('Y-m-d H:i:s');
+    //     $directory_id = $request['directory_id'];
+    //     $attended_by = $request['sender'];
+    //     $request = request()->except('_token','directory_id');
+    //     $x = Petition::insert($request);
+        
+    //     if($x){
+    //         $x = Directory::where('id',$directory_id)->update(['attended_by'=>$attended_by]);
+    //         if($x){
+    //             return 1;
+    //         }else{
+    //             return 0;
+    //         }
+    //     }else{
+    //         return 0;
+    //     }
+    // }
+    
 
     public function store(Request $request)
     {
-        $request['date_sent'] = date('Y-m-d H:i:s');
-        $directory_id = $request['directory_id'];
-        $attended_by = $request['sender'];
-        $request = request()->except('_token','directory_id');
-        $x = Petition::insert($request);
-        
-        if($x){
-            $x = Directory::where('id',$directory_id)->update(['attended_by'=>$attended_by]);
-            if($x){
-                return 1;
+        $name_remitente = auth()->user()->name;
+        $email_remitente = auth()->user()->email;
+
+        $client_id = $request->post('client_id');
+        $name = $request->post('name');
+        $lastname = $request->post('lastname');
+        $email = $request->post('email');
+        $product = $request->post('product');
+        $sender = $request->post('user');
+        $comment = $request->post('comment');
+        $rate_activation = $request->post('rate_activation');
+        $rate_secondary = $request->post('rate_secondary');
+        $payment_way = $request->post('payment_way');
+        $plazo = $request->post('plazo');
+        $lada = $request->post('lada');
+        $sold_by = $request->post('sold_by');
+        $icc = $request->post('icc');
+        $imei = $request->post('imei');
+        $noSerie = $request->post('noSerie');
+        $direccionMac = $request->post('direccionMac');
+        $date_sent = date('Y-m-d H:i:s');
+
+        // $request = request()->except('_token','client_id','name','lastname','email','product','user','comment','rate_activation','rate_secondary','lada','plazo');
+
+        if($client_id == 0){
+            $exists = User::where('email',$email)->exists();
+
+            if(!$exists){
+                User::insert([
+                    'name' => $name,
+                    'lastname' => $lastname,
+                    'email' => $email,
+                    'password' => $password = Hash::make('123456789'),
+                    'role_id' => 3
+                ]);
+
+                $clientData = User::where('email',$email)->first();
+                $client_id = $clientData->id;
+                $request['user_id'] = $client_id;
+                $request['who_did_id'] = auth()->user()->id;
+                $request = request()->except('_token','client_id','name','lastname','email','product','user','comment','rate_activation','rate_secondary','payment_way','lada','plazo');
+
+                Client::insert($request);
             }else{
-                return 0;
+                $clientData = User::where('email',$email)->first();
+                $client_id = $clientData->id;
+                $request['user_id'] = $client_id;
+                $request['who_did_id'] = auth()->user()->id;
+                $request = request()->except('_token','client_id','name','lastname','email','product','user','comment','rate_activation','rate_secondary','lada','plazo');
             }
-        }else{
-            return 0;
         }
+
+        $response = Petition::insert([
+            'sender' => $sender,
+            'status' => 'solicitud',
+            'date_sent' => $date_sent,
+            'client_id' => $client_id,
+            'product' => $product,
+            'comment' => $comment,
+            'rate_activation' => $rate_activation,
+            'rate_secondary' => $rate_secondary,
+            'payment_way' => $payment_way,
+            'plazo' => $plazo,
+            'lada' => $lada,
+            'sold_by' => $sold_by,
+            'icc' => $icc,
+            'imei' => $imei,
+            'serial_number' => $noSerie,
+            'mac_address' => $direccionMac
+        ]);
+
+        // $response = Http::withHeaders([
+        //     'Conten-Type'=>'application/json'
+        // ])->get('http://187.217.216.245/petitions-notifications',[
+        //     'name'=>$name,
+        //     'lastname'=>$lastname,
+        //     'correo'=> $email,
+        //     'comment'=>$comment,
+        //     'status'=>'solicitud',
+        //     'remitente'=>$name_remitente,
+        //     'email_remitente'=>$email_remitente,
+        //     'product'=>$product
+        // ]);
+
+
+        if($response == 1){
+            return back();
+        }
+    }
+
+
+    public function getRatesPetition(Request $request){
+        $product = $request->get('producto');
+        $rates = DB::table('rates')
+                    ->join('offers','offers.id','=','rates.alta_offer_id')
+                    ->where('offers.product','=',$product)
+                    ->where('rates.status','activo')
+                    ->where('offers.type','normal')
+                    ->select('rates.*','offers.name AS offer_name','offers.id AS offer_id','offers.product AS offer_product', 'offers.offerID')
+                    ->get();
+        return $rates;
     }
 
     public function show(Petition $petition)
@@ -493,7 +606,6 @@ class PetitionController extends Controller
         $correo = $request->get('correo');
         $product = $request->get('product');
         $email_remitente = $request->get('email_remitente');
-
         $email = ['armando.g@altcel.com', 'soporte1@altcel.com', 'sandra_corzo@altcel.com', 'keila_vazquez@altcel.com', 'jeremias_vicente@altcel.com', 'jalexis_santana@altcel.com', 'leopoldo_martinez@altcel.com','soporte2@altcel.com','auxiliar_contable@altcel.com'];
         
         if ($status == 'solicitud') {
