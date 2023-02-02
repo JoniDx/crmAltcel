@@ -1,182 +1,234 @@
 @extends('layouts.octopus')
 @section('content')
-@php
-use \Carbon\Carbon;
-@endphp
-<header class="page-header">
-    <h2>Administración de Pagos</h2>
-    <div class="right-wrapper pull-right">
-        <ol class="breadcrumbs">
-            <li>
-                <a href="index.html">
-                    <i class="fa fa-home"></i>
-                </a>
-            </li>
-            <li><span>Dashboard</span></li>
-        </ol>
-        <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a>
-    </div>
-</header>
+    @php
+        use \Carbon\Carbon;
+    @endphp
 
-<section class="panel">
-    <header class="panel-heading">
-        <div class="panel-actions">
-            <a href="#" class="fa fa-caret-down"></a>
-            <a href="#" class="fa fa-times"></a>
+    <header class="page-header">
+        <h2>Administración de Pagos</h2>
+        <div class="right-wrapper pull-right">
+            <ol class="breadcrumbs">
+                <li>
+                    <a href="index.html">
+                        <i class="fa fa-home"></i>
+                    </a>
+                </li>
+                <li><span>Dashboard</span></li>
+            </ol>
+            <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a>
         </div>
-
-        <h2 class="panel-title">Pagos Pendientes del Mes {{$formatDate}}</h2>
     </header>
-    <div class="panel-body">
-        <table class="table table-bordered table-striped mb-none" id="datatable-default">
-            <thead style="cursor: pointer;">
-                <tr>
-                <th scope="col">Cliente</th>
-                <th scope="col">Servicio</th>
-                <th scope="col">Número</th>
-                <th scope="col">Monto Esperado</th>
-                <th scope="col">Fecha Pago</th>
-                <th scope="col">Fecha Límite de Pago</th>
-                <th scope="col">Opciones</th>
-                </tr>
-            </thead>
-            <tbody>
-           
-            @foreach($paymentsPendings as $paymentsPending)
-                <tr>
-                    <td>{{$paymentsPending->client_name.' '.$paymentsPending->client_lastname}}</td>
-                    <td>{{$paymentsPending->rate_name}}</td>
-                    <td>{{$paymentsPending->DN}}</td>
-                    <td>${{number_format($paymentsPending->amount,2)}}</td>
-                    <td>{{$paymentsPending->date_pay}}</td>
-                    <td>{{$paymentsPending->date_pay_limit}}</td>
-                    <td>
-                        <a href="{{url('/clients-details/'.$paymentsPending->client_id)}}" class="btn btn-info btn-sm mt-xs " ><i class="fa  fa-eye"></i></a>
-                    @php
-                        $ref = $paymentsPending->referenceID == null ? 'N/A' : $paymentsPending->referenceID
-                    @endphp
 
-                    @if($ref == 'N/A')
-                    @else
-                        <button type="button" onclick="ref(this.id)" class="btn btn-warning btn-sm ref-generated mt-xs" id="{{ $ref }}"><i class="fa fa-file-text-o"></i></button>
-                    @endif
-                    @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 5)
-                        <button type="button" class="btn btn-success btn-sm mt-xs register-pay-manual" payID="{{$paymentsPending->id}}" service="{{$paymentsPending->number_product}}"><i class="fa  fa-hand-o-right"></i></button>
-                    @endif
-                    </td>
-                </tr>
-            @endforeach
+    <section class="panel">
+        <header class="panel-heading">
+            <div class="panel-actions">
+                <a href="#" class="fa fa-caret-down"></a>
+                <a href="#" class="fa fa-times"></a>
+            </div>
 
-            @foreach($paymentsPendings2 as $paymentsPending2)
-                <tr>
-                    <td>{{$paymentsPending2->client_name.' '.$paymentsPending2->client_lastname}}</td>
-                    <td>{{$paymentsPending2->pack_name}}</td>
-                    <td>{{$paymentsPending2->number_install}}</td>
-                    <td>${{number_format($paymentsPending2->amount,2)}}</td>
-                    <td>{{$paymentsPending2->date_pay}}</td>
-                    <td>{{$paymentsPending2->date_pay_limit}}</td>
-                    <td>
-                        <a href="{{url('/clients-details/'.$paymentsPending2->client_id)}}" class="btn btn-info btn-sm mt-xs " ><i class="fa fa-eye"></i></a>
-                    @php
-                        $ref = $paymentsPending2->referenceID == null ? 'N/A' : $paymentsPending2->referenceID
-                    @endphp
+            <h2 class="panel-title">Pagos Pendientes del Mes {{$formatDate}}</h2>
+        </header>
+        <div class="panel-body">
+            <table class="table table-bordered table-striped mb-none" id="datatable-default">
+                <thead style="cursor: pointer;">
+                    <tr>
+                    <th scope="col">Cliente</th>
+                    <th scope="col">Servicio</th>
+                    <th scope="col">Número</th>
+                    <th scope="col">Monto Esperado</th>
+                    <th scope="col">Fecha Pago</th>
+                    <th scope="col">Fecha Límite de Pago</th>
+                    <th scope="col">Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+            
+                @foreach($paymentsPendings as $paymentsPending)
+                    <tr>
+                        <td>{{$paymentsPending->client_name.' '.$paymentsPending->client_lastname}}</td>
+                        <td>{{$paymentsPending->rate_name}}</td>
+                        <td>{{$paymentsPending->DN}}</td>
+                        <td>${{number_format($paymentsPending->amount, 2)}}</td>
+                        <td>{{$paymentsPending->date_pay}}</td>
+                        <td>{{$paymentsPending->date_pay_limit}}</td>
+                        <td>
+                            <a href="{{url('/clients-details/'.$paymentsPending->client_id)}}" class="btn btn-info btn-sm mt-xs " ><i class="fa  fa-eye"></i></a>
+                        @php
+                            $ref = $paymentsPending->referenceID == null ? 'N/A' : $paymentsPending->referenceID
+                        @endphp
 
-                    @if($ref == 'N/A')
-                    @else
-                        <button type="button" onclick="ref(this.id)" class="btn btn-warning btn-sm ref-generated mt-xs" id="{{ $ref }}"><i class="fa fa-file-text-o"></i></button>
-                    @endif
-                    @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 5)
-                        <button type="button" class="btn btn-success btn-sm mt-xs register-pay-manual" payID="{{$paymentsPending2->id}}" service="{{$paymentsPending2->service_name}}"><i class="fa  fa-hand-o-right"></i></button>
-                    @endif
-                    </td>
-                </tr>
-            @endforeach
-         
-            </tbody>
-        </table>
-       
-    </div>
-</section>
-<!-- Modal Referencia -->
-<div class="modal fade" id="reference" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="modalTitleRef">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <iframe class="col-md-12" id="reference-pdf" style=" width: 100%; height: 400px;" src=""></iframe>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="mb-xs mt-xs mr-xs btn btn-success" id="referenceWhatsapp" data-message="" data-number-id="" data-channel="2"><i class="fa fa-mobile-phone"></i> Whatsapp</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
+                        @if($ref == 'N/A')
+                        @else
+                            <button type="button" onclick="ref(this.id)" class="btn btn-warning btn-sm ref-generated mt-xs" id="{{ $ref }}"><i class="fa fa-file-text-o"></i></button>
+                        @endif
+                        @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 5)
+                            <button type="button" class="btn btn-success btn-sm mt-xs register-pay-manual" payID="{{$paymentsPending->id}}" service="{{$paymentsPending->number_product}}"><i class="fa  fa-hand-o-right"></i></button>
+                        @endif
+                        </td>
+                    </tr>
+                @endforeach
 
-<!-- Modal de referencia OxxoPay -->
-<div class="modal fade" id="referenceOxxo" tabindex="-1" aria-labelledby="referenceOxxo" aria-hidden="true">
+                @foreach($paymentsPendings2 as $paymentsPending2)
+                    <tr>
+                        <td>{{$paymentsPending2->client_name.' '.$paymentsPending2->client_lastname}}</td>
+                        <td>{{$paymentsPending2->pack_name}}</td>
+                        <td>{{$paymentsPending2->number_install}}</td>
+                        <td>${{number_format($paymentsPending2->amount, 2)}}</td>
+                        <td>{{$paymentsPending2->date_pay}}</td>
+                        <td>{{$paymentsPending2->date_pay_limit}}</td>
+                        <td>
+                            <a href="{{url('/clients-details/'.$paymentsPending2->client_id)}}" class="btn btn-info btn-sm mt-xs " ><i class="fa fa-eye"></i></a>
+                        @php
+                            $ref = $paymentsPending2->referenceID == null ? 'N/A' : $paymentsPending2->referenceID
+                        @endphp
+
+                        @if($ref == 'N/A')
+                        @else
+                            <button type="button" onclick="ref(this.id)" class="btn btn-warning btn-sm ref-generated mt-xs" id="{{ $ref }}"><i class="fa fa-file-text-o"></i></button>
+                        @endif
+                        @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 5)
+                            <button type="button" class="btn btn-success btn-sm mt-xs register-pay-manual" payID="{{$paymentsPending2->id}}" service="{{$paymentsPending2->service_name}}"><i class="fa  fa-hand-o-right"></i></button>
+                        @endif
+                        </td>
+                    </tr>
+                @endforeach
+            
+                </tbody>
+            </table>
+        
+        </div>
+    </section>
+    <!-- Modal Referencia -->
+    <div class="modal fade" id="reference" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="referenceOxxoLabel">Referencia OXXOPay</h5>
+            <h5 class="modal-title" id="modalTitleRef">Modal title</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
         </div>
-            <div class="opps">
-                <div class="opps-header">
-                    <div class="opps-reminder">Ficha digital, puedes capturar la pantalla. No es necesario imprimir.</div>
-                        <div class="opps-info">
-                            <div class="opps-brand"><img src="{{asset('storage/uploads/oxxopay_brand.png')}}" alt="OXXOPay"></div>
-                            <div class="opps-ammount">
-                                <h3 class="title-3">Monto a pagar</h3>
-                                <!-- <h2>$ 0,000.00 <sup>MXN</sup></h2> -->
-                                <h2 id="montoOxxo"></h2>
-                                <p>OXXO cobrará una comisión adicional al momento de realizar el pago.</p>
-                            </div>
-                        </div>
-                        <div class="opps-reference">
-                            <h3 class="title-3">Referencia</h3>
-                            <h1 class="referenceOxxoCard" id="referenceOxxoCard"></h1>
-                        </div>
-                    </div>
-                    <div class="opps-instructions">
-                        <h3 class="title-3">Instrucciones</h3>
-                        <ol class="instructions">
-                            <li style="margin-top: 10px;color: #000000;">Acude a la tienda OXXO más cercana. <a class="search-oxxo" href="https://www.google.com.mx/maps/search/oxxo/" target="_blank">Encuéntrala aquí</a>.</li>
-                            <li style="margin-top: 10px;color: #000000;">Indica en caja que quieres realizar un pago de <strong>OXXOPay</strong>.</li>
-                            <li style="margin-top: 10px;color: #000000;">Dicta al cajero el número de referencia en esta ficha para que tecleé directamete en la pantalla de venta.</li>
-                            <li style="margin-top: 10px;color: #000000;">Realiza el pago correspondiente con dinero en efectivo.</li>
-                            <li style="margin-top: 10px;color: #000000;">Al confirmar tu pago, el cajero te entregará un comprobante impreso. <strong>En el podrás verificar que se haya realizado correctamente.</strong> Conserva este comprobante de pago.</li>
-                        </ol>
-                        <div class="opps-footnote">Al completar estos pasos recibirás un correo de <strong>Nombre del negocio</strong> confirmando tu pago.</div>
-                    </div>
-                </div>	
-            <div>
+        <div class="modal-body">
+            <iframe class="col-md-12" id="reference-pdf" style=" width: 100%; height: 400px;" src=""></iframe>
         </div>
         <div class="modal-footer">
-            <button type="button" class="mb-xs mt-xs mr-xs btn btn-success" id="referenceWhatsapp2" data-message="" data-number-id="" data-channel="2"><i class="fa fa-mobile-phone"></i> Whatsapp</button>
+            <button type="button" class="mb-xs mt-xs mr-xs btn btn-success" id="referenceWhatsapp" data-message="" data-number-id="" data-channel="2"><i class="fa fa-mobile-phone"></i> Whatsapp</button>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
         </div>
         </div>
     </div>
-</div>
-<input type="hidden" id="user_id" value="{{Auth::user()->id}}">
+    </div>
 
-  
+    <!-- Modal de referencia OxxoPay -->
+    <div class="modal fade" id="referenceOxxo" tabindex="-1" aria-labelledby="referenceOxxo" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="referenceOxxoLabel">Referencia OXXOPay</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+                <div class="opps">
+                    <div class="opps-header">
+                        <div class="opps-reminder">Ficha digital, puedes capturar la pantalla. No es necesario imprimir.</div>
+                            <div class="opps-info">
+                                <div class="opps-brand"><img src="{{asset('storage/uploads/oxxopay_brand.png')}}" alt="OXXOPay"></div>
+                                <div class="opps-ammount">
+                                    <h3 class="title-3">Monto a pagar</h3>
+                                    <!-- <h2>$ 0,000.00 <sup>MXN</sup></h2> -->
+                                    <h2 id="montoOxxo"></h2>
+                                    <p>OXXO cobrará una comisión adicional al momento de realizar el pago.</p>
+                                </div>
+                            </div>
+                            <div class="opps-reference">
+                                <h3 class="title-3">Referencia</h3>
+                                <h1 class="referenceOxxoCard" id="referenceOxxoCard"></h1>
+                            </div>
+                        </div>
+                        <div class="opps-instructions">
+                            <h3 class="title-3">Instrucciones</h3>
+                            <ol class="instructions">
+                                <li style="margin-top: 10px;color: #000000;">Acude a la tienda OXXO más cercana. <a class="search-oxxo" href="https://www.google.com.mx/maps/search/oxxo/" target="_blank">Encuéntrala aquí</a>.</li>
+                                <li style="margin-top: 10px;color: #000000;">Indica en caja que quieres realizar un pago de <strong>OXXOPay</strong>.</li>
+                                <li style="margin-top: 10px;color: #000000;">Dicta al cajero el número de referencia en esta ficha para que tecleé directamete en la pantalla de venta.</li>
+                                <li style="margin-top: 10px;color: #000000;">Realiza el pago correspondiente con dinero en efectivo.</li>
+                                <li style="margin-top: 10px;color: #000000;">Al confirmar tu pago, el cajero te entregará un comprobante impreso. <strong>En el podrás verificar que se haya realizado correctamente.</strong> Conserva este comprobante de pago.</li>
+                            </ol>
+                            <div class="opps-footnote">Al completar estos pasos recibirás un correo de <strong>Nombre del negocio</strong> confirmando tu pago.</div>
+                        </div>
+                    </div>	
+                <div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="mb-xs mt-xs mr-xs btn btn-success" id="referenceWhatsapp2" data-message="" data-number-id="" data-channel="2"><i class="fa fa-mobile-phone"></i> Whatsapp</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de referencia Stripe -->
+    <div class="modal fade" id="Stripe" tabindex="-1" aria-labelledby="Stripe" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="StripeLabel">Referencia Stipe</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+                <div class="opps">
+                    <div class="opps-header">
+                        <div class="opps-reminder">Ficha digital, puedes capturar la pantalla. No es necesario imprimir.</div>
+                            <div class="opps-info">
+                                {{-- <div class="opps-brand"><img src="{{asset('storage/uploads/oxxopay_brand.png')}}" alt="OXXOPay"></div> --}}
+                                <div class="opps-ammount">
+                                    <h3 class="title-3">Monto a pagar</h3>
+                                    <!-- <h2>$ 0,000.00 <sup>MXN</sup></h2> -->
+                                    <h2 id="montoOxxo"></h2>
+                                    <p>OXXO cobrará una comisión adicional al momento de realizar el pago.</p>
+                                </div>
+                            </div>
+                            <div class="opps-reference">
+                                <h3 class="title-3">Referencia</h3>
+                                <a href="" class="StripeCard" target="_blank" id="StripeCard"></a>
+                            </div>
+                        </div>
+                        <div class="opps-instructions">
+                            <h3 class="title-3">Instrucciones</h3>
+                            <ol class="instructions">
+                                <li style="margin-top: 10px;color: #000000;">Seleccione un metodo de pago ya sea oxxo o tarjeta.</li>
+                                <li style="margin-top: 10px;color: #000000;">Si eligio oxxo acude a la tienda más cercana. <a class="search-oxxo" href="https://www.google.com.mx/maps/search/oxxo/" target="_blank">Encuéntrala aquí</a>.</li>
+                                <li style="margin-top: 10px;color: #000000;">Indica en caja que quieres realizar un pago de <strong>OXXO</strong>.</li>
+                                <li style="margin-top: 10px;color: #000000;">Pase el codigo por la checadora.</li>
+                                <li style="margin-top: 10px;color: #000000;">Realiza el pago correspondiente con dinero en efectivo.</li>
+                                <li style="margin-top: 10px;color: #000000;">Al confirmar tu pago, el cajero te entregará un comprobante impreso. <strong>En el podrás verificar que se haya realizado correctamente.</strong> Conserva este comprobante de pago.</li>
+                                <li style="margin-top: 10px;color: #000000;">Si paga con tarjeta basta con completar el formulario de pasarela bancaria.</li>
+                            </ol>
+                        </div>
+                    </div>	
+                <div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="mb-xs mt-xs mr-xs btn btn-success" id="referenceWhatsappStripe" data-message="" data-number-id="" data-channel="2"><i class="fa fa-mobile-phone"></i> Whatsapp</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <input type="hidden" id="user_id" value="{{Auth::user()->id}}">
+
+    
 <script>
     $('#date-pay').click(function(){
         $.ajax({
                 url: "{{ route('date-pay')}}",
                 success: function(data){
-                    console.log(data);
-                    
+                    console.log(data);                    
                 }
             });
     });
@@ -191,7 +243,7 @@ use \Carbon\Carbon;
         let folioPay = '';
         let estadoPay = '';
         // console.log(service+' - '+payID);
-        
+
         (async () => {
             const { value: amount } = await Swal.fire({
                 title: 'Ingrese el monto, por favor',
@@ -399,35 +451,6 @@ use \Carbon\Carbon;
                                 });
                                 setTimeout(function(){ location.reload(); }, 2500);
                             }
-                            // Swal.fire({
-                            //     title: 'Pago guardado con éxito.',
-                            //     html: "<h4 class='text-bold text-dark'>¿Cargar factura?</h4>",
-                            //     icon: 'warning',
-                            //     showCancelButton: true,
-                            //     confirmButtonText: 'SÍ',
-                            //     cancelButtonText: 'NO',
-                            //     customClass: {
-                            //         confirmButton: 'btn btn-success mr-md',
-                            //         cancelButton: 'btn btn-danger '
-                            //     },
-                            //     buttonsStyling: false,
-                            // }).then((result) => {
-                            //     if (result.isConfirmed) {
-                            //         location.href = url+'?payment='+payID+'&type='+service;
-                            //     } else if (
-                                   
-                            //         result.dismiss === Swal.DismissReason.cancel
-                            //     ) {
-                            //         Swal.fire({
-                            //             icon: 'success',
-                            //             title: 'Operación exitosa',
-                            //             text: 'No se cargó alguna factura.',
-                            //             showConfirmButton: false,
-                            //             timer: 1500
-                            //         })
-                            //         setTimeout(function(){ location.reload(); }, 2000);
-                            //     }
-                            // })
                         }else if(data == 0){
                             Swal.close();
                             Swal.fire({
@@ -443,8 +466,8 @@ use \Carbon\Carbon;
     }
 
     function ref(reference_id){
-        // let link = 'https://sandbox-dashboard.openpay.mx/paynet-pdf/mvtmmoafnxul8oizkhju/';
-        let link = 'https://dashboard.openpay.mx/paynet-pdf/m3one5bybxspoqsygqhz/';
+        let link = 'https://sandbox-dashboard.openpay.mx/paynet-pdf/mvtmmoafnxul8oizkhju/';
+        //let link = 'https://dashboard.openpay.mx/paynet-pdf/m3one5bybxspoqsygqhz/';
 
             $.ajax({
                     url:"{{url('/show-reference')}}",
@@ -453,7 +476,7 @@ use \Carbon\Carbon;
                         reference_id: reference_id
                     },
                     success: function(data){
-                        // console.log(data);
+                        console.log(data);
                         if(data.channel_id == 1){
                             $('#modalTitleRef').html('Referencia '+data.reference)
                             $('#reference-pdf').attr('src', link+data.reference);
@@ -464,16 +487,26 @@ use \Carbon\Carbon;
                             $('#montoOxxo').html('$'+data.amount+'<sup>MXN</sup>');
                             $('#referenceOxxoCard').html(data.reference);
                             $('#referenceWhatsapp2').attr('data-message','Hola, '+data.name+' '+data.lastname+', te compartimos tu referencia de pago, tu número de referencia es: '+data.reference);
-                            $('#referenceWhatsapp2').attr('data-number-id',data.number_id);
+                            $('#referenceWhatsapp2').attr('data-number-id', data.number_id);
                             $('#referenceOxxo').modal('show');
                             // console.log('referencia OxxoPay');
+                        }else if(data.channel_id == 5){
+                            $('#montoOxxo').html('$'+data.amount+'<sup>MXN</sup>');
+                            $('#StripeCard').html(data.payment_link);
+                            $('#StripeCard').attr('href', data.payment_link);
+                            $('#referenceWhatsappStripe').attr('data-message','Hola, '+data.name+' '+data.lastname+', te compartimos tu referencia de pago, el enlace de pago es el siguiente: '+data.payment_link);
+                            $('#referenceWhatsappStripe').attr('data-number-id', data.number_id);
+                            $('#Stripe').modal('show');
+                            // console.log('referencia OxxoPay');
                         }
+                        
+                        
                         // console.log(data.reference);
                     }
                 }); 
     }
 
-    $('#referenceWhatsapp, #referenceWhatsapp2').click(function(){
+    $('#referenceWhatsapp, #referenceWhatsapp2, #referenceWhatsappStripe').click(function(){
         let message = $(this).attr('data-message');
         let number_id = $(this).attr('data-number-id');
         

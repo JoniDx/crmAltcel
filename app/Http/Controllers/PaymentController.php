@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 
 class PaymentController extends Controller
 {
-    public function createPayments($date_pay,$date_limit,$type){
+    public function createPayments($date_pay, $date_limit, $type){
         if($type == 'altan'){
             $activations = DB::table('activations')
                        ->join('rates','rates.id','=','activations.rate_id')
@@ -124,6 +124,7 @@ class PaymentController extends Controller
         }
     }
 
+    //-- --
     public function paymentsPendings(){
         $date_now = date("Y-m-d");
         $date_pay = new DateTime($date_now);
@@ -158,35 +159,25 @@ class PaymentController extends Controller
                                       ->get();
         
 
-        return view('webhooks.pendings',$data);
+        return view('webhooks.pendings', $data);
     }
 
+    //-- --
     public function paymentsOverdue(){
         $date_now = date("Y-m-d");
-        $date_pay = new DateTime($date_now);
-        $date_pay->modify('first day of this month');
-        
-        $day = $date_pay->format('d');
-        $month = $date_pay->format('M');
-        $year = $date_pay->format('Y');
-        $data['formatDate'] = ' de '.$month.' de '.$year;
-        $date_pay = $date_pay->format('Y-m-d');
-
-        $date_limit = strtotime('+4 days', strtotime($date_pay));
-        $date_limit = date('Y-m-d', $date_limit);
 
         $data['paymentsOverdues'] = DB::table('pays')
                                       ->join('activations','activations.id','=','pays.activation_id')
+                                      ->join('numbers','numbers.id','=','activations.numbers_id')
                                       ->join('rates','rates.id','=','activations.rate_id')
-                                      ->join('users','users.id','=','activations.client_id')
-                                      ->where('pays.date_pay',$date_pay)
-                                      ->where('pays.date_pay_limit',$date_limit)
+                                      ->join('clients','clients.id','=','activations.client_id')
+                                      ->where('pays.date_pay_limit', '<', $date_now)
                                       ->where('pays.status','vencido')
-                                      ->select('pays.*','rates.name AS rate_name','users.name AS client_name','users.lastname AS client_lastname')
+                                      ->select('pays.*','numbers.MSISDN AS MSISDN','rates.name AS rate_name', 'clients.id AS cliet_id','clients.name AS client_name','clients.lastname AS client_lastname')
                                       ->get();
         
 
-        return view('webhooks.overdues',$data);
+        return view('webhooks.overdues', $data);
     }
 
     public function createPaymentsSwitchCase(Request $request){
@@ -246,8 +237,8 @@ class PaymentController extends Controller
                     ->select('references.user_id','references.reference','references.status','users.name AS client','channels.name AS channel','rates.name','numbers.MSISDN AS numbers','references.reference_id AS reference_id')
                     ->get();
 
-
         $x['products'] = [];    
+
         foreach($data as $change){
             $reference = $change->reference;
             $status = $change->status;
@@ -277,6 +268,7 @@ class PaymentController extends Controller
         return $x;
 
     }
+
     public function excedentes(){
         $data = DB::table('references')
                     ->join('referencestypes','referencestypes.id', '=', 'references.referencestype_id')
@@ -319,17 +311,18 @@ class PaymentController extends Controller
         return view('webhooks/excedentes', $x);
     }
 
+    //-- --
     public function incomesQuery(Request $request){
         if(isset($request['start']) && isset($request['end'])){
             if($request['start'] != null && $request['end'] != null){
-                $year =  substr($request['start'],6,4);
-                $month = substr($request['start'],0,2);
-                $day = substr($request['start'],3,2);
+                $year =  substr($request['start'], 6, 4);
+                $month = substr($request['start'], 0, 2);
+                $day = substr($request['start'], 3, 2);
                 $init_date = $year.'-'.$month.'-'.$day;
 
-                $year =  substr($request['end'],6,4);
-                $month = substr($request['end'],0,2);
-                $day = substr($request['end'],3,2);
+                $year =  substr($request['end'], 6, 4);
+                $month = substr($request['end'], 0, 2);
+                $day = substr($request['end'], 3, 2);
                 $final_date = $year.'-'.$month.'-'.$day;
 
                 // return $init_date.' y '.$final_date;
@@ -353,8 +346,8 @@ class PaymentController extends Controller
                                     ->join('activations','activations.id','=','pays.activation_id')
                                     ->join('numbers','numbers.id','=','activations.numbers_id')
                                     ->leftJoin('users','users.id','=','pays.who_did_id')
-                                    ->whereBetween('pays.updated_at',[$init_date,$final_date])
-                                    ->where('pays.reference_id','=',null)
+                                    ->whereBetween('pays.updated_at',[$init_date, $final_date])
+                                    ->where('pays.reference_id', '=', null)
                                     ->where('pays.status','=','completado')
                                     ->select('pays.*','numbers.MSISDN as msisdn','numbers.producto AS service','users.name AS who_name','users.lastname AS who_lastname')
                                     ->get();
@@ -364,7 +357,7 @@ class PaymentController extends Controller
                                         ->join('channels','references.channel_id','=','channels.id')
                                         ->join('activations','activations.id','=','pays.activation_id')
                                         ->join('numbers','numbers.id','=','activations.numbers_id')
-                                        ->whereBetween('pays.updated_at',[$init_date,$final_date])
+                                        ->whereBetween('pays.updated_at', [$init_date, $final_date])
                                         ->where('pays.status','=','completado')
                                         ->select('pays.*','numbers.MSISDN as msisdn','numbers.producto AS service',
                                         'references.event_date_complete AS date_complete','references.fee_amount AS comision',
@@ -373,8 +366,8 @@ class PaymentController extends Controller
 
         $data['monthliesOreda'] = DB::table('ethernetpays')
                                     ->join('instalations','instalations.id','=','ethernetpays.instalation_id')
-                                    ->whereBetween('ethernetpays.updated_at',[$init_date,$final_date])
-                                    ->where('ethernetpays.reference_id','=',null)
+                                    ->whereBetween('ethernetpays.updated_at', [$init_date, $final_date])
+                                    ->where('ethernetpays.reference_id','=', null)
                                     ->where('ethernetpays.status','=','completado')
                                     ->select('ethernetpays.*','instalations.number as number')
                                     ->get();
@@ -383,7 +376,7 @@ class PaymentController extends Controller
                                         ->join('references','references.reference_id','=','ethernetpays.reference_id')
                                         ->join('channels','references.channel_id','=','channels.id')
                                         ->join('instalations','instalations.id','=','ethernetpays.instalation_id')
-                                        ->whereBetween('ethernetpays.updated_at',[$init_date,$final_date])
+                                        ->whereBetween('ethernetpays.updated_at', [$init_date, $final_date])
                                         ->where('ethernetpays.status','=','completado')
                                         ->select('ethernetpays.*','instalations.number as number',
                                         'references.event_date_complete AS date_complete','references.fee_amount AS comision',
@@ -395,7 +388,7 @@ class PaymentController extends Controller
                               ->leftJoin('references','references.reference_id','=','changes.reference_id')
                               ->leftJoin('channels','channels.id','=','references.channel_id')
                               ->leftJoin('users','users.id','=','changes.who_did_id')
-                              ->whereBetween('changes.date',[$init_date,$final_date])
+                              ->whereBetween('changes.date', [$init_date, $final_date])
                               ->where(function($query){
                                 $query->where('changes.reason','cobro')->orWhere('changes.reason','referenciado');
                             })->select('changes.*','numbers.MSISDN AS msisdn','numbers.producto AS service','channels.name AS channel','references.fee_amount AS comision','references.reference AS reference','users.name AS who_name','users.lastname AS who_lastname')
@@ -404,22 +397,22 @@ class PaymentController extends Controller
         $data['surplusChannels'] = DB::table('references')
                                       ->join('channels','channels.id','=','references.channel_id')
                                       ->join('numbers','numbers.id','=','references.number_id')
-                                      ->whereBetween('references.updated_at',[$init_date,$final_date])
-                                      ->where('references.referencestype_id',5)
+                                      ->whereBetween('references.updated_at', [$init_date, $final_date])
+                                      ->where('references.referencestype_id', 5)
                                       ->select('references.*','channels.name AS channel','numbers.MSISDN AS msisdn','numbers.producto AS service')
                                       ->get();
 
         $data['surpluses'] = DB::table('purchases')
                                 ->join('numbers','numbers.id','=','purchases.number_id')
                                 ->leftJoin('users','users.id','=','purchases.who_did_id')
-                                ->whereBetween('purchases.date',[$init_date,$final_date])
+                                ->whereBetween('purchases.date', [$init_date, $final_date])
                                 ->where('purchases.reason','cobro')
                                 ->select('purchases.*','numbers.MSISDN AS msisdn','numbers.producto AS service','users.name AS who_name','users.lastname AS who_lastname')
                                 ->get();
 
         $data['devicesChannels'] = DB::table('references')
                                 ->join('channels','channels.id','=','references.channel_id')
-                                ->whereBetween('references.updated_at',[$init_date,$final_date])
+                                ->whereBetween('references.updated_at', [$init_date, $final_date])
                                 ->where('references.referencestype_id',7)
                                 ->select('references.*','channels.name AS channel')
                                 ->get();

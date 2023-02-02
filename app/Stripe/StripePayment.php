@@ -27,8 +27,7 @@ class StripePayment{
         $quantity = $request->quantity;
         $concepto = $request->concepto;
         $type = $request->type;
-        $channel = $request->channel;
-        $user = $request->user_id;
+        $channel = $request->channel;        
         $client = $request->client_id;
         $pay_id = $request->pay_id;
 
@@ -44,7 +43,6 @@ class StripePayment{
         $h = date("g", $time)+7;
         $h = $h < 10 ? '0'.$h : $h;
         $creation_date = date("Ymd").$h.date("is", $time);
-
         try {
 
             $stripe_order = $this->stripe->paymentLinks->create(
@@ -56,8 +54,7 @@ class StripePayment{
                         'referencestype_id' => $request['type'],
                         'offer_id' => $request['offer_id'],
                         'number_id' => $request['number_id'],
-                        'rate_id' => $request['rate_id'],
-                        'user_id' => $request['user_id'],
+                        'rate_id' => $request['rate_id'],                        
                         'pack_id' => $request['pack_id'],
                     ]
                 ],            
@@ -67,6 +64,7 @@ class StripePayment{
                 if(isset($stripe_order->id)){
                     $dataReference = [
                         'reference_id' => $stripe_order->id,
+                        'payment_link' => $stripe_order->url,
                         'transaction_type' => $stripe_order->object,
                         'status' => "pending_payment",
                         'creation_date' => $creation_date,
@@ -80,8 +78,7 @@ class StripePayment{
                         'referencestype_id' => $type,
                         'number_id' => $number_id,
                         'offer_id' => $offerID,
-                        'rate_id' => $rate,
-                        'user_id' => $user = $user == 'null' ? null : $user,
+                        'rate_id' => $rate,                        
                         'client_id' => $client
                     ];
                     Reference::insert($dataReference);   

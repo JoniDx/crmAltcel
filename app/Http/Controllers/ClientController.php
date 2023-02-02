@@ -118,6 +118,7 @@ class ClientController extends Controller
         return view('clients.rechargeView',$data);
     }
 
+    //-- --
     public function clientDetails($id){
         $clientData = Client::where('id', $id)->first();
         $data['mypays'] = DB::table('pays')
@@ -196,7 +197,7 @@ class ClientController extends Controller
 
     public function showReferenceClient(Request $request){
         $reference_id = $request->get('reference_id');
-        $response = Reference::where('reference_id',$reference_id)->first();
+        $response = Reference::where('reference_id', $reference_id)->first();
         return $response;
     }
 
@@ -357,7 +358,7 @@ class ClientController extends Controller
         return view('clients.generatePay')->with($data);
     }
 
-    public function productDetails($id_dn,$id_act,$service){
+    public function productDetails($id_dn, $id_act, $service){
         if($service == 'MIFI' || $service == 'HBB' || $service == 'MOV'){
             // return 1;
             $data['channels'] = Channel::all();
@@ -1298,6 +1299,7 @@ class ClientController extends Controller
         return response()->json($response);
     }
 
+    // -- --
     public function getDataClientBySIM(Request $request){
         $number_id = $request->get('number_id');
 
@@ -1305,7 +1307,7 @@ class ClientController extends Controller
                        ->join('activations','activations.numbers_id','=','numbers.id')
                        ->join('clients','clients.id','=','activations.client_id')
                     //    ->join('clients','clients.user_id','=','clients.id')
-                       ->where('numbers.id',$number_id)
+                       ->where('numbers.id', $number_id)
                        ->select('clients.name AS name','clients.lastname AS lastname',
                        'clients.email AS email','clients.cellphone AS cellphone',
                        'clients.id AS client_id','numbers.id AS number_id')
@@ -1452,6 +1454,7 @@ class ClientController extends Controller
         }
     }
 
+    // -- --
     public function reportMoney(Request $request){
         return view('clients.reportMoney');
     }
@@ -1699,10 +1702,12 @@ class ClientController extends Controller
                 
     }
 
+    // -- --
     public function preRegistro(){
         return view('clients.preRegistro');
     }
 
+    // -- --
     public function reportsConsumoVeracruz(){
         return view('clients.reportsVeracruz');
     }
@@ -1812,6 +1817,7 @@ class ClientController extends Controller
 
     }
 
+    // -- --
     public function createClient(Request $request){
         $name = $request->get('name');
         $lastname = $request->get('lastname');

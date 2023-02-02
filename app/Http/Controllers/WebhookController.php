@@ -366,6 +366,7 @@ class WebhookController extends Controller
             return response()->json(['http_code'=>'200']);
     }
 
+    // -- --
     public function saveManualPay(Request $request){
         $service = $request['service'];
         $payID = $request['payID'];
@@ -387,7 +388,7 @@ class WebhookController extends Controller
             $payment_amountReceived = $payment_amountReceived == null ? 0 : $payment_amountReceived;
             $monto_recibido = $payment_amountReceived+$monto;
 
-            $x = Ethernetpay::where('id',$payID)->update([
+            $x = Ethernetpay::where('id', $payID)->update([
                 'status' => $estadoPay,
                 'amount_received' => $monto_recibido,
                 'type_pay' => $typePay,
@@ -422,12 +423,12 @@ class WebhookController extends Controller
             }
 
         }else if($service == 'MIFI' || $service == 'HBB' || $service == 'MOV'){
-            $payment_data = Pay::where('id',$payID)->first();
+            $payment_data = Pay::where('id', $payID)->first();
             $payment_amountReceived = $payment_data->amount_received;
             $payment_amountReceived = $payment_amountReceived == null ? 0 : $payment_amountReceived;
             $monto_recibido = $payment_amountReceived+$monto;
             $activation_id = $payment_data->activation_id;
-            $dataActivation = Activation::where('id',$activation_id)->first();
+            $dataActivation = Activation::where('id', $activation_id)->first();
             $recharges = $dataActivation->recharges;
             $offer_id = $dataActivation->offer_id;
             $rate_id = $dataActivation->rate_id;
@@ -453,7 +454,7 @@ class WebhookController extends Controller
                         if($response['http_code'] == 1){
                             $dataClient = DB::table('activations')
                                              ->join('users','users.id','=','activations.client_id')
-                                             ->where('activations.id',$activation_id)
+                                             ->where('activations.id', $activation_id)
                                              ->select('users.name','users.lastname')
                                              ->get();
                             $client_name = $dataClient[0]->name.' '.$dataClient[0]->lastname;
@@ -464,14 +465,7 @@ class WebhookController extends Controller
                                 'service' => $service,
                                 'msisdn' => $msisdn,
                                 'subject' => 'BONIFICACIÓN POR QUINTA MENSUALIDAD'
-
                             ];
-
-                            // Mail::to('jonathan_gutierrez@altcel.com')->send(new NotificationDealerSurplus($data));
-                            // Mail::to('leopoldo_martinez@altcel.com')->send(new NotificationDealerSurplus($data));
-                            // Mail::to('joel_maza@altcel.com')->send(new NotificationDealerSurplus($data));
-                            // Mail::to('cintya_delarosa@altcel.com')->send(new NotificationDealerSurplus($data));
-                            // Mail::to('carlos_ruiz@altcel.com')->send(new NotificationDealerSurplus($data));
                         }
                         $recharges = 0;
                         

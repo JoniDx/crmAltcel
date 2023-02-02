@@ -463,8 +463,8 @@ class AltanController extends Controller
         $number_id = $dataNumber->id;
         $message = '';
 
-        // $url_prelaunch = "https://altanredes-prod.apigee.net/cm-sandbox/v1/products/purchase";
-        $url_production = "https://altanredes-prod.apigee.net/cm/v1/products/purchase";
+        $url_prelaunch = "https://altanredes-prod.apigee.net/cm-sandbox/v1/products/purchase";
+        //$url_production = "https://altanredes-prod.apigee.net/cm/v1/products/purchase";
         // return response()->json(['gbs'=>$quantity_gb,'$offerID'=>$offerID,'$MSISDN'=>$MSISDN]);
         $accessTokenResponse = AltanController::accessTokenRequestPost();
 

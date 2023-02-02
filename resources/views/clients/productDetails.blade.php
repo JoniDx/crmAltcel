@@ -22,10 +22,10 @@
                 <div class="row">
                     <div class="col-sm-6 mt-md">
                         @if($service == 'MIFI' || $service == 'HBB' || $service == 'MOV')
-                        <h4 class="card-title"></h4>
-                        <h2 class="h2 mt-none mb-sm text-dark text-bold">{{$service.'/'.$DN}}</h2>
+                            <h4 class="card-title"></h4>
+                            <h2 class="h2 mt-none mb-sm text-dark text-bold">{{$service.'/'.$DN}}</h2>
                         @elseif($service == 'Conecta' || $service == 'Telmex')
-                        <h2 class="h2 mt-none mb-sm text-dark text-bold">{{$service}}</h2>
+                            <h2 class="h2 mt-none mb-sm text-dark text-bold">{{$service}}</h2>
                         @endif
                         <h4 class="h4 m-none text-dark text-bold">Paquete/Plan Actual: <br>
                         {{$pack_name}} - {{'$'.number_format($pack_price,2)}}</h4>
@@ -39,9 +39,9 @@
                                         $tag = $traffic_out == 'activo' ? 'label-success' : 'label-danger';
                                         $tagS = $traffic_out_in == 'activo' ? 'label-success' : 'label-danger'
                                     @endphp
-                                Tráfico Saliente: <span class="label {{$tag}}" style="cursor: pointer;" data-msisdn="{{$DN}}" data-status="{{$traffic_out}}" data-toggle="tooltip" data-placement="left" title="Suspensión/Reanudación del Tráfico Saliente" id="traffic_out">{{$traffic_out}}</span>
+                                    Tráfico Saliente: <span class="label {{$tag}}" style="cursor: pointer;" data-msisdn="{{$DN}}" data-status="{{$traffic_out}}" data-toggle="tooltip" data-placement="left" title="Suspensión/Reanudación del Tráfico Saliente" id="traffic_out">{{$traffic_out}}</span>
                                 <br/>
-                                Tráfico Saliente/Entrante: <span class="label {{$tagS}}" style="cursor: pointer;" data-msisdn="{{$DN}}" data-status="{{$traffic_out_in}}" data-toggle="tooltip" data-placement="left" title="Suspensión/Reanudación del Tráfico Saliente/Entrante" id="traffic_out_in">{{$traffic_out_in}}</span>                            
+                                    Tráfico Saliente/Entrante: <span class="label {{$tagS}}" style="cursor: pointer;" data-msisdn="{{$DN}}" data-status="{{$traffic_out_in}}" data-toggle="tooltip" data-placement="left" title="Suspensión/Reanudación del Tráfico Saliente/Entrante" id="traffic_out_in">{{$traffic_out_in}}</span>                            
                             @endif
                             <br>
                             <button type="button" class="btn btn-success btn-xs mt-xs" data-toggle="modal" data-target="#operations"><li class="fa fa-cogs"></li> Operaciones</button>
@@ -90,9 +90,7 @@
 											<span class="badge label label-danger">{{$expireDatePrimary}}</span>
 										</li>
 									</ul>
-								</div>
-
-                                
+								</div>                                
 
                             </div>
                             <div class="col-md-6">
@@ -1232,31 +1230,15 @@
                         method: method,
                         data: data,
                         beforeSend: function(){
-                            Swal.fire({
-                                title: 'Estamos trabajando en tu petición...',
-                                html: 'Espera un poco, un poquito más...',
-                                didOpen: () => {
-                                    Swal.showLoading();
-                                }
-                            });
+                            swal_loading('Estamos trabajando en tu petición...', 'Espera un poco, un poquito más...')
                         },
                         success: function(response){
                             console.log(response);
                             if(radioOption == 'purchaseProductFree' || radioOption == 'purchaseProductCollect'){
                                 if(response.http_code == 1){
-                                    Swal.fire({
-                                        icon: 'success',
-                                        title: 'Hecho',
-                                        text: response.message,
-                                        showConfirmButton: false,
-                                        timer: 2000
-                                    });
+                                    swal_succes('Hecho', response.message)
                                 }else{
-                                    Swal.fire({
-                                        icon: 'error',
-                                        title: 'Ooops!',
-                                        text: response.message
-                                    });
+                                    swal_error('Ooops!', response.message)
                                 }
                                 
                             }else{

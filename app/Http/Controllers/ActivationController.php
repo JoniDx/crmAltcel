@@ -38,14 +38,14 @@ class ActivationController extends Controller
     public function index(Request $request){
         if(isset($request['start']) && isset($request['end'])){
             if($request['start'] != null && $request['end'] != null){
-                $year =  substr($request['start'],6,4);
-                $month = substr($request['start'],0,2);
-                $day = substr($request['start'],3,2);
+                $year =  substr($request['start'], 6, 4);
+                $month = substr($request['start'], 0, 2);
+                $day = substr($request['start'], 3, 2);
                 $date_init = $year.'-'.$month.'-'.$day;
 
-                $year =  substr($request['end'],6,4);
-                $month = substr($request['end'],0,2);
-                $day = substr($request['end'],3,2);
+                $year =  substr($request['end'], 6, 4);
+                $month = substr($request['end'], 0, 2);
+                $day = substr($request['end'], 3, 2);
                 $date_final = $year.'-'.$month.'-'.$day;
 
                 // return $date_init.' y '.$date_final;
@@ -60,13 +60,12 @@ class ActivationController extends Controller
             $date_init = 'none';
         }
 
-        $data = ActivationController::indexFilter($date_init,$date_final);
+        $data = $this->indexFilter($date_init, $date_final);
         $data['date_init'] = $date_init;
         $data['date_final'] = $date_final;
         $current_role = auth()->user()->role_id;
         // return $date_init.' - '.$date_final;
-        
-        return view('activations.index',$data);
+        return view('activations.index', $data);
     }
 
     public function create(Request $request){
@@ -591,7 +590,8 @@ class ActivationController extends Controller
         ];
         Mail::to($email)->send(new SendAccess($data));
     }
-
+    
+    //-- --
     public function indexFilter($date_init,$date_final){
         if($date_init == 'none'){
 
@@ -618,7 +618,7 @@ class ActivationController extends Controller
                                 ->leftJoin('pays','pays.activation_id','=','activations.id')
                                 ->join('rates', 'rates.id', '=', 'activations.rate_id')
                                 ->join('clients','activations.client_id','=','user_id')
-                                ->where('pays.id',null)
+                                ->where('pays.id', null)
                                 ->select('activations.*', 'users.name','users.lastname',
                                 'numbers.MSISDN','numbers.producto AS pack_service', 
                                 'devices.description AS device_desc', 'users.name as promotor',
@@ -647,7 +647,7 @@ class ActivationController extends Controller
                                    ->join('clients','clients.user_id','=','users.id')
                                    ->leftJoin('ethernetpays','ethernetpays.instalation_id','=','instalations.id')
                                    ->where('service_name','Conecta')
-                                   ->where('ethernetpays.id',null)
+                                   ->where('ethernetpays.id', null)
                                    ->select('instalations.*','packs.name AS pack_name','packs.service_name AS pack_service',
                                    'radiobases.name as radiobase_name','users.name AS client_name',
                                    'users.lastname AS client_lastname','clients.cellphone AS client_cellphone','ethernetpays.amount_received AS payment_amount',
@@ -673,7 +673,7 @@ class ActivationController extends Controller
                                    ->join('clients','clients.user_id','=','users.id')
                                    ->leftJoin('ethernetpays','ethernetpays.instalation_id','=','instalations.id')
                                    ->where('service_name','Telmex')
-                                   ->where('ethernetpays.id',null)
+                                   ->where('ethernetpays.id', null)
                                    ->select('instalations.*','packs.name AS pack_name','packs.service_name AS pack_service',
                                    'users.name AS client_name','users.lastname AS client_lastname',
                                    'clients.cellphone AS client_cellphone','ethernetpays.amount_received AS payment_amount',
@@ -689,7 +689,7 @@ class ActivationController extends Controller
                               ->join('rates', 'rates.id', '=', 'activations.rate_id')
                               ->join('clients','activations.client_id','=','user_id')
                               ->where('pays.status','pendiente')
-                              ->whereBetween('pays.date_pay',[$date_init,$date_final])
+                              ->whereBetween('pays.date_pay', [$date_init, $date_final])
                               ->select('activations.*', 'users.name','users.lastname',
                               'numbers.MSISDN','numbers.producto AS pack_service', 
                               'devices.description AS device_desc', 'users.name as promotor',
@@ -705,8 +705,8 @@ class ActivationController extends Controller
                                 ->leftJoin('pays','pays.activation_id','=','activations.id')
                                 ->join('rates', 'rates.id', '=', 'activations.rate_id')
                                 ->join('clients','activations.client_id','=','user_id')
-                                ->whereBetween('activations.date_activation',[$date_init,$date_final])
-                                ->where('pays.id',null)
+                                ->whereBetween('activations.date_activation',[$date_init, $date_final])
+                                ->where('pays.id', null)
                                 ->select('activations.*', 'users.name','users.lastname',
                                 'numbers.MSISDN','numbers.producto AS pack_service', 
                                 'devices.description AS device_desc', 'users.name as promotor',
@@ -722,7 +722,7 @@ class ActivationController extends Controller
                                    ->join('clients','clients.user_id','=','users.id')
                                    ->leftJoin('ethernetpays','ethernetpays.instalation_id','=','instalations.id')
                                    ->where('service_name','Conecta')
-                                   ->whereBetween('ethernetpays.date_pay',[$date_init,$date_final])
+                                   ->whereBetween('ethernetpays.date_pay', [$date_init, $date_final])
                                    ->select('instalations.*','packs.name AS pack_name','packs.service_name AS pack_service',
                                    'radiobases.name as radiobase_name','users.name AS client_name',
                                    'users.lastname AS client_lastname','clients.cellphone AS client_cellphone','ethernetpays.amount_received AS payment_amount',
@@ -736,8 +736,8 @@ class ActivationController extends Controller
                                    ->join('clients','clients.user_id','=','users.id')
                                    ->leftJoin('ethernetpays','ethernetpays.instalation_id','=','instalations.id')
                                    ->where('service_name','Conecta')
-                                   ->whereBetween('instalations.date_instalation',[$date_init,$date_final])
-                                   ->where('ethernetpays.id',null)
+                                   ->whereBetween('instalations.date_instalation', [$date_init, $date_final])
+                                   ->where('ethernetpays.id', null)
                                    ->select('instalations.*','packs.name AS pack_name','packs.service_name AS pack_service',
                                    'radiobases.name as radiobase_name','users.name AS client_name',
                                    'users.lastname AS client_lastname','clients.cellphone AS client_cellphone','ethernetpays.amount_received AS payment_amount',
@@ -751,7 +751,7 @@ class ActivationController extends Controller
                                    ->leftJoin('ethernetpays','ethernetpays.instalation_id','=','instalations.id')
                                    ->where('service_name','Telmex')
                                    ->where('ethernetpays.status','pendiente')
-                                   ->whereBetween('ethernetpays.date_pay',[$date_init,$date_final])
+                                   ->whereBetween('ethernetpays.date_pay', [$date_init, $date_final])
                                    ->select('instalations.*','packs.name AS pack_name','packs.service_name AS pack_service',
                                    'users.name AS client_name','users.lastname AS client_lastname',
                                    'clients.cellphone AS client_cellphone','ethernetpays.amount_received AS payment_amount',
@@ -764,16 +764,15 @@ class ActivationController extends Controller
                                    ->join('clients','clients.user_id','=','users.id')
                                    ->leftJoin('ethernetpays','ethernetpays.instalation_id','=','instalations.id')
                                    ->where('service_name','Telmex')
-                                   ->whereBetween('instalations.date_instalation',[$date_init,$date_final])
-                                   ->where('ethernetpays.id',null)
+                                   ->whereBetween('instalations.date_instalation', [$date_init, $date_final])
+                                   ->where('ethernetpays.id', null)
                                    ->select('instalations.*','packs.name AS pack_name','packs.service_name AS pack_service',
                                    'users.name AS client_name','users.lastname AS client_lastname',
                                    'clients.cellphone AS client_cellphone','ethernetpays.amount_received AS payment_amount',
                                    'ethernetpays.status AS payment_status','ethernetpays.date_pay AS payment_date')
                                    ->get();
         }
-        
-        
+           
         return $data;
     }
 
@@ -1063,6 +1062,7 @@ class ActivationController extends Controller
         return $petition;
 
     }
+
     public function datePay(){
         $date_now = date("Y-m-d");
 
