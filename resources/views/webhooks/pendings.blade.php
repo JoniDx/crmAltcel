@@ -192,15 +192,16 @@
                                 </div>
                             </div>
                             <div class="opps-reference">
-                                <h3 class="title-3">Referencia</h3>
+                                <h3 class="title-3">Enlace de referencia stripe</h3>
                                 <a href="" class="StripeCard" target="_blank" id="StripeCard"></a>
                             </div>
                         </div>
                         <div class="opps-instructions">
                             <h3 class="title-3">Instrucciones</h3>
                             <ol class="instructions">
+                                <li style="margin-top: 10px;color: #000000;">Entre al enlace proporcionado por la pasarela de pago</li>
                                 <li style="margin-top: 10px;color: #000000;">Seleccione un metodo de pago ya sea oxxo o tarjeta.</li>
-                                <li style="margin-top: 10px;color: #000000;">Si eligio oxxo acude a la tienda más cercana. <a class="search-oxxo" href="https://www.google.com.mx/maps/search/oxxo/" target="_blank">Encuéntrala aquí</a>.</li>
+                                <li style="margin-top: 10px;color: #000000;">Si eligio oxxo acuda a la tienda más cercana. <a class="search-oxxo" href="https://www.google.com.mx/maps/search/oxxo/" target="_blank">Encuéntrala aquí</a>.</li>
                                 <li style="margin-top: 10px;color: #000000;">Indica en caja que quieres realizar un pago de <strong>OXXO</strong>.</li>
                                 <li style="margin-top: 10px;color: #000000;">Pase el codigo por la checadora.</li>
                                 <li style="margin-top: 10px;color: #000000;">Realiza el pago correspondiente con dinero en efectivo.</li>
