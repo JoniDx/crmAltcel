@@ -1769,6 +1769,7 @@ class ClientController extends Controller
         }
 
     }
+    
     public function rechargeVeracruz(){
         $veracruzServices = DB::table('portabilities')                                
                                 ->join('numbers','portabilities.icc', '=', 'numbers.icc_id')

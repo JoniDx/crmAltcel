@@ -13,7 +13,7 @@ class AssignmentController extends Controller
 
     public function index()
     {
-        $promoters = DB::table('users')->join('roles', 'roles.id', '=', 'users.role_id')->where('users.role_id',7)->orWhere('users.role_id',4)->select('users.*','roles.rol')->get();
+        $promoters = DB::table('users')->join('roles', 'roles.id', '=', 'users.role_id')->where('users.role_id', 7)->orWhere('users.role_id',4)->select('users.*','roles.rol')->get();
         $data['promoters'] = $promoters;
         $data['numbers'] = Number::all()->where('status', 'available');
         $data['devices'] = Device::all()->where('status', 'available');

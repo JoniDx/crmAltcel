@@ -207,7 +207,10 @@ Route::patch('/updateCoordinate', 'AltanController@updateCoordinate')->name('upd
 //serviciabilidad
 Route::get('serviciabilidad','AltanController@serviciabilidad')->name('serv');
 
-        
+// Dealers 
+Route::post('/dealer-update', 'DealerController@update')->name('dealer.update')->middleware('auth');
+Route::get('/dealer-get/{id}', 'DealerController@get')->name('dealer.get')->middleware('auth');
+
 // Assignments
 // Route::post('/assignment','');
 
