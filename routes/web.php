@@ -40,8 +40,6 @@ Route::resource('consumption','ConsumptionController')->middleware('auth');
 
 Route::get('/show-shipping-async/{shipping}','ShippingController@showAsync')->name('showShipping.async')->middleware('auth');
 
-
-
 Route::get('consult-cp','ShippingController@consultCP')->name('consultCP');
 Route::get('/get-rates-petition','PetitionController@getRatesPetition')->name('petition.rates')->middleware('auth');
 
@@ -152,13 +150,6 @@ Route::post('/create-pack','AdminController@createPack');
 Route::post('/create-radiobase','AdminController@createRadiobase');
 Route::get('/get-pack-ethernet','AdminController@getPackEthernet')->name('get-pack-ethernet.get');
 Route::post('/update-pack-ethernet/{pack_id}','AdminController@updatePackEthernet')->name('update-pack-ethernet.get');
-
-// Politics Routes
-Route::get('/create-politic','AdminController@createPoliticRate')->name('politicRate.create')->middleware('auth');
-Route::post('/create-politic','AdminController@insertPoliticRate')->name('politicRate.create');
-Route::get('/politics/delete/{politic_id}','AdminController@destroy')->name('politic.delete');
-Route::get('/politics/edit/{politic_id}','AdminController@getPolitic')->name('politic.edit');
-Route::put('/politics/update/{politic}','AdminController@updatePolitic')->name('politic.update');
 
 // Pays Routes
 Route::get('/save-manual-pay','WebhookController@saveManualPay')->name('save-manual-pay.get');

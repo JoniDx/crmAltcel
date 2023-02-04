@@ -17,19 +17,24 @@ class DeviceController extends Controller
         $dataproducts['products'] = [];
 
         foreach($products as $product){
+
             $producto = $product->producto;
+
             $productofree = Number::where('producto', 'like', '%'.$producto)
                                    ->where('status', 'available')
                                     ->count();
+
             $productotaken = Number::where('producto', 'like', '%'.$producto)
                                     ->where('status', 'taken')
                                     ->count();
+
             array_push($dataproducts['products'], array('producto'=>$producto,
                                                         'available'=>$productofree,
                                                         'taken'=>$productotaken));
         }
         
         $devices = DB::table('devices')->select('material', 'price', 'description')->distinct()->get();
+
         $data['devices'] = [];
 
         foreach ($devices as $device) { 
@@ -45,7 +50,7 @@ class DeviceController extends Controller
                                                 'price'=>$price,
                                                 'available'=> $devicesFree));
         }
-        return view('devices.index',$data, $dataproducts);
+        return view('devices.index', $data, $dataproducts);
     }
 
     public function sim(){
@@ -58,11 +63,11 @@ class DeviceController extends Controller
         return $data;
     }
 
+    // -- --
     public function updatePriceDevice(Request $request){
         $material = $request->get('material');
         $price = $request->get('price');
-        $x = Device::where('material', $material)->update(['price'=> $price]);
-        if($x){
+        if(Device::where('material', $material)->update(['price'=> $price])){
             return 1;
         }else{
             return 0;
@@ -75,16 +80,14 @@ class DeviceController extends Controller
         return $response;
     }
 
+    // -- --
     public function chargeCSVNIR(Request $request){
         if(request()->file('nirs')){
             $x = asset('storage/uploads/TESTNIR.txt');
-            // return $x;
-            // return $request->file('nirs');
-            // return file_get_contents('storage/uploads/TESTNIR.txt');
             $response = Http::withHeaders([
                 'Authorization' => 'Bearer yvHABXCKd11DD19dbEUKu1oscdDy',
                 'Content-Type' => 'multipart/form-data'
-            ])->post('https://altanredes-prod.apigee.net/cm/v1/subscribers/changesmsisdn',[
+            ])->post('https://altanredes-prod.apigee.net/cm-sandbox/v1/subscribers/changesmsisdn',[
                 "archivos" => $x
             ]);
 

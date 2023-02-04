@@ -51,17 +51,18 @@
                         </div>
                         <div class="col-md-12" style="margin-top: 1rem;">
                         <button type="button" class="btn btn-success" id="savePrice">Guardar</button>
-                        <button type="button" class="btn btn-success" id="consultUF">UF</button>
+                        {{-- <button type="button" class="btn btn-success" id="consultUF">UF</button> --}}
                         </div>
                     </div>              
 
                 </form>
 
-                <form action="{{route('chargeCSVNIR')}}" method="POST" enctype="multipart/form-data">
+
+                {{-- <form action="{{route('chargeCSVNIR')}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <input type="file" name="nirs" >
                     <button type="submit">Send</button>
-                </form>
+                </form> --}}
             </div>
         </section>
 
@@ -133,9 +134,11 @@
 </section>
 
 <script>
-$('#price').on('input', function () {
+    
+    $('#price').on('input', function () {
         this.value = this.value.replace(/[^0-9.]/g, '');
     });
+    
     $('#material').change(function(){
         let value = $(this).val();
         let token = $('meta[name="csrf-token"]').attr('content');
@@ -185,13 +188,13 @@ $('#price').on('input', function () {
         
     });
 
-    $('#consultUF').click(function(){
-        $.ajax({
-            url: "{{route('consultUF.get')}}",
-            success: function(response){
-                console.log(response)
-            }
-        })
-    });
+    // $('#consultUF').click(function(){
+    //     $.ajax({
+    //         url: "{{route('consultUF.get')}}",
+    //         success: function(response){
+    //             console.log(response)
+    //         }
+    //     })
+    // });
 </script>
 @endsection

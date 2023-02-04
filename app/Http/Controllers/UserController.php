@@ -23,18 +23,14 @@ class UserController extends Controller
 
     public function addUser(Request $request){
         $email = $request['email'];
-        $password = $request['password'];
-        $password = Hash::make($password);
-        $request['password'] = $password;
+        $request['password'] = Hash::make($request['password']);
         
-        $flag = User::where('email','=',$email)->exists();
-        if($flag){
+        if(User::where('email', '=', $email)->exists()){
             $mensaje = 'El usuario ya existe.';
-            return back()->with('error',$mensaje);
+            return back()->with('error', $mensaje);
         }else{
             $request = request()->except('_token');
-            $x = User::insert($request);
-            if($x){
+            if(User::insert($request)){
                 $mensaje = 'Usuario nuevo añadido.';
                 return back()->with('message',$mensaje);
             }else{
@@ -44,6 +40,7 @@ class UserController extends Controller
         }
     }
 
+    // -- --
     public function getUser(Request $request){
         $id = $request->get('id');
         $response = User::where('id',$id)->first();
@@ -67,6 +64,7 @@ class UserController extends Controller
         }
     }
 
+    // -- --
     public function changeRolUser(Request $request) {
         $user = $request->post('user');
         $rol = $request->post('rol');

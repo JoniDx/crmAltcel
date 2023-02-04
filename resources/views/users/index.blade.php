@@ -14,6 +14,7 @@
         <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a>
     </div>
 </header>
+
 @if(session('message'))
     <div class="alert alert-success">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -27,6 +28,7 @@
         <a href="#create" class="alert-link">Intentar de nuevo.</a>
     </div>
 @endif
+
 <section class="panel">
     <header class="panel-heading">
         <div class="panel-actions">

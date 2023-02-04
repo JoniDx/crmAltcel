@@ -54,45 +54,6 @@ class AdminController extends Controller
         ]);
     }
 
-    public function createPoliticRate() {
-        $data['politics'] = Politic::all();
-        return view('rates.politics',$data);
-    }
-
-    public function insertPoliticRate(Request $request) {
-        $request = request()->except('_token');
-        $x = Politic::insert($request);
-        if($x){
-            return 1;
-        }else{
-            return 0;
-        }
-    }
-
-    public function destroy($politic_id){
-        Politic::where('id', $politic_id)->delete();
-        return back();
-    }
-
-    public function getPolitic($politic_id){
-        $response = Politic::find($politic_id);;
-        return $response;
-    }
-
-    public function updatePolitic(Request $request,Politic $politic){
-        $id = $politic->id;
-        $request = request()->except('_method','_token');
-        $x = Politic::where('id',$id)->update($request);
-
-        if($x){
-            $message = 'Cambios guardados.';
-            return back()->with('message',$message);
-        }else{
-            $message = 'Parece que ha ocurrido un error, intente de nuevo.';
-            return back()->with('error',$message);
-        }
-    }
-
     public function changeStatusPacksRates(Request $request){
         $status = $request['status'];
         $id = $request['id'];
@@ -148,10 +109,12 @@ class AdminController extends Controller
                                  ->get();
         return view('finance.cute',$data);
     }
+
     public function consulta($id ){
         $data['users'] = User::where('id', $id)->get();
         return view('finance.detalles',$data);
     }
+    
     public function indexConcesiones(){
         $changes = DB::table('changes')
                       ->join('numbers','numbers.id', '=', 'changes.number_id')

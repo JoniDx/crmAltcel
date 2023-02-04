@@ -522,11 +522,9 @@
                                                 <span>Administración</span>
                                             </a>
                                             <ul class="nav nav-children">
-                                                @if (Auth::user()->id == 1564 || Auth::user()->id == 955 || Auth::user()->id == 162)
-                                                    <li>
-                                                        <a href="{{route('show-users.get')}}">Usuarios</a>
-                                                    </li>
-                                                @endif
+                                                <li>
+                                                    <a href="{{route('show-users.get')}}">Usuarios</a>
+                                                </li>
                                                 <li class="nav-parent">
                                                     <a>Productos</a>
                                                     <ul class="nav nav-children">
@@ -567,9 +565,6 @@
                                                             <a href="{{route('ethernet-admin.get')}}">Internet</a>
                                                         </li>
                                                     </ul>
-                                                </li>
-                                                <li>
-                                                    <a href="{{route('politicRate.create')}}">Políticas</a>
                                                 </li>
                                                 <li>
                                                     <a href="{{route('devices.index')}}">Dispositivos</a>
