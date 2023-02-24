@@ -43,5 +43,6 @@ class VerifyCsrfToken extends Middleware
         '/set-update-data-port-pendientes',
         '/handle',
         '/notificationWHkStripe',
+        '/create-reference-openpay',
     ];
 }

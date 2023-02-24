@@ -344,6 +344,7 @@ class RateController extends Controller
                              'offers.name AS offer_name','rates.name AS rate_name',
                              'activations.lat_hbb AS lat','activations.lng_hbb AS lng','offers.offerID AS offerID',
                              'users.name AS name_user','users.lastname AS lastname_user','users.email AS email_user',
+                             'clients.id AS client_id', 'numbers.id AS numbers_id',
                              'clients.cellphone AS cellphone_user','users.id AS id_user')
                              ->get();
 
