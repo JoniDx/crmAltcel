@@ -73,7 +73,7 @@
 			type: 'bar',
 			width: '80',
 			height: '50',
-			barColor: '#0088cc',
+			barColor: '#003cea',
 			negBarColor: '#B20000'
 		});
 

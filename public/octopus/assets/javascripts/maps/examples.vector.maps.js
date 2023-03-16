@@ -14,7 +14,7 @@
 			borderWidth:1,
 			showTooltip: true,
 			values: sample_data,
-			scaleColors: ['#1AA2E6', '#0088CC'],
+			scaleColors: ['#1AA2E6', '#003cea'],
 			normalizeFunction: 'polynomial'
 		};
 

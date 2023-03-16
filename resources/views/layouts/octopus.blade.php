@@ -5,7 +5,7 @@
         <!-- Basic -->
         <meta charset="UTF-8">
 
-        <title> CRM </title>
+        <title> SpotUno </title>
         <meta name="keywords" content="HTML5 Admin Template" />
         <meta name="description" content="JSOFT Admin - Responsive HTML5 Template">
         <meta name="author" content="JSOFT.net">
@@ -84,7 +84,7 @@
                 background-color:#ffe352 !important; color: #33353f !important;
             }
             .MOV {
-                background-color:#fa5025 !important; color: white !important;
+                background-color:#003cea !important; color: white !important;
             }
             .Telmex {
                 background-color:#14a2fa !important; color: white !important;
@@ -103,6 +103,11 @@
             }
             .d-none{
                 display: none !important;
+            }
+
+            .td-grid{
+                display: grid;
+                grid-gap: .2rem;
             }
             @media screen and (min-width: 768px) {
                 #dataT_filter {
@@ -258,7 +263,7 @@
                 <div class="logo-container">
                     <a href="{{route('home')}}" class="logo">
                         {{-- PENDIENTE --}}
-                        {{-- <img src="" height="35" alt="JSOFT Admin" /> --}}
+                        <img src="{{asset('images/logo.png')}}" height="35" alt="JSOFT Admin" />
                     </a>
                     <div class="visible-xs toggle-sidebar-left" data-toggle-class="sidebar-left-opened" data-target="html"
                         data-fire-event="sidebar-left-opened">
@@ -642,7 +647,7 @@
                                                 <a href="{{url('/portabilities')}}">Todas</a>
                                             </li>
                                             <li>
-                                                <a href="{{url('/portabilities-crm')}}">CRM</a>
+                                                <a href="{{url('/portabilities-crm')}}">SpotUno</a>
                                             </li>
                                             <li>
                                                 <a href="{{route('PortabilityStatus')}}">Estatus de portabilidades</a>
@@ -907,7 +912,7 @@
                                                 <a>Entrada de Líneas</a>
                                                 <ul class="nav nav-children">
                                                     <li>
-                                                        <a href="{{route('administrationLines.get')}}">CRM</a>
+                                                        <a href="{{route('administrationLines.get')}}">SpotUno</a>
                                                     </li>
                                                 </ul>
                                             </li>
@@ -1184,7 +1189,7 @@
                                                     <a>Entrada de Líneas</a>
                                                     <ul class="nav nav-children">
                                                         <li>
-                                                            <a href="{{route('administrationLines.get')}}">CRM</a>
+                                                            <a href="{{route('administrationLines.get')}}">SpotUno</a>
                                                         </li>
                                                     </ul>
                                                 </li>
@@ -1261,7 +1266,7 @@
                                                 <a href="{{url('/portabilities')}}">Todas</a>
                                             </li>
                                             <li>
-                                                <a href="{{url('/portabilities-crm')}}">CRM</a>
+                                                <a href="{{url('/portabilities-crm')}}">SpotUno</a>
                                             </li>
                                         </ul>
                                     </li>

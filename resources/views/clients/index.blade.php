@@ -103,7 +103,7 @@
                         $service = trim($service);
                         @endphp
                         @if($service == 'MOV')
-                        <td>
+                        <td class="">
                             @if($client->traffic_outbound == 'inactivo')
                                 <span class="label label-danger mb-sm">Tráfico: {{ $client->traffic_outbound }}</span>
                             @else
@@ -137,8 +137,8 @@
                         <td>{{ $client->date_expire }}</td>
                         <td>{{ $client->date_activation }}</td>
                         <td>{{$client->date_expire}}</td>
-                        <td>
-                            <button class="btn btn-warning btn-sm mb-xs update-data-client" data-id="{{$client->id}}" data-toggle="tooltip" data-placement="left" title="" data-original-title="Editar datos del cliente">Editar <i class="fa fa-edit" ></i></button>
+                        <td class="td-grid">
+                            <button class="btn btn-warning update-data-client" data-id="{{$client->id}}" data-toggle="tooltip" data-placement="left" title="" data-original-title="Editar datos del cliente">Editar <i class="fa fa-edit" ></i></button>
                             <button class="btn btn-info altan" data-id-dn="{{$client->id_dn}}" data-id-act="{{$client->id_act}}" data-service="{{trim($client->service)}}">Información</button>
                             <button class="btn btn-danger porta" id="" data-port="{{$client->portado}}" data-dn="{{$client->MSISDN}}">Portado</button>
                             <a href="{{url('/clients-details/'.$client->id)}}" class="btn btn-info btn-sm mb-xs" data-toggle="tooltip" data-placement="left" title="" data-original-title="Información del cliente"> Ver <i class="fa fa-info-circle"></i></a>

@@ -70,7 +70,7 @@ a:active {
 
 /* Layout Base - Page Header */
 .page-header {
-	background: #34495e;
+	background: #2c4c88;
 	border-bottom: none;
 	border-left: 1px solid #3a3a3a;
 	box-shadow: 1px 3px 0 1px #cccccc;
@@ -81,7 +81,7 @@ a:active {
 
 /* Layout Base - Sidebar Left */
 .sidebar-left {
-	background: #34495e;
+	background: #2c4c88;
 	box-shadow: -5px 0 0 #2f3139 inset;
 	color: #777777;
 	display: table-cell;
@@ -1544,7 +1544,7 @@ html.header-dark .header .input-search .input-group-btn .btn-default {
 	right: 0;
 	width: 73px;
 	height: 50px;
-	background-color: #171717;
+	background-color: #243c81;
 	border-radius: 0 0 0 5px;
 	text-align: center;
 	cursor: pointer;
@@ -14505,7 +14505,7 @@ html.dark .multiselect-container > li > a:hover, html.dark .multiselect-containe
 	position: relative;
 }
 .form-group-invisible.focus .control-label-invisible {
-	color: #0088cc;
+	color: #003cea;
 }
 .form-group-invisible .control-label-invisible {
 	bottom: 0;

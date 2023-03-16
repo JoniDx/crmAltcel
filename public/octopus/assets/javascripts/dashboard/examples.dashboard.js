@@ -153,7 +153,7 @@
 // 	*/
 // 	$('#meterSales').liquidMeter({
 // 		shape: 'circle',
-// 		color: '#0088cc',
+// 		color: '#003cea',
 // 		background: '#F9F9F9',
 // 		fontSize: '24px',
 // 		fontWeight: '600',
@@ -319,7 +319,7 @@
 // 		type: 'bar',
 // 		width: '80',
 // 		height: '55',
-// 		barColor: '#0088cc',
+// 		barColor: '#003cea',
 // 		negBarColor: '#B20000'
 // 	};
 
@@ -332,7 +332,7 @@
 // 		type: 'line',
 // 		width: '80',
 // 		height: '55',
-// 		lineColor: '#0088cc'
+// 		lineColor: '#003cea'
 // 	};
 
 // 	$("#sparklineLineDash").sparkline(sparklineLineDashData, sparklineLineDashOptions);
@@ -350,7 +350,7 @@
 // 		borderWidth:1,
 // 		showTooltip: true,
 // 		values: sample_data,
-// 		scaleColors: ['#0088cc'],
+// 		scaleColors: ['#003cea'],
 // 		normalizeFunction: 'polynomial'
 // 	};
 

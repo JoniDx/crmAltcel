@@ -7,7 +7,7 @@
     <meta name="description" content="Robust admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
     <meta name="keywords" content="admin template, robust admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="PIXINVENT">
-    <title>CRM</title>
+    <title>SpotUno</title>
     <link rel="apple-touch-icon" sizes="60x60" href="{{asset('robust/app-assets/images/ico/apple-icon-60.png')}}">
     <link rel="apple-touch-icon" sizes="76x76" href="{{asset('robust/app-assets/images/ico/apple-icon-76.png')}}">
     <link rel="apple-touch-icon" sizes="120x120" href="{{asset('robust/app-assets/images/ico/apple-icon-120.png')}}">
@@ -38,37 +38,38 @@
     <link rel="stylesheet" type="text/css" href="{{asset('robust/assets/css/style.css')}}">
     <!-- END Custom CSS-->
   </head>
-  <body data-open="click" data-menu="vertical-menu" data-col="1-column" class="vertical-layout vertical-menu 1-column blank-page blank-page" style="background-image:url({{asset('images/portada-welcome.jpg')}});background-repeat:no-repeat;-webkit-background-size:cover;background-size:cover">
+  <body data-open="click" data-menu="vertical-menu" data-col="1-column" class="vertical-layout vertical-menu 1-column blank-page blank-page" style="background-image:url({{asset('images/portada-welcome.avif')}});background-repeat:no-repeat;-webkit-background-size:cover;background-size:cover">
     <!-- ////////////////////////////////////////////////////////////////////////////-->
     <div class="app-content content container-fluid">
       <div class="content-wrapper">
         <div class="content-header row">
         </div>
-        <div class="content-body"><!-- coming soon flat design -->
-<section class="flexbox-container">
-    <div class="col-md-8 offset-md-2 col-xs-12 p-0">
-        <div class="card card-transparent box-shadow-0 no-border">
-            <div class="card-body collapse in">
-                <div class="text-xs-center">
-                    <h5 class="card-text pb-2 white">BIENVENIDO</h5>
-                    {{-- PENDIENTE --}}
-                    {{-- <img src="" class="img-responsive block width-300 mx-auto" width="300" alt="bg-img"> --}}
-                    <div id="clockFlat" class="card-text getting-started pt-1 mt-2 white display-inline-block"></div>
-                    <div class="col-xs-12 pt-1">
-                        <p class="card-text lead white">Conectándote al mundo.</p>
-                    </div>
-                    <div class="col-xs-12 text-xs-center pt-2">
-                        <p class="socialIcon card-text">
-                            <a href="{{ route('login') }}" class="btn btn-success">Iniciar Sesión</a>
-                            <a href="{{ route('register') }}" class="btn btn-primary">Registrarse</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!--/ coming soon flat design -->
+        <div class="content-body">
+        <!-- coming soon flat design -->
+          <section class="flexbox-container">
+              <div class="col-md-8 offset-md-2 col-xs-12 p-0">
+                  <div class="card card-transparent box-shadow-0 no-border">
+                      <div class="card-body collapse in">
+                          <div class="text-xs-center">
+                              <h5 class="card-text pb-2 white">BIENVENIDO</h5>
+                              {{-- PENDIENTE --}}
+                              <img src="{{asset('images/logo.png')}}" class="img-responsive block width-300 mx-auto" width="300" alt="bg-img">
+                              <div id="clockFlat" class="card-text getting-started pt-1 mt-2 white display-inline-block"></div>
+                              <div class="col-xs-12 pt-1">
+                                  <p class="card-text lead white">Conectándote al mundo.</p>
+                              </div>
+                              <div class="col-xs-12 text-xs-center pt-2">
+                                  <p class="socialIcon card-text">
+                                      <a href="{{ route('login') }}" class="btn btn-success">Iniciar Sesión</a>
+                                      <a href="{{ route('register') }}" class="btn btn-primary">Registrarse</a>
+                                  </p>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </section>
+        <!--/ coming soon flat design -->
         </div>
       </div>
     </div>

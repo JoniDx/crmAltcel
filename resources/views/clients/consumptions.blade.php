@@ -6,7 +6,7 @@
     <!-- Basic -->
     <meta charset="UTF-8">
 
-    <title>CRM</title>
+    <title>SpotUno</title>
     <meta name="keywords" content="HTML5 Admin Template" />
     <meta name="description" content="JSOFT Admin - Responsive HTML5 Template">
     <meta name="author" content="JSOFT.net">
@@ -216,14 +216,14 @@
 
 $('#meter').liquidMeter({
 		shape: 'circle',
-		color: '#0088CC',
+		color: '#003cea',
 		background: '#272A31',
         stroke: '#33363F',
 		fontSize: '24px',
 		fontWeight: '600',
 		textColor: '#FFFFFF',
 		liquidOpacity: 0.9,
-		liquidPalette: ['#0088CC'],
+		liquidPalette: ['#003cea'],
 		speed: 3000
 	});
 
@@ -232,14 +232,14 @@ $('#meter').liquidMeter({
 	*/
 	$('#meterDark').liquidMeter({
 		shape: 'circle',
-		color: '#0088CC',
+		color: '#003cea',
 		background: '#272A31',
 		stroke: '#33363F',
 		fontSize: '24px',
 		fontWeight: '600',
 		textColor: '#FFFFFF',
 		liquidOpacity: 0.9,
-		liquidPalette: ['#0088CC'],
+		liquidPalette: ['#003cea'],
 		speed: 3000
 	});
 

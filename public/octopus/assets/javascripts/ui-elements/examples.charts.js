@@ -211,7 +211,7 @@
 		ykeys: ['a', 'b'],
 		labels: ['Series A', 'Series B'],
 		hideHover: true,
-		lineColors: ['#0088cc', '#734ba9'],
+		lineColors: ['#003cea', '#734ba9'],
 	});
 
 	/*
@@ -221,7 +221,7 @@
 		resize: true,
 		element: 'morrisDonut',
 		data: morrisDonutData,
-		colors: ['#0088cc', '#734ba9', '#E36159']
+		colors: ['#003cea', '#734ba9', '#E36159']
 	});
 
 	/*
@@ -235,7 +235,7 @@
 		ykeys: ['a', 'b'],
 		labels: ['Series A', 'Series B'],
 		hideHover: true,
-		barColors: ['#0088cc', '#2baab1']
+		barColors: ['#003cea', '#2baab1']
 	});
 
 	/*
@@ -248,7 +248,7 @@
 		xkey: 'y',
 		ykeys: ['a', 'b'],
 		labels: ['Series A', 'Series B'],
-		lineColors: ['#0088cc', '#2baab1'],
+		lineColors: ['#003cea', '#2baab1'],
 		fillOpacity: 0.7,
 		hideHover: true
 	});
@@ -263,7 +263,7 @@
 		xkey: 'y',
 		ykeys: ['a', 'b'],
 		labels: ['Series A', 'Series B'],
-		barColors: ['#0088cc', '#2baab1'],
+		barColors: ['#003cea', '#2baab1'],
 		fillOpacity: 0.7,
 		smooth: false,
 		stacked: true,
@@ -285,8 +285,8 @@
 					color: '#444' // Fill color
 				},
 				limitMax: 'true', // If true, the pointer will not go past the end of the gauge
-				colorStart: '#0088CC', // Colors
-				colorStop: '#0088CC', // just experiment with them
+				colorStart: '#003cea', // Colors
+				colorStop: '#003cea', // just experiment with them
 				strokeColor: '#F1F1F1', // to see which ones work best for you
 				generateGradient: true
 			}, target.data('plugin-options'));
@@ -333,7 +333,7 @@
 	*/
 	$('#meter').liquidMeter({
 		shape: 'circle',
-		color: '#0088CC',
+		color: '#003cea',
 		background: '#F9F9F9',
 		fontSize: '24px',
 		fontWeight: '600',
@@ -350,14 +350,14 @@
 	*/
 	$('#meterDark').liquidMeter({
 		shape: 'circle',
-		color: '#0088CC',
+		color: '#003cea',
 		background: '#272A31',
 		stroke: '#33363F',
 		fontSize: '24px',
 		fontWeight: '600',
 		textColor: '#FFFFFF',
 		liquidOpacity: 0.9,
-		liquidPalette: ['#0088CC'],
+		liquidPalette: ['#003cea'],
 		speed: 3000,
 		animate: !$.browser.mobile
 	});
@@ -369,7 +369,7 @@
 		type: 'line',
 		width: '80',
 		height: '30',
-		lineColor: '#0088cc'
+		lineColor: '#003cea'
 	});
 
 	/*
@@ -379,7 +379,7 @@
 		type: 'bar',
 		width: '80',
 		height: '30',
-		barColor: '#0088cc',
+		barColor: '#003cea',
 		negBarColor: '#B20000'
 	});
 
@@ -390,7 +390,7 @@
 		type: 'tristate',
 		width: '80',
 		height: '30',
-		posBarColor: '#0088cc',
+		posBarColor: '#003cea',
 		negBarColor: '#B20000'
 	});
 
@@ -401,7 +401,7 @@
 		type: 'discrete',
 		width: '80',
 		height: '30',
-		lineColor: '#0088cc'
+		lineColor: '#003cea'
 	});
 
 	/*
@@ -412,7 +412,7 @@
 		width: '80',
 		height: '30',
 		targetColor: '#ff7f00',
-		performanceColor: '#0088cc'
+		performanceColor: '#003cea'
 	});
 
 	/*
@@ -421,7 +421,7 @@
 	$("#sparklinePie").sparkline(sparklinePieData, {
 		type: 'pie',
 		height: '30',
-		barColor: '#0088cc'
+		barColor: '#003cea'
 	});
 
 }).apply( this, [ jQuery ]);

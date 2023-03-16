@@ -468,12 +468,12 @@ input:focus ~ .bg-primary {
     background-color: transparent; }
 
 .btn-primary {
-  border-color: #967ADC;
-  background-color: #967ADC;
+  border-color: #2c4c88;
+  background-color: #2c4c88;
   color: #FFFFFF; }
   .btn-primary:hover {
-    border-color: #AC92EC;
-    background-color: #AC92EC;
+    border-color: #003cea;
+    background-color: #003cea;
     color: #FFF !important; }
 
 .btn-outline-primary {

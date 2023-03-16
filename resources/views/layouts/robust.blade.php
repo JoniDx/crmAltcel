@@ -12,7 +12,7 @@
     <meta name="keywords"
         content="admin template, robust admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="PIXINVENT">
-    <title>CRM</title>
+    <title>SpotUno</title>
     
     {{-- PENDIENTE --}}
     {{-- <link rel="shortcut icon" type="image/png" href=""> --}}

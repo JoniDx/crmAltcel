@@ -1,7 +1,7 @@
 @extends('layouts.octopus')
 @section('content')
 <header class="page-header">
-    <h2>Lineas Nuevas CRM</h2>
+    <h2>Lineas Nuevas SpotUno</h2>
     <div class="right-wrapper pull-right">
         <ol class="breadcrumbs">
             <li>
@@ -18,7 +18,7 @@
 
 <section class="panel">
      <div class="panel-body table-responsive">
-        <h2>Lineas Nuevas CRM POS</h2>
+        <h2>Lineas Nuevas SpotUno POS</h2>
         <table class="table table-bordered table-striped mb-none" id="datatable-default">
             <thead style="cursor: pointer;">
                 <tr>

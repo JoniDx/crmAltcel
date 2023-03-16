@@ -70,7 +70,7 @@
                 </div>
                 <div style="left: 100px !important;">
                     {{-- PENDIENTE --}}
-                    {{-- <img src="" > --}}
+                    <img src="{{asset('images/logo.png')}}" >
                 </div>
             </div>
             <div class="col-d-12 mt-2 d-flex justify-content-between mr-3">
@@ -155,7 +155,7 @@
                     <tr >
                         <td class="field_empty footer_text" colspan="18"><br><em>
                             Al recibir los elementos detallados en el presente documento, acepto la responsabilidad que genera dicha recepción, se le dará el cuidado y custodia adecuados hasta dar el uso para el que fue establecida dicha 
-                            recepción,  cualquier perdida o daño del mismo, son responsabilidad única y exclusiva de quien recepciona, por lo que autorizo expresamente a CRM SAPI de C.V., a descontar de mi salario o liquidación, 
+                            recepción,  cualquier perdida o daño del mismo, son responsabilidad única y exclusiva de quien recepciona, por lo que autorizo expresamente a SpotUno SAPI de C.V., a descontar de mi salario o liquidación, 
                             según corresponda, el valor total del equipo por perdida o los valores que se estimen convenientes para contribuir los daños causados a la empresa.</em><br><br>
                         </td>
                     </tr>

@@ -97,7 +97,7 @@ window.admin = {};
 		accX: 0,
 		accY: -150,
 		delay: 1,
-		barColor: '#0088CC',
+		barColor: '#003cea',
 		trackColor: '#f2f2f2',
 		scaleColor: false,
 		scaleLength: 5,

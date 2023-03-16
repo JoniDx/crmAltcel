@@ -135,7 +135,7 @@
                                             <input class="form-control" type="text" placeholder="Nombre" id="name_second" name="name_second">
                                         </div>
                                         <div class="input-group input-group-icon">
-                                            <label for="product_altan_second">Nombre CRM</label>
+                                            <label for="product_altan_second">Nombre SpotUno</label>
                                             <input class="form-control" type="text" placeholder="Producto Altan" id="product_altan_second" name="product_altan_second">
                                         </div>
                                     </section>
