@@ -34,7 +34,8 @@
                     <div class="col-sm-6 text-right mt-md mb-md">
                         
                         <div class="ib">
-                            <img src="{{asset('images/conecta.png')}}" style="width:200px;" alt="OKLER Themes" />
+                            {{-- PENDIENTE --}}
+                            {{-- <img src="{{asset('images/conecta.png')}}" style="width:200px;" alt="OKLER Themes" /> --}}
                         </div>
                         
                     </div>

@@ -606,7 +606,7 @@ class PetitionController extends Controller
         $correo = $request->get('correo');
         $product = $request->get('product');
         $email_remitente = $request->get('email_remitente');
-        $email = ['armando.g@altcel.com', 'soporte1@altcel.com', 'sandra_corzo@altcel.com', 'keila_vazquez@altcel.com', 'jeremias_vicente@altcel.com', 'jalexis_santana@altcel.com', 'leopoldo_martinez@altcel.com','soporte2@altcel.com','auxiliar_contable@altcel.com'];
+        $email = [];
         
         if ($status == 'solicitud') {
             $data= [

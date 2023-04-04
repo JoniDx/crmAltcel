@@ -24,7 +24,7 @@
                         @if($service == 'MIFI' || $service == 'HBB' || $service == 'MOV')
                             <h4 class="card-title"></h4>
                             <h2 class="h2 mt-none mb-sm text-dark text-bold">{{$service.'/'.$DN}}</h2>
-                        @elseif($service == 'Conecta' || $service == 'Telmex')
+                        @elseif($service == 'SpotMobile' || $service == 'Telmex')
                             <h2 class="h2 mt-none mb-sm text-dark text-bold">{{$service}}</h2>
                         @endif
                         <h4 class="h4 m-none text-dark text-bold">Paquete/Plan Actual: <br>

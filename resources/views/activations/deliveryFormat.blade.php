@@ -66,7 +66,8 @@
         <div class="card-body mx-auto">
             <div class="col-md-12 d-flex justify-content-between px-0 mr-3">
                 <div>
-                    <img src="{{asset('storage/uploads/conecta2.png')}}" >
+                    {{-- PENDIENTE --}}
+                    {{-- <img src="{{asset('storage/uploads/conecta2.png')}}" > --}}
                 </div>
                 <div style="left: 100px !important;">
                     {{-- PENDIENTE --}}

@@ -382,7 +382,7 @@ class WebhookController extends Controller
         $who_consigned = $role == 1 || $role == 5 ? $user_id : null;
         $status_consigned = $role == 1 || $role == 5 || $role == 8 ? 'completado' : 'pendiente';
 
-        if($service == 'Telmex' || $service == 'Conecta'){
+        if($service == 'Telmex' || $service == 'SpotMobile'){
             $payment_data = Ethernetpay::where('id',$payID)->first();
             $payment_amountReceived = $payment_data->amount_received;
             $payment_amountReceived = $payment_amountReceived == null ? 0 : $payment_amountReceived;
@@ -422,7 +422,8 @@ class WebhookController extends Controller
                 Instalation::where('id',$instalation_id)->update(['received_amount_install'=>$received_amount_install_new,'payment_status'=>$status]);
             }
 
-        }else if($service == 'MIFI' || $service == 'HBB' || $service == 'MOV'){
+        }
+        if($service == 'MIFI' || $service == 'HBB' || $service == 'MOV'){
             $payment_data = Pay::where('id', $payID)->first();
             $payment_amountReceived = $payment_data->amount_received;
             $payment_amountReceived = $payment_amountReceived == null ? 0 : $payment_amountReceived;

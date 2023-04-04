@@ -283,7 +283,7 @@ class ConektaPayment{
         'line_items'=> array(
             array(
             'name'=> $concepto,
-            'description'=> 'Servicios Conecta',
+            'description'=> 'Servicios',
             'unit_price'=> $amount*100,
             'quantity'=> 1,
             )

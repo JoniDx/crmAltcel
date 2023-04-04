@@ -22,7 +22,7 @@
                     <a href="#home" data-toggle="tab"><i class="fa fa-star"></i> Altan Redes</a>
                 </li>
                 <li>
-                    <a href="#paquete" data-toggle="tab">Conecta</a>
+                    <a href="#paquete" data-toggle="tab">SpotMobile</a>
                 </li>
             </ul>
             <div class="tab-content">
@@ -1056,7 +1056,7 @@
         let options = '<option value="0">Choose...</option>';
         price = parseFloat(price);
         
-        if(service == 'Conecta'){
+        if(service == 'SpotMobile'){
             $('.id_content').removeClass('d-none');
             $('#cobro_paquete').removeClass('mt-3');
         }else if(service == 'Telmex'){

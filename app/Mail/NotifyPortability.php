@@ -43,7 +43,7 @@ class NotifyPortability extends Mailable
         $comments = $this->info['comments'];
         $address = $this->info['address'];
 
-        return $this->subject('SOLICITUD DE PORTABILIDAD - CONECTA')
+        return $this->subject('SOLICITUD DE PORTABILIDAD ')
                     ->view('mails.notificationPortability',$this->info)
                     ->with([
                             'subject' => 'SOLICITUD DE PORTABILIDAD',

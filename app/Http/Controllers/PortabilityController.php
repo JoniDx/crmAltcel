@@ -193,11 +193,11 @@ class PortabilityController extends Controller
 
         Portability::insert($request);
 
-        // Mail::to('soporte1@altcel.com')->send(new NotifyPortability($data));
-        // Mail::to('soporte2@altcel.com')->send(new NotifyPortability($data));
-        // Mail::to('carlos_vazquez@altcel.com')->send(new NotifyPortability($data));
+        // Mail::to('soporte1@spotuno.com')->send(new NotifyPortability($data));
+        // Mail::to('soporte2@spotuno.com')->send(new NotifyPortability($data));
+        // Mail::to('carlos_vazquez@spotuno.com')->send(new NotifyPortability($data));
         // Mail::to('charlesrootsman97@gmail.com')->send(new NotifyPortability($data));
-        // Mail::to('carlos_ruiz@altcel.com')->send(new NotifyPortability($data));
+        // Mail::to('carlos_ruiz@spotuno.com')->send(new NotifyPortability($data));
         return back()->with('success','Se ha enviado la portabilidad.');
     }
 

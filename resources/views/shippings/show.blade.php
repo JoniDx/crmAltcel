@@ -32,7 +32,8 @@
                     </div>
                     <div class="col-sm-6 text-right mt-md mb-md">
                         <div class="ib">
-                            <img src="{{asset('images/conecta.png')}}" style="width: 40%;" />
+                            {{-- PENDIENTE --}}
+                            {{-- <img src="{{asset('images/conecta.png')}}" style="width: 40%;" /> --}}
                         </div>
                     </div>
                 </div>

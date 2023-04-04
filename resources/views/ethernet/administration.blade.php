@@ -106,8 +106,8 @@
                                 <div class="col-md-3">
                                     <label class="control-label" for="service_name">Servicio</label>
                                     <select class="form-control" id="service_name">
-                                        <option value="Conecta">Conecta</option>
-                                        <option value="Telmex">Telmex</option>
+                                        <option value="SpotMobile">SpotMobile</option>
+                                        {{-- <option value="Telmex">Telmex</option> --}}
                                     </select>
                                 </div>
                                 <div class="col-md-4">
@@ -384,9 +384,9 @@ $('#price_s_iva').keyup(function(){
                 if(data.service_name == 'Telmex'){
                     $('#service_name_update').html(
                         '<option value="'+data.service_name+'" selected>'+data.service_name+'</option>'+
-                        '<option value="Conecta">Conecta</option>'
+                        '<option value="SpotMobile">SpotMobile</option>'
                     );
-                }else if(data.service_name == 'Conecta'){
+                }else if(data.service_name == 'SpotMobile'){
                     $('#service_name_update').html(
                         '<option value="'+data.service_name+'" selected>'+data.service_name+'</option>'+
                         '<option value="Telmex">Telmex</option>'

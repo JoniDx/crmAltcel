@@ -243,7 +243,7 @@ class ShippingController extends Controller
                 "pack_id" => 0,
                 "channel_system" => 'crm_clientes',
                 "method" => null,
-                "concepto" => 'Contratación de Servicio Conecta Altcel',
+                "concepto" => 'Contratación de Servicio',
                 "amount" => $shipping_price+$request->rate_price+$device_price,
                 "name" => $nameLink,
                 "lastname" => $lastnameLink,

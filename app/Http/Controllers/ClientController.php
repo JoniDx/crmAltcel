@@ -308,7 +308,8 @@ class ClientController extends Controller
                 'rates' => $rates
                 );
                 // return $data;
-        }else if($type == 'Conecta' || $type == 'Telmex'){
+        }
+        else if($type == 'SpotMobile' || $type == 'Telmex'){
             $referencestype = 2;
             $pay = DB::table('ethernetpays')
                       ->join('instalations','instalations.id','=','ethernetpays.instalation_id')
@@ -730,7 +731,8 @@ class ClientController extends Controller
                                   ->get();
 
 
-        }else if($service == 'Conecta' || $service == 'Telmex'){
+        }
+        else if($service == 'SpotMobile' || $service == 'Telmex'){
             $dataQuery = DB::table('instalations')
                             ->join('packs','packs.id','=','instalations.pack_id')
                             ->where('instalations.id',$id_act)
@@ -742,6 +744,7 @@ class ClientController extends Controller
             $data['pack_price'] = $dataQuery[0]->pack_price;
             $data['date_activation'] = $dataQuery[0]->date_instalation;
         }
+        
         return view('clients.productDetails',$data);
     }
 

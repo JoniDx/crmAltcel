@@ -19,7 +19,7 @@
     <div class="tabs">
         <ul class="nav nav-tabs">
             <li class="active">
-                <a href="#popular" data-toggle="tab"><i class="fa fa-star"></i> Conecta</a>
+                <a href="#popular" data-toggle="tab"><i class="fa fa-star"></i> SpotMobile</a>
             </li>
         </ul>
         <div class="tab-content">
@@ -367,7 +367,7 @@
         $('#amount-install-pack').val('');
         $('#amount-total-pack').val('');
         
-        if(service == 'Conecta'){
+        if(service == 'SpotMobile'){
             $('.id_content').removeClass('d-none');
             $('#cobro_paquete').removeClass('mt-3');
         }else if(service == 'Telmex'){
@@ -529,7 +529,7 @@
             return false;
         }
 
-        if(pack_service == 'Conecta'){
+        if(pack_service == 'SpotMobile'){
             if(no_serie_antena.length == 0 || /^\s+$/.test(no_serie_antena)){
                 let message = "El campo No. Serie Antena no puede estar vacío.";
                 sweetAlertFunction(message);
