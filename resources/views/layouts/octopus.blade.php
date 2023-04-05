@@ -510,7 +510,7 @@
                                                 <li>
                                                     <a href="{{route('activations.index')}}">Resumen</a>
                                                 </li>
-                                                <li>
+                                                {{-- <li>
                                                     <a href="{{route('incomes.get')}}">Completados</a>
                                                 </li>
                                                 <li>
@@ -518,7 +518,7 @@
                                                 </li>
                                                 <li>
                                                     <a href="{{route('webhook-payments-overdue.get')}}">Vencidos</a>
-                                                </li>
+                                                </li> --}}
                                             </ul>
                                         </li>
                                         <li class="nav-parent">
@@ -939,7 +939,7 @@
                                             <li>
                                                 <a href="{{route('activations.index')}}">Resumen</a>
                                             </li>
-                                            <li>
+                                            {{-- <li>
                                                 <a href="{{route('incomes.get')}}">Completados</a>
                                             </li>
                                             <li>
@@ -947,7 +947,7 @@
                                             </li>
                                             <li>
                                                 <a href="{{route('webhook-payments-overdue.get')}}">Vencidos</a>
-                                            </li>
+                                            </li> --}}
                                         </ul>
                                     </li>
                                     
@@ -1048,7 +1048,7 @@
                                                 <li>
                                                     <a href="{{route('activations.index')}}">Resumen</a>
                                                 </li>
-                                                <li>
+                                                {{-- <li>
                                                     <a href="{{route('incomes.get')}}">Completados</a>
                                                 </li>
                                                 <li>
@@ -1056,7 +1056,7 @@
                                                 </li>
                                                 <li>
                                                     <a href="{{route('webhook-payments-pending.get')}}">Vencidos</a>
-                                                </li>
+                                                </li> --}}
                                                 <li>
                                                     <a href="{{route('indexConcesiones')}}">Por Concesionar</a>
                                                 </li>
@@ -1204,7 +1204,7 @@
                                                 <li>
                                                     <a href="{{route('activations.index')}}">Resumen</a>
                                                 </li>
-                                                <li>
+                                                {{-- <li>
                                                     <a href="{{route('incomes.get')}}">Completados</a>
                                                 </li>
                                                 <li>
@@ -1212,7 +1212,7 @@
                                                 </li>
                                                 <li>
                                                     <a href="{{route('webhook-payments-overdue.get')}}">Vencidos</a>
-                                                </li>
+                                                </li> --}}
                                             </ul>
                                         </li>
                                     @elseif(Auth::user()->role_id == 9)

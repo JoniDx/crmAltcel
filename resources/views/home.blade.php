@@ -21,7 +21,8 @@
 <div class="row">
     <div class="col-md-12 col-lg-12 col-xl-12">
         <div class="row">
-            <div class="col-md-4 ">
+
+            {{-- <div class="col-md-4 ">
                 <section class="panel panel-featured-left panel-featured-warning">
                     <div class="panel-body">
                         <div class="widget-summary">
@@ -48,7 +49,8 @@
                         </div>
                     </div>
                 </section>
-            </div>
+            </div> --}}
+
             <div class="col-md-4">
                 <section class="panel panel-featured-left panel-featured-secondary">
                     <div class="panel-body">
@@ -75,7 +77,8 @@
                     </div>
                 </section>
             </div>
-            <div class="col-md-4">
+            
+            {{-- <div class="col-md-4">
                 <section class="panel panel-featured-left panel-featured-success">
                     <div class="panel-body">
                         <div class="widget-summary">
@@ -102,7 +105,8 @@
                         </div>
                     </div>
                 </section>
-            </div>
+            </div> --}}
+            
             <div class="col-md-4">
                 <section class="panel panel-featured-left panel-featured-quartenary">
                     <div class="panel-body">
@@ -217,7 +221,7 @@
                         </div>
                     </section>
                 </div>
-                <div class="col-md-4">
+                {{-- <div class="col-md-4">
                     <section class="panel panel-featured-left" style="background-color: #B0AFB5;">
                         <div class="panel-body">
                             <div class="widget-summary">
@@ -237,7 +241,7 @@
                             </div>
                         </div>
                     </section>
-                </div>
+                </div> --}}
                 <div class="col-md-4">
                     <section class="panel panel-featured-left" style="background-color: #008A8D;">
                         <div class="panel-body">
@@ -289,7 +293,8 @@
 <div class="row">
     <div class="col-md-12">
         <div class="row">
-            <div class="col-md-4">
+
+            {{-- <div class="col-md-4">
                 <section class="panel panel-featured-left panel-featured-warning">
                     <div class="panel-body">
                         <div class="widget-summary">
@@ -314,7 +319,8 @@
                         </div>
                     </div>
                 </section>
-            </div>
+            </div> --}}
+
             <div class="col-md-4">
                 <section class="panel panel-featured-left panel-featured-secondary">
                     <div class="panel-body">
